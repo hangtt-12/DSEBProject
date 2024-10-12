@@ -1,4 +1,5 @@
 import pygame
+from clock import my_clock
 
 pygame.init()
 
@@ -11,7 +12,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     
-
+my_clock()
 pygame.quit()
 
 #
