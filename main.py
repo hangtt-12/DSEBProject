@@ -1,4 +1,3 @@
-
 import pygame
 
 pygame.init()
@@ -14,4 +13,3 @@ while running:
     
 
 pygame.quit()
-
