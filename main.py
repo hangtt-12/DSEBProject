@@ -26,7 +26,7 @@ acc = load_accounts()
 
 # signIn
 ctk.set_appearance_mode('light')
-ctk.set_default_color_theme(r'C:\Users\Admin\DSEBProject\theme.json')
+ctk.set_default_color_theme(r'''E:\DSEBProject\json_files\theme.json''')  #CHỈNH ĐƯỜNG DẪN
 
 #Create log in screen
 login_screen = ctk.CTk()
