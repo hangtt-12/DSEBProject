@@ -26,7 +26,7 @@ acc = load_accounts()
 
 # signIn
 ctk.set_appearance_mode('light')
-ctk.set_default_color_theme(r'''E:\DSEBProject\json_files\theme.json''')  #CHỈNH ĐƯỜNG DẪN
+ctk.set_default_color_theme(r'json_files/theme.json')  #CHỈNH ĐƯỜNG DẪN
 
 #Create log in screen
 login_screen = ctk.CTk()
@@ -60,8 +60,8 @@ def encrypt_passw(password):
     return encrypted
 
 #Create show/hide password button
-show_img = Image.open(r"C:\Users\Admin\password-hidding-icon-icon-for-data-privacy-and-sensitive-content-mark-illustration-vector-removebg-preview.png")
-hide_img = Image.open(r"C:\Users\Admin\images.png")
+show_img = Image.open(r'image/hide_img.png')
+hide_img = Image.open(r'image/show_img.png')
 
 show_img = show_img.resize((30,30))
 hide_img = hide_img.resize((30,30))
