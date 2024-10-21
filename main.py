@@ -53,11 +53,16 @@ passw_inp.place(x=230, y=275)
 #Password encryption (Quân update vào đây)
 chars = string.digits + string.ascii_lowercase + string.ascii_uppercase + string.punctuation
 char_to_value = {char: index for index, char in enumerate(chars)}
+# def encrypt_passw(password):
+#     encrypted = ""
+#     for char in password:
+#         encrypted += str(char_to_value[char])
+#     return encrypted
+
+from pw_encryption import MD5
+md5=MD5()
 def encrypt_passw(password):
-    encrypted = ""
-    for char in password:
-        encrypted += str(char_to_value[char])
-    return encrypted
+    return md5.calculate(password)
 
 #Create show/hide password button
 show_img = Image.open(r'image/hide_img.png')
