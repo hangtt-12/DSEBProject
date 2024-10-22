@@ -4,7 +4,7 @@ from to_do_list import func1, func2, center_window
 
 def main_window():
     root = tk.Tk()
-    center_window(root,300,250)
+    center_window(root,800,500)
     string_var1 = tk.StringVar(root)
     string_var2 = tk.StringVar(root)
 
@@ -16,7 +16,7 @@ def main_window():
     entry2 = ttk.Entry(frame, textvariable=string_var2)
     entry2.pack()
 
-    btt = ttk.Button(frame, text="Calculate", command=lambda: [root.destroy(), func1(string_var1, string_var2)])
+    btt = ttk.Button(frame, text="Calculate", command=lambda: [root.withdraw(), func1(string_var1, string_var2,root)])
     btt.pack()
     root.mainloop()
 
