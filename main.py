@@ -9,7 +9,7 @@ import PIL
 from PIL import Image, ImageTk
 
 #Account management
-account_file = "accounts.json"
+account_file = r"json_files\accounts.json"
 def load_accounts(): #Update the account file for next run
     accounts = {}
     if os.path.exists(account_file):
