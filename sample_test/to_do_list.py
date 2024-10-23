@@ -14,7 +14,7 @@ def func2(arg1, arg2, main_root):
 
     try: 
         x = int(arg1) + int(arg2)
-        label = tk.Label(new_window,text=f"Result: {x}", font=('Montaser Arabic',20))
+        label = tk.Label(new_window,text=f"Hello world!", font=('Montaser Arabic',20))
         label.pack(pady=10)
     except:
         label1 = tk.Label(new_window,text=f"Invalid value!", font=('Montaser Arabic',20))
