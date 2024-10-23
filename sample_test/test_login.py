@@ -44,6 +44,10 @@ class AccountManager:
 class LoginScreen:
     """Main login screen"""
     def __init__(self):
+        # Setup theme
+        ctk.set_appearance_mode('light')
+        ctk.set_default_color_theme(r'json_files\theme.json')  #CHỈNH ĐƯỜNG DẪN
+
         # Setup the main window
         self.window = ctk.CTk()
         self.window.title('STUDYBUDDY')
@@ -52,10 +56,6 @@ class LoginScreen:
         # Initialize account manager
         self.account_manager = AccountManager(r"json_files\accounts.json")
         
-        # Setup theme
-        ctk.set_appearance_mode('light')
-        ctk.set_default_color_theme(r'json_files\theme.json')  #CHỈNH ĐƯỜNG DẪN
-
         # Load images for password show/hide
         self.load_images()
         
@@ -150,10 +150,10 @@ class LoginScreen:
         """Toggle password visibility"""
         self.password_visible = not self.password_visible
         if self.password_visible:
-            self.show_hide_btn.configure(image=self.hide_img)
+            self.show_hide_btn.configure(image=self.show_img)
             self.passw_inp.configure(show="")
         else:
-            self.show_hide_btn.configure(image=self.show_img)
+            self.show_hide_btn.configure(image=self.hide_img)
             self.passw_inp.configure(show="•")
 
     def create_sign_buttons(self):
