@@ -103,13 +103,13 @@ class LoginScreen:
 
     def create_welcome_text(self):
         """Create welcome text labels"""
-        # welcome_txt = ctk.CTkLabel(self.window, text="WELCOME TO", 
-        #                          font=("Montaser Arabic", 30, 'bold'))
+        welcome_txt = ctk.CTkLabel(self.window, text="WELCOME TO", 
+                                  font=("Montaser Arabic", 30, 'bold'))
+        welcome_txt.place(x=290, y=100, anchor='n')
         welcome_txt2 = ctk.CTkLabel(self.window, text="STUDYBUDDY!", 
                                   text_color="#998ED8", 
                                   font=("Montaser Arabic", 30, 'bold'))
-        # welcome_txt.place(x=290, y=100, anchor='n')
-        welcome_txt2.place(x=404.5, y=100, anchor='n')
+        welcome_txt2.place(x=510, y=100, anchor='n')
 
     def create_input_fields(self):
         """Create username and password input fields"""
