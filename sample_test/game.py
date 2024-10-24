@@ -40,10 +40,10 @@ def open_game_frame(main_window, username):
     button_frame = ttk.Frame(treasure_frame)
     button_frame.pack(pady=10)
 
-    guess_button = ctk.CTkButton(button_frame, text="GUESS NOW", font=('Montaser Arabic', 15))
+    guess_button = ctk.CTkButton(button_frame,corner_radius= 30, text="GUESS NOW", font=('Montaser Arabic', 15))
     guess_button.pack(side="left", padx=5)
 
-    hint_button = ctk.CTkButton(button_frame, text="YOUR HINTS", font=('Montaser Arabic', 15))
+    hint_button = ctk.CTkButton(button_frame,corner_radius= 30, text="YOUR HINTS", font=('Montaser Arabic', 15))
     hint_button.pack(side="right", padx=5)
 
     # Add the "Home" button at the bottom-left corner using pack
