@@ -1,6 +1,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 import customtkinter as ctk
+from game import open_game_frame
 def func1(arg1, arg2, main_root):
     var1 = arg1.get() # string_var.get()
     var2 = arg2.get()
@@ -60,6 +61,15 @@ def test_func(arg1,main_root):
         command=lambda: [new_window.withdraw(), func3(new_window)]
     )
     leaderboard_.pack(pady=10)
+    
+    # Add a "Game" button
+    game_button = ctk.CTkButton(
+        new_window, 
+        text='Game',
+        font=('Montaser Arabic', 15, 'bold'), 
+        command=lambda: [new_window.withdraw(), open_game_frame(new_window, arg1)]
+    )
+    game_button.pack(pady=10)
 
     back_to_main = ctk.CTkButton(
         new_window, 
