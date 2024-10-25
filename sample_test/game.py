@@ -9,6 +9,7 @@ vocab_hints = {
     "apple": ["Hint 1: It is a fruit.", "Hint 2: It is red or green.", "Hint 3: Keeps the doctor away."],
     "house": ["Hint 1: You live in it.", "Hint 2: It has windows and doors.", "Hint 3: You need keys to enter."],
     "river": ["Hint 1: It flows.", "Hint 2: Water is essential.", "Hint 3: It's a geographical feature."],
+    "dseb": ["Hint 1: neu", "Hint 2: mfe", "Hint 3: data"]
 }
 
 current_word = None
@@ -16,14 +17,20 @@ current_hints = None
 treasure_count = 0 #Biến lưu thứ tự treasure
 correct_guesses_count = 0  # Biến đếm số lần đoán đúng
 hints_window = None  # Biến để giữ tham chiếu đến cửa sổ gợi ý
+level = " " #define level
 
 def generate_new_word(order):
     global current_word, current_hints, treasure_count   
     current_word = list(vocab_hints.keys())[treasure_count]
     current_hints = list(vocab_hints[current_word])
 
-#def generate_hints():
-    #return current_word, current_hints
+def define_level():
+    global level
+    if correct_guesses_count <= 2:
+        level = "Beginner"
+    elif correct_guesses_count <= 4:
+        level = "Intermediate"
+    return level
 
 # Hàm mở khung trò chơi
 def open_game_frame(main_window, username):
@@ -48,7 +55,7 @@ def open_game_frame(main_window, username):
     name_label = ctk.CTkLabel(profile_frame, text=f"{username}", font=('Tahoma', 20, 'bold'))
     name_label.pack(pady=10) 
 
-    level_label = ctk.CTkLabel(profile_frame, text="Level: Intermediate", font=('Tahoma', 20))
+    level_label = ctk.CTkLabel(profile_frame, text=f"Level: {level}", font=('Tahoma', 20))
     level_label.pack(pady=10)
 
     collected_label = ctk.CTkLabel(profile_frame, text=f"Collected: {correct_guesses_count}", font=('Tahoma', 20))
@@ -107,16 +114,19 @@ def open_game_frame(main_window, username):
         def check_guess():
             user_guess = guess_entry.get().strip().lower()
             if user_guess == current_word:
-                global correct_guesses_count, treasure_count
+                global correct_guesses_count, treasure_count,level
                 correct_guesses_count += 1# Increase counting variable
                 treasure_count += 1
                 
                 update_collected_label()  # Cập nhật nhãn collected
+                level = define_level()
+                level_label.configure(text=f"Level: {level}")  # Cập nhật nhãn level
                 guess_status_label.configure(text="Correct!", fg="green")
                 
                 # Move to the next word after a short delay
                 guess_window.after(1000, lambda: [guess_window.destroy(), generate_new_word(treasure_count)])
                 word_display.configure(text=" ".join("_" * len(current_word)))  # Update new word's length
+                
             else:
                 guess_status_label.configure(text="Wrong, try again!", fg="red")
         submit_button = tk.Button(guess_window, text="Submit", command=check_guess)
