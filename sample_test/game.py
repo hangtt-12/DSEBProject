@@ -13,15 +13,17 @@ vocab_hints = {
 
 current_word = None
 current_hints = None
+treasure_count = 0 #Biến lưu thứ tự treasure
 correct_guesses_count = 0  # Biến đếm số lần đoán đúng
 hints_window = None  # Biến để giữ tham chiếu đến cửa sổ gợi ý
 
-def generate_new_word():
-    global current_word, current_hints
-    current_word, current_hints = random.choice(list(vocab_hints.items()))
+def generate_new_word(order):
+    global current_word, current_hints   
+    current_word = vocab_hints.keys[order]  
+    current_hints = list(vocab_hints[current_word])
 
-def generate_hints():
-    return current_word, current_hints
+#def generate_hints():
+    #return current_word, current_hints
 
 # Hàm mở khung trò chơi
 def open_game_frame(main_window, username):
@@ -67,8 +69,9 @@ def open_game_frame(main_window, username):
         if hints_window is not None:  # Nếu cửa sổ đã mở, đóng lại
             hints_window.destroy()
         
-        random_word, hints = generate_hints()
-        word_display.configure(text=" ".join("_" * len(random_word)))  # Hiển thị số ký tự của từ
+        generate_new_word(treasure_count) #chạy treasure và hints đầu tiên
+        
+        word_display.configure(text=" ".join("_" * len(current_word)))  # Hiển thị số ký tự của từ
         
         # Create a new window to show hints
         hints_window = tk.Toplevel()
@@ -79,7 +82,7 @@ def open_game_frame(main_window, username):
         hint_frame.pack(fill='both', expand=True, padx=10, pady=10)
 
         # Display the hints
-        for hint in hints:
+        for hint in current_hints:
             hint_label = tk.Label(hint_frame, text=hint, font=('Tahoma', 12))
             hint_label.pack(pady=5)
 
@@ -102,7 +105,8 @@ def open_game_frame(main_window, username):
                 correct_guesses_count += 1  # Increase counting variable
                 update_collected_label()  # Cập nhật nhãn collected
                 tk.Label(guess_window, text="Correct!", font=('Tahoma', 12), fg="green").pack(pady=5)
-                guess_window.after(1000, lambda: [guess_window.destroy(), generate_new_word()])
+                treasure_count += 1
+                guess_window.after(1000, lambda: [guess_window.destroy(), generate_new_word(treasure_count)])
                 word_display.configure(text="_ " * len(current_word))
                 word_display.configure(text=" ".join("_" * len(current_word)))  # Update new word's length
             else:
@@ -132,8 +136,6 @@ def open_game_frame(main_window, username):
                                  command=lambda: [game_window.withdraw(), main_window.deiconify()])
     home_button.pack(side="left", anchor='sw', padx=20, pady=20)
 
-    # Initialize the game with a new word
-    generate_new_word()
 
     game_window.mainloop()
 
