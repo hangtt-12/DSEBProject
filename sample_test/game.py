@@ -18,8 +18,8 @@ correct_guesses_count = 0  # Biến đếm số lần đoán đúng
 hints_window = None  # Biến để giữ tham chiếu đến cửa sổ gợi ý
 
 def generate_new_word(order):
-    global current_word, current_hints   
-    current_word = vocab_hints.keys[order]  
+    global current_word, current_hints, treasure_count   
+    current_word = list(vocab_hints.keys())[treasure_count]
     current_hints = list(vocab_hints[current_word])
 
 #def generate_hints():
@@ -88,6 +88,8 @@ def open_game_frame(main_window, username):
 
     # Guess word
     def guess_word():
+        global correct_guesses_count, treasure_count
+
         guess_window = tk.Toplevel()
         guess_window.geometry("300x150")
         guess_window.title("Make a guess")
@@ -97,21 +99,26 @@ def open_game_frame(main_window, username):
 
         guess_entry = tk.Entry(guess_window, font=('Tahoma', 12))
         guess_entry.pack(pady=5)
+        
+        # Label to show guess status (correct/wrong)
+        guess_status_label = tk.Label(guess_window, font=('Tahoma', 12))
+        guess_status_label.pack(pady=5)
 
         def check_guess():
             user_guess = guess_entry.get().strip().lower()
             if user_guess == current_word:
-                global correct_guesses_count
-                correct_guesses_count += 1  # Increase counting variable
-                update_collected_label()  # Cập nhật nhãn collected
-                tk.Label(guess_window, text="Correct!", font=('Tahoma', 12), fg="green").pack(pady=5)
+                global correct_guesses_count, treasure_count
+                correct_guesses_count += 1# Increase counting variable
                 treasure_count += 1
+                
+                update_collected_label()  # Cập nhật nhãn collected
+                guess_status_label.configure(text="Correct!", fg="green")
+                
+                # Move to the next word after a short delay
                 guess_window.after(1000, lambda: [guess_window.destroy(), generate_new_word(treasure_count)])
-                word_display.configure(text="_ " * len(current_word))
                 word_display.configure(text=" ".join("_" * len(current_word)))  # Update new word's length
             else:
-                tk.Label(guess_window, text="Wrong, try again!", font=('Tahoma', 12), fg="red").pack(pady=5)
-
+                guess_status_label.configure(text="Wrong, try again!", fg="red")
         submit_button = tk.Button(guess_window, text="Submit", command=check_guess)
         submit_button.pack(pady=10)
             
