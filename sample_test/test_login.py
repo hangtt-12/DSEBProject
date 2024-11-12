@@ -104,13 +104,13 @@ class LoginScreen:
 
     def create_welcome_text(self):
         """Create welcome text labels"""
-        # welcome_txt = ctk.CTkLabel(self.window, text="WELCOME TO", 
-        #                          font=("Montaser Arabic", 30, 'bold'))
+        welcome_txt = ctk.CTkLabel(self.window, text="WELCOME TO", 
+                                  font=("Montaser Arabic", 30, 'bold'))
+        welcome_txt.place(x=290, y=100, anchor='n')
         welcome_txt2 = ctk.CTkLabel(self.window, text="STUDYBUDDY!", 
                                   text_color="#998ED8", 
                                   font=("Montaser Arabic", 30, 'bold'))
-        # welcome_txt.place(x=290, y=100, anchor='n')
-        welcome_txt2.place(x=404.5, y=100, anchor='n')
+        welcome_txt2.place(x=510, y=100, anchor='n')
 
     def create_input_fields(self):
         """Create username and password input fields"""
@@ -151,10 +151,10 @@ class LoginScreen:
         """Toggle password visibility"""
         self.password_visible = not self.password_visible
         if self.password_visible:
-            self.show_hide_btn.configure(image=self.hide_img)
+            self.show_hide_btn.configure(image=self.show_img)
             self.passw_inp.configure(show="")
         else:
-            self.show_hide_btn.configure(image=self.show_img)
+            self.show_hide_btn.configure(image=self.hide_img)
             self.passw_inp.configure(show="•")
 
     def create_sign_buttons(self):
