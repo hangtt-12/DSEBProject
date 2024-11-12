@@ -23,7 +23,6 @@ class MyBoxLayout(MDBoxLayout):
     def update_rect(self, *args):
         self.rect.pos = self.pos
         self.rect.size = self.size
-
 class Compute_and_display:
     path = r"json_files/data.json"
     def __init__(self, file_name=path):

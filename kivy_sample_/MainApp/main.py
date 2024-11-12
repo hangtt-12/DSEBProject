@@ -15,12 +15,15 @@ from kivymd.uix.navigationdrawer import (
     MDNavigationDrawerItem, MDNavigationDrawerItemTrailingText
 )
 from achievement_screen import AchievementScreen
+from statistics_screen import StatisticsScreen1
+
 from kivy.properties import StringProperty, ColorProperty
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivy.uix.scrollview import ScrollView
 from kivymd.uix.button import MDIconButton
 from kivymd.uix.fitimage import FitImage
 from kivy.uix.widget import Widget
+
 # Window.size = (350, 600)
 
 # Registering the custom font with absolute path
@@ -78,6 +81,13 @@ class DrawerItem(MDNavigationDrawerItem):
     _trailing_text_obj = None
 
     def on_trailing_text(self, instance, value):
+        '''Called when the trailing_text property changes.
+        
+        :attr:`trailing_text_color` is an :class:`~kivy.properties.ColorProperty`
+        and defaults to ``[0, 0, 0, 1]``.
+
+        .. versionadded:: 1.0.0
+        '''
         self._trailing_text_obj = MDNavigationDrawerItemTrailingText(
             text=value,
             theme_text_color="Custom",
@@ -105,15 +115,23 @@ class MainApp(MDApp):
         sm.add_widget(CountDownScreen(name='countdownscreen'))
         sm.add_widget(ToDoListScreen(name='todolist'))
         sm.add_widget(NotesScreen(name='notes'))
-        sm.add_widget(StatisticsScreen(name='statistics'))
+        sm.add_widget(StatisticsScreen(name='statistics')) #Không cần dùng tới nữa nma xóa đi thì ko chạy được -_-
         sm.add_widget(GamesScreen(name='games'))
         sm.add_widget(AccountScreen(name='account'))
-        sm.add_widget(SettingsScreen(name='settings'))
+        sm.add_widget(SettingsScreen(name='settings')) 
         sm.add_widget(AchievementScreen(name='achievement'))
-
+        sm.add_widget(StatisticsScreen1(name='statistics1'))
+        
+        # Return the ScreenManager instance
         return sm
+    
     def go_to_achievement(self): 
         self.root.current = 'achievement'
+    def go_to_statistics(self):
+        main_screen = self.root.get_screen('mainscreen')
+        main_screen.ids.screen_manager.current = 'statistics1'
+        # Close the navigation drawer
+        main_screen.ids.nav_drawer.set_state("closed")
 
 if __name__ == "__main__":
     MainApp().run()

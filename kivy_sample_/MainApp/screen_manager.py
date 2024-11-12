@@ -7,6 +7,7 @@ ScreenManager:
     NotesScreen:
     StatisticsScreen:
     AchievementScreen:
+    StatisticsScreen1:
     GamesScreen:
     AccountScreen:
     SettingsScreen:
@@ -176,8 +177,8 @@ ScreenManager:
                                 theme_text_color: "Custom"
                                 text_color: "white"
 
-                StatisticsScreen:
-                    name: 'statistics'
+                StatisticsScreen1:
+                    name: 'statistics1'
                     MDBoxLayout:  # Header is now part of the screen content
                         orientation: "vertical"
                         spacing: 0
@@ -198,28 +199,8 @@ ScreenManager:
 
                             MDLabel:
                                 theme_text_color: "Custom"
-                                text_color: "white"
-                    MDLabel:
-                        text: "Statistics Screen"
-                        halign: "center"
-                    Button:
-                        text: "Go to Achievement"
-                        font_name: "Tahoma"
-                        size_hint: .8, .09 
-                        font_size: "18sp"
-                        pos_hint: {"center_x": .5, "center_y": .3}
-                        background_color: 0,0,0,0
-                        on_release: app.go_to_achievement()
-                        canvas.before:
-                            Color:
-                                rgb: app.btn_color
-                            RoundedRectangle:
-                                size: self.size
-                                pos: self.pos
-                                radius: [8]
-
-
-
+                                text_color: "white"                     
+                                
                 GamesScreen:
                     name: 'games'
                     MDScreen:  # Add an MDScreen here 
@@ -356,7 +337,7 @@ ScreenManager:
                     DrawerItem:
                         icon: "chart-bar"
                         text: "Statistics"
-                        on_release: screen_manager.current = 'statistics'
+                        on_release: app.go_to_statistics()
                         
                     DrawerItem:
                         icon: "gamepad-variant"
@@ -383,3 +364,4 @@ ScreenManager:
                         on_release: root.manager.current = 'login'
 
 """
+

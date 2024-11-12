@@ -1,61 +1,74 @@
 from kivy.lang import Builder
-from kivy.uix.screenmanager import Screen, ScreenManager
+from kivy.uix.widget import Widget
+from kivy.metrics import dp
 from kivymd.app import MDApp
-from kivymd.uix.label import MDLabel
-from kivymd.uix.button import MDButton
-from kivymd.uix.boxlayout import MDBoxLayout
+from kivymd.uix.button import MDButton, MDButtonText
+from kivymd.uix.dialog import (
+    MDDialog,
+    MDDialogIcon,
+    MDDialogHeadlineText,
+    MDDialogSupportingText,
+    MDDialogButtonContainer,
+    MDDialogContentContainer,
+)
+from kivymd.uix.divider import MDDivider
+from kivymd.uix.list import (
+    MDListItem,
+    MDListItemLeadingIcon,
+    MDListItemSupportingText,
+)
+from kivymd.uix.textfield import MDTextField
 
-# KV language part
 KV = '''
-<HomeScreen>:
-    name: "home"
-    MDBoxLayout:
-        orientation: "vertical"
-        MDLabel:
-            text: "Welcome to the Home Screen"
-            halign: "center"
-        MDButton:
-            text: "Go to Details"
-            pos_hint: {"center_x": 0.5}
-            on_release: app.switch_to_details()
+MDScreen:
+    md_bg_color: self.theme_cls.backgroundColor
+
+    MDButton:
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        on_release: app.show_alert_dialog()
+
+        MDButtonText:
+            text: "Add Note"
 '''
-
-# Python declarative style part
-class HomeScreen(Screen):
-    pass
-
-class DetailScreen(Screen):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        layout = MDBoxLayout(orientation="vertical")
-        label = MDLabel(text="This is the Detail Screen", halign="center")
-        back_button = MDButton(
-            text="Back to Home",
-            pos_hint={"center_x": 0.5},
-            on_release=self.go_back
-        )
-        layout.add_widget(label)
-        layout.add_widget(back_button)
-        self.add_widget(layout)
-
-    def go_back(self, *args):
-        self.manager.current = "home"
-
-class MyApp(MDApp):
+DIALOG_WIDTH = dp(400)
+TEXT_FIELD_WIDTH = DIALOG_WIDTH - dp(32)
+class Example(MDApp):
     def build(self):
-        self.theme_cls.primary_palette = "Gray"
-        self.theme_cls.theme_style = "Light"
-        
-        self.sm = ScreenManager()
-        self.sm.add_widget(HomeScreen())
-        self.sm.add_widget(DetailScreen(name="details"))
+        return Builder.load_string(KV)
 
-        Builder.load_string(KV)
-        
-        return self.sm
+    def show_alert_dialog(self):
+        MDDialog(
+            # ... (previous code remains the same)
 
-    def switch_to_details(self):
-        self.sm.current = "details"
+            # -----------------------Custom content------------------------
+            MDDialogContentContainer(
+                MDTextField(
+                    hint_text="Enter your comment",
+                    multiline=True,
+                ),
+                MDDivider(),
+                MDTextField(
+                    hint_text="Enter your comment",
+                    multiline=True,
+                ),
+                orientation="vertical",
+                spacing="12dp",
+                padding="16dp",
+            ),
+            # ---------------------Button container------------------------
+            MDDialogButtonContainer(
+                Widget(),
+                MDButton(
+                    MDButtonText(text="Cancel"),
+                    style="text",
+                ),
+                MDButton(
+                    MDButtonText(text="Add Note"),
+                    style="text",
+                ),
+                spacing="8dp",
+            ),
+            # -------------------------------------------------------------
+        ).open()
 
-if __name__ == '__main__':
-    MyApp().run()
+Example().run()
