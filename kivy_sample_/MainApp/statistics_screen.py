@@ -13,7 +13,7 @@ from kivymd.uix.navigationbar import (
 )
 from kivymd.app import MDApp
 from achievement_screen import AchievementScreen
-
+from kivymd.uix.label import MDLabel
 class BaseMDNavigationItem(MDNavigationItem):
     icon = StringProperty()
     text = StringProperty()
@@ -30,11 +30,12 @@ class BaseScreen(MDScreen):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.add_widget(
-            FitImage(
-                source=f"https://picsum.photos/{self.image_size}/{self.image_size}",
-                size_hint=(0.9, 0.9),
+            MDLabel(
+                text="Coming soon",
+                size_hint=(1, 0.2),
                 pos_hint={"center_x": 0.5, "center_y": 0.5},
-                radius=dp(24),
+                halign="center",
+                valign="center",
             ),
         )
 

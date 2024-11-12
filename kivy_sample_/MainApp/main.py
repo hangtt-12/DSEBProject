@@ -5,6 +5,7 @@ from kivy.core.window import Window
 from kivy.properties import ListProperty
 from kivy.uix.button import Button
 from kivymd.uix.button import MDButton, MDFabButton, MDButtonText
+from kivymd.uix.button import MDExtendedFabButtonText
 from kivymd.uix.screenmanager import ScreenManager
 from kivymd.uix.screen import Screen, MDScreen
 from screen_manager import Screen_Manager
@@ -14,6 +15,11 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.navigationdrawer import (
     MDNavigationDrawerItem, MDNavigationDrawerItemTrailingText
 )
+from kivymd.uix.screenmanager import MDScreenManager
+from kivy.uix.screenmanager import FadeTransition, SlideTransition
+from kivymd.uix.transition import MDFadeSlideTransition, MDSharedAxisTransition, MDSwapTransition, MDSlideTransition
+from kivy.animation import Animation
+
 from achievement_screen import AchievementScreen
 from statistics_screen import StatisticsScreen1
 
@@ -34,7 +40,23 @@ LabelBase.register(
 )
 
 # Các màn hình khác
-class MainScreen(Screen):
+class MainScreen(MDScreen):
+    def __init__(self, **kwargs):
+        """
+        Initialize the MainScreen class.
+
+        This method is automatically called when the MainScreen class is instantiated.
+        It calls the super class's __init__ method and then sets up a ScreenManager
+        with a FadeTransition and adds it to the MainScreen widget.
+
+        Parameters:
+            **kwargs: A dictionary of keyword arguments from the parent class.
+
+        Returns:
+            None
+        """
+        super().__init__(**kwargs)
+        
     def on_enter(self):
         Window.size = (900, 600)
 
@@ -107,7 +129,9 @@ class MainApp(MDApp):
         Builder.load_string(Screen_Manager)
         
         # Khởi tạo ScreenManager và thêm các màn hình vào
-        sm = ScreenManager()
+        sm = MDScreenManager(transition=MDSlideTransition(duration=0.3))
+
+
         sm.add_widget(LoginScreen(name='login'))
         sm.add_widget(SignUpScreen(name='signup'))
         sm.add_widget(MainScreen(name='mainscreen'))
@@ -121,7 +145,7 @@ class MainApp(MDApp):
         sm.add_widget(SettingsScreen(name='settings')) 
         sm.add_widget(AchievementScreen(name='achievement'))
         sm.add_widget(StatisticsScreen1(name='statistics1'))
-        
+
         # Return the ScreenManager instance
         return sm
     
