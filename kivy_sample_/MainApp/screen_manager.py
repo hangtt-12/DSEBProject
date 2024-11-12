@@ -203,7 +203,7 @@ ScreenManager:
                                     MDLabel:
                                         text: "Current Streak"
                                         halign: "center"
-                                        font_style: "Caption"
+                                        
                                         
                                     MDLabel:
                                         id: max_streak
@@ -246,12 +246,12 @@ ScreenManager:
                                     MDLabel:
                                         text: "Completed"
                                         halign: "center"
-                                        font_style: "Caption"
+                                        
                                         
                                     MDLabel:
                                         text: "Fail"
                                         halign: "center"
-                                        font_style: "Caption"
+                                        
 
                             MDLabel:
                                 text: "Achievements"
