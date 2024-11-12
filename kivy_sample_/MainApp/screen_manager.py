@@ -6,6 +6,7 @@ ScreenManager:
     ToDoListScreen:     
     NotesScreen:
     StatisticsScreen:
+    AchievementScreen:
     GamesScreen:
     AccountScreen:
     SettingsScreen:
@@ -57,7 +58,7 @@ ScreenManager:
                 
                 HomeScreen:
                     name: 'homescreen'
-                    MDScreen:  # Add an MDScreen here 
+                    MDScreen:  # Add an MDScreen here
                     MDBoxLayout:  # Header is now part of the screen content
                         orientation: "vertical"
                         spacing: 0
@@ -139,6 +140,20 @@ ScreenManager:
                 NotesScreen:
                     name: 'notes'
                     MDScreen:  # Add an MDScreen here 
+                        MDLabel:
+                            text: "Note"
+                            pos_hint: {"center_y": .95}
+                            theme_text_color: "Custom"
+                            text_color: "black"
+                            font_name: "Montaser Arabic"
+                            font_size: "24sp"
+                            bold: True
+                            size_hint_x: .42
+                            halign: "left"
+                            pos_hint: {"center_x": .55, "center_y": .75}
+                        
+
+
                     MDBoxLayout:  # Header is now part of the screen content
                         orientation: "vertical"
                         spacing: 0
@@ -160,12 +175,9 @@ ScreenManager:
                             MDLabel:
                                 theme_text_color: "Custom"
                                 text_color: "white"
-                    MDLabel:
-                        text: "Notes Screen"
-                        halign: "center"
+
                 StatisticsScreen:
                     name: 'statistics'
-                    MDScreen:  # Add an MDScreen here 
                     MDBoxLayout:  # Header is now part of the screen content
                         orientation: "vertical"
                         spacing: 0
@@ -190,6 +202,23 @@ ScreenManager:
                     MDLabel:
                         text: "Statistics Screen"
                         halign: "center"
+                    Button:
+                        text: "Go to Achievement"
+                        font_name: "Tahoma"
+                        size_hint: .8, .09 
+                        font_size: "18sp"
+                        pos_hint: {"center_x": .5, "center_y": .3}
+                        background_color: 0,0,0,0
+                        on_release: app.go_to_achievement()
+                        canvas.before:
+                            Color:
+                                rgb: app.btn_color
+                            RoundedRectangle:
+                                size: self.size
+                                pos: self.pos
+                                radius: [8]
+
+
 
                 GamesScreen:
                     name: 'games'

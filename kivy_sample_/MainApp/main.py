@@ -14,7 +14,13 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.navigationdrawer import (
     MDNavigationDrawerItem, MDNavigationDrawerItemTrailingText
 )
+from achievement_screen import AchievementScreen
 from kivy.properties import StringProperty, ColorProperty
+from kivymd.uix.boxlayout import MDBoxLayout
+from kivy.uix.scrollview import ScrollView
+from kivymd.uix.button import MDIconButton
+from kivymd.uix.fitimage import FitImage
+from kivy.uix.widget import Widget
 # Window.size = (350, 600)
 
 # Registering the custom font with absolute path
@@ -42,7 +48,13 @@ class NotesScreen(Screen):
     pass
 
 class StatisticsScreen(Screen):
-    pass
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.name = 'statistics'
+
+    def on_tab_switch(self, instance_tabs, instance_tab, instance_tab_label, tab_text):
+        '''Called when switching tabs.'''
+        pass  # You can add specific behavior here if needed
 
 class GamesScreen(Screen):
     pass
@@ -52,7 +64,6 @@ class AccountScreen(Screen):
 
 class SettingsScreen(Screen):
     pass
-
 # Các thành phần của Drawer
 class DrawerLabel(MDBoxLayout):
     icon = StringProperty()
@@ -97,8 +108,12 @@ class MainApp(MDApp):
         sm.add_widget(StatisticsScreen(name='statistics'))
         sm.add_widget(GamesScreen(name='games'))
         sm.add_widget(AccountScreen(name='account'))
-        sm.add_widget(SettingsScreen(name='settings'))    
+        sm.add_widget(SettingsScreen(name='settings'))
+        sm.add_widget(AchievementScreen(name='achievement'))
+
         return sm
+    def go_to_achievement(self): 
+        self.root.current = 'achievement'
 
 if __name__ == "__main__":
     MainApp().run()
