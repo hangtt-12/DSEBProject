@@ -209,18 +209,18 @@ ScreenManager:
                                         id: max_streak
                                         text: "Highest Streak: 0"
                                         halign: "center"
-                                        font_style: "Subtitle2"
+                                        
                                         
                                     MDLabel:
                                         text: "On average of: 1h45m per opening"
                                         halign: "center"
-                                        font_style: "Subtitle2"
+                                        
                                         
                                     MDLabel:
                                         id: completion_probability
                                         text: "Probability of: 0% completing a cycle"
                                         halign: "center"
-                                        font_style: "Subtitle2"
+                                        
 
                                 MDCard:
                                     orientation: "vertical"
@@ -256,7 +256,7 @@ ScreenManager:
                             MDLabel:
                                 text: "Achievements"
                                 halign: "center"
-                                font_style: "Subtitle1"
+                                
                     MDBoxLayout:  # Header is now part of the screen content
                         orientation: "vertical"
                         spacing: 0

@@ -14,6 +14,7 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.navigationdrawer import (
     MDNavigationDrawerItem, MDNavigationDrawerItemTrailingText
 )
+from kivymd.uix.progressindicator import MDLinearProgressIndicator
 from kivy.properties import StringProperty, ColorProperty
 # Window.size = (350, 600)
 
