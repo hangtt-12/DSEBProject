@@ -175,7 +175,6 @@ ScreenManager:
                             MDLabel:
                                 text: "STATISTICS"
                                 halign: "center"
-                                font_style: "H5"
                                 theme_text_color: "Custom"
                                 text_color: [0.1, 0.1, 0.2, 1]
 
@@ -188,40 +187,27 @@ ScreenManager:
                                     padding: 15
                                     radius: [25, 25, 25, 25]
                                     md_bg_color: [1, 1, 1, 1]
-            
                                     MDLabel:
                                         text: "🔥"
-                                        halign: "center"
-                                        font_style: "H2"
-                                        
+                                        halign: "center"  
                                     MDLabel:
                                         id: current_streak
                                         text: "0"
                                         halign: "center"
-                                        font_style: "H3"
-                                        
                                     MDLabel:
                                         text: "Current Streak"
                                         halign: "center"
-                                        
-                                        
                                     MDLabel:
                                         id: max_streak
                                         text: "Highest Streak: 0"
                                         halign: "center"
-                                        
-                                        
                                     MDLabel:
                                         text: "On average of: 1h45m per opening"
-                                        halign: "center"
-                                        
-                                        
+                                        halign: "center"    
                                     MDLabel:
                                         id: completion_probability
                                         text: "Probability of: 0% completing a cycle"
-                                        halign: "center"
-                                        
-
+                                        halign: "center"                                        
                                 MDCard:
                                     orientation: "vertical"
                                     padding: 15
@@ -234,8 +220,7 @@ ScreenManager:
                                         id: completion_percentage
                                         text: "0%"
                                         halign: "center"
-                                        font_style: "H4"
-                                        
+                                                                                
                                     MDLinearProgressIndicator:
                                         id: completion_bar
                                         value: 0
@@ -246,13 +231,11 @@ ScreenManager:
                                     MDLabel:
                                         text: "Completed"
                                         halign: "center"
-                                        
-                                        
+                                                                               
                                     MDLabel:
                                         text: "Fail"
                                         halign: "center"
                                         
-
                             MDLabel:
                                 text: "Achievements"
                                 halign: "center"
