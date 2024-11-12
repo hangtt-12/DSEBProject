@@ -165,7 +165,98 @@ ScreenManager:
                         halign: "center"
                 StatisticsScreen:
                     name: 'statistics'
-                    MDScreen:  # Add an MDScreen here 
+                    MDScreen:  # Add an MDScreen here
+                        MDBoxLayout:
+                            orientation: 'vertical'
+                            padding: 20
+                            spacing: 20
+                            md_bg_color: [248/255, 245/255, 251/255, 1]
+
+                            MDLabel:
+                                text: "STATISTICS"
+                                halign: "center"
+                                font_style: "H5"
+                                theme_text_color: "Custom"
+                                text_color: [0.1, 0.1, 0.2, 1]
+
+                            MDBoxLayout:
+                                orientation: 'horizontal'
+                                spacing: 20
+
+                                MDCard:
+                                    orientation: "vertical"
+                                    padding: 15
+                                    radius: [25, 25, 25, 25]
+                                    md_bg_color: [1, 1, 1, 1]
+            
+                                    MDLabel:
+                                        text: "🔥"
+                                        halign: "center"
+                                        font_style: "H2"
+                                        
+                                    MDLabel:
+                                        id: current_streak
+                                        text: "0"
+                                        halign: "center"
+                                        font_style: "H3"
+                                        
+                                    MDLabel:
+                                        text: "Current Streak"
+                                        halign: "center"
+                                        font_style: "Caption"
+                                        
+                                    MDLabel:
+                                        id: max_streak
+                                        text: "Highest Streak: 0"
+                                        halign: "center"
+                                        font_style: "Subtitle2"
+                                        
+                                    MDLabel:
+                                        text: "On average of: 1h45m per opening"
+                                        halign: "center"
+                                        font_style: "Subtitle2"
+                                        
+                                    MDLabel:
+                                        id: completion_probability
+                                        text: "Probability of: 0% completing a cycle"
+                                        halign: "center"
+                                        font_style: "Subtitle2"
+
+                                MDCard:
+                                    orientation: "vertical"
+                                    padding: 15
+                                    radius: [25, 25, 25, 25]
+                                    md_bg_color: [1, 1, 1, 1]
+                                    size_hint_x: None
+                                    width: "200dp"
+
+                                    MDLabel:
+                                        id: completion_percentage
+                                        text: "0%"
+                                        halign: "center"
+                                        font_style: "H4"
+                                        
+                                    MDProgressBar:
+                                        id: completion_bar
+                                        value: 0
+                                        color: [0, 0, 0, 1]
+                                        size_hint_y: None
+                                        height: "10dp"
+                                        
+                                    MDLabel:
+                                        text: "Completed"
+                                        halign: "center"
+                                        font_style: "Caption"
+                                        
+                                    MDLabel:
+                                        text: "Fail"
+                                        halign: "center"
+                                        font_style: "Caption"
+
+                            MDLabel:
+                                text: "Achievements"
+                                halign: "center"
+                                font_style: "Subtitle1"
                     MDBoxLayout:  # Header is now part of the screen content
                         orientation: "vertical"
                         spacing: 0
@@ -187,9 +278,7 @@ ScreenManager:
                             MDLabel:
                                 theme_text_color: "Custom"
                                 text_color: "white"
-                    MDLabel:
-                        text: "Statistics Screen"
-                        halign: "center"
+                    
 
                 GamesScreen:
                     name: 'games'
