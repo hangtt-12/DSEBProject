@@ -30,7 +30,7 @@ def get_username(arg1, main_root):
     test_func(var1,main_root)
 def test_func(arg1,main_root):
     new_window=tk.Toplevel()
-    center_window(new_window,800,500)
+    center_window(new_window,2000,1500)
     frame=ttk.Frame(new_window)
     frame.pack(pady=50)
 
@@ -71,13 +71,19 @@ def test_func(arg1,main_root):
 
 
 def func3(main_root):
-    main_root.withdraw()
+    # main_root.withdraw()
     todolist=tk.Toplevel()
     center_window(todolist,800,500)
     frame=ttk.Frame(todolist)
     frame.pack(pady=20)
 
     label=tk.Label(todolist,text=f"To-Do-List", font=('Montaser Arabic',30))
+    label.pack(pady=10)
+
+    label=tk.Label(todolist,text=f"1.", font=('Montaser Arabic',30))
+    label.pack(pady=10)
+
+    label=tk.Label(todolist,text=f"2.", font=('Montaser Arabic',30))
     label.pack(pady=10)
 
     back_to_main = ctk.CTkButton(

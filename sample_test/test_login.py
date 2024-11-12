@@ -4,6 +4,7 @@ import string
 import customtkinter as ctk
 from PIL import Image, ImageTk
 from pw_encryption import MD5
+
 """___________________________________"""
 from to_do_list import func1, func2, func3, center_window,test_func, get_username
 import tkinter.ttk as ttk   
@@ -44,6 +45,10 @@ class AccountManager:
 class LoginScreen:
     """Main login screen"""
     def __init__(self):
+        # Setup theme
+        ctk.set_appearance_mode('light')
+        ctk.set_default_color_theme(r'json_files\theme.json')  #CHỈNH ĐƯỜNG DẪN
+
         # Setup the main window
         self.window = ctk.CTk()
         self.window.title('STUDYBUDDY')
@@ -52,10 +57,6 @@ class LoginScreen:
         # Initialize account manager
         self.account_manager = AccountManager(r"json_files\accounts.json")
         
-        # Setup theme
-        ctk.set_appearance_mode('light')
-        ctk.set_default_color_theme(r'json_files\theme.json')  #CHỈNH ĐƯỜNG DẪN
-
         # Load images for password show/hide
         self.load_images()
         
