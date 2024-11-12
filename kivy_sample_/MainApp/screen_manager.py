@@ -236,7 +236,7 @@ ScreenManager:
                                         halign: "center"
                                         font_style: "H4"
                                         
-                                    MDProgressBar:
+                                    MDLinearProgressIndicator:
                                         id: completion_bar
                                         value: 0
                                         color: [0, 0, 0, 1]
