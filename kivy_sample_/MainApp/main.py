@@ -104,7 +104,7 @@ class DrawerItem(MDNavigationDrawerItem):
 
     def on_trailing_text(self, instance, value):
         '''Called when the trailing_text property changes.
-        
+
         :attr:`trailing_text_color` is an :class:`~kivy.properties.ColorProperty`
         and defaults to ``[0, 0, 0, 1]``.
 

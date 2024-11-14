@@ -159,7 +159,7 @@ class SignUpScreen(Screen):
             # -----------------------Custom content------------------------
             MDDialogContentContainer(
                 MDLabel(
-                    text="Your account has been created successfully",
+                    text="Your account has been created successfully!",
                     pos_hint={"center_x": .5, "center_y": .5},
                     size_hint_y=None,
                     height=dp(36),

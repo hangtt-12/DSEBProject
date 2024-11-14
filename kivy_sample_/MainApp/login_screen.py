@@ -54,18 +54,16 @@ login_screen_kv = """
                     size: self.size
                     pos: self.pos
                     radius: [8]
-            TextInput:
-                hint_text: "Username"
-                size_hint: 1, None
-                pos_hint: {"center_x": .5, "center_y":.5}
-                height: self.minimum_height
-                multiline: False
-                hint_text_color: rgba(168,168,168,255)
-                background_color: 0,0,0,0
-                padding: 18
-                font_name: "Tahoma"
-                font_size : "16sp"
-                cursor_color: 0, 0, 0, 1
+            MDTextField:
+                mode: "outlined"
+                pos_hint: {"center_x": .5, "center_y": .5}
+
+                MDTextFieldLeadingIcon:
+                    icon: "account"
+
+                MDTextFieldHintText:
+                    text: "Username"
+                    text_color_normal: 168/255, 168/255, 168/255, 1
 
         MDFloatLayout:
             size_hint: .8, .09
@@ -77,26 +75,28 @@ login_screen_kv = """
                     size: self.size
                     pos: self.pos
                     radius: [8]
-            TextInput:
-                hint_text: "Password"
-                size_hint: 1, None
-                pos_hint: {"center_x": .5, "center_y":.5}
-                height: self.minimum_height
-                multiline: False
-                password: True
-                hint_text_color: rgba(168,168,168,255)
-                background_color: 0,0,0,0
-                padding: 18
-                font_name: "Tahoma"
-                font_size : "16sp"
-                cursor_color: 0, 0, 0, 1
+            PasswordField:
+                mode: "outlined"
+                pos_hint: {"center_x": .5, "center_y": .47}
+
+                MDTextFieldLeadingIcon:
+                    icon: "lock"
+
+                MDTextFieldHintText:
+                    text: "Password"
+                    text_color_normal: 168/255, 168/255, 168/255, 1
+
+                MDTextFieldHelperText:
+                    text: "*At least 8 characters"
+                    mode: "persistent"
+
         
         MDButton:
             style: "filled"
             theme_width: "Custom"
             height: "56dp"
             size_hint_x: .8
-            pos_hint: {"center_x": .5, "center_y": .3}
+            pos_hint: {"center_x": .5, "center_y": .25}
             on_release: root.show_alert_dialog()
             padding: "10dp"
             md_bg_color: 1,1,1,1
@@ -115,7 +115,7 @@ login_screen_kv = """
             theme_width: "Custom"
             height: "56dp"
             size_hint_x: .8
-            pos_hint: {"center_x": .5, "center_y": .2}
+            pos_hint: {"center_x": .5, "center_y": .13}
             on_release: root.manager.current = 'signup'
             padding: "10dp"
             md_bg_color: 0.9, 0.9, 0.9, 1
@@ -131,7 +131,18 @@ login_screen_kv = """
 
 # Load the KV string
 Builder.load_string(login_screen_kv)
+class PasswordField(MDTextField):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.password = True
+        self.password_mask = "•"
 
+        
+    def on_touch_down(self, touch):
+        if self.collide_point(*touch.pos):
+            if touch.is_double_tap:
+                self.password = not self.password
+        return super().on_touch_down(touch)
 class LoginScreen(Screen):
     def build(self):
         return Builder.load_string(login_screen_kv)
@@ -146,7 +157,7 @@ class LoginScreen(Screen):
             # -----------------------Custom content------------------------
             MDDialogContentContainer(
                 MDLabel(
-                    text="Sign in successfully",
+                    text="Sign in successfully!",
                     pos_hint={"center_x": .5, "center_y": .5},
                     size_hint_y=None,
                     height=dp(36),
