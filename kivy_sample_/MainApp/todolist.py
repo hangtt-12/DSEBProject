@@ -127,7 +127,7 @@ class MyApp(MDApp):
                         orientation='horizontal', 
                         spacing=0, 
                         padding=10,
-                        height=150,
+                        height=185,
                         size_hint_y=None, 
                         bg_color=(230/255, 230/255, 255/255, 1)
                     )
@@ -157,12 +157,14 @@ class MyApp(MDApp):
                         text="DONE",
                         size_hint=(None, None),
                         size=(100, 40),
+                        pos_hint={'center_x':0.5, 'center_y':0.5},
                         on_release=lambda x, s=subject, t=task, d=deadline, w=upcoming_frame: self.mark_as_done(s, t, d, w)
                     )
                     delete_button = Button(
                         text="DELETE",
                         size_hint=(None, None),
                         size=(100, 40),
+                        pos_hint={'center_x':0.5, 'center_y':0.5},
                         on_release=lambda x, s=subject, t=task, d=deadline, w=upcoming_frame: self.delete_task(s, t, d, w)
                     )
 
@@ -193,7 +195,7 @@ class MyApp(MDApp):
                         orientation='horizontal', 
                         spacing=0, 
                         padding=10,
-                        height=150,
+                        height=185,
                         size_hint_y=None, 
                         bg_color=(230/255, 230/255, 255/255, 1)
                     )
@@ -212,7 +214,7 @@ class MyApp(MDApp):
                         spacing=0, 
                         padding=10,
                         height=160,
-                        size_hint = (None,None),
+                        # size_hint = (None,None),
                         size=(120,100),
                         # size_hint_x=0.4,
                         # size_hint_y=0.9, 
@@ -223,12 +225,14 @@ class MyApp(MDApp):
                         text="DONE",
                         size_hint=(None, None),
                         size=(100, 40),
+                        pos_hint={'center_x':0.5, 'center_y':0.5},
                         on_release=lambda x, s=subject, t=task, d=deadline, w=upcoming_frame: self.mark_as_done(s, t, d, w)
                     )
         delete_button = Button(
                         text="DELETE",
                         size_hint=(None, None),
                         size=(100, 40),
+                        pos_hint={'center_x':0.5, 'center_y':0.5},
                         on_release=lambda x, s=subject, t=task, d=deadline, w=upcoming_frame: self.delete_task(s, t, d, w)
                     )
 
