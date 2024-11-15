@@ -2,7 +2,6 @@ from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.widget import Widget
 from kivy.graphics import Color, RoundedRectangle
 from kivy.core.window import Window
@@ -15,48 +14,12 @@ from kivy.uix.image import Image
 
 
 # Hàm chuyển mã màu từ hex sang RGB
-# Hàm chuyển mã màu từ hex sang RGB
 def hex_to_rgb(hex_color):
     hex_color = hex_color.lstrip('#')
     r = int(hex_color[0:2], 16) / 255.0
     g = int(hex_color[2:4], 16) / 255.0
     b = int(hex_color[4:6], 16) / 255.0
     return (r, g, b)
-
-# Từ điển gợi ý
-vocab_hints = {
-    "apple": ["Hint 1: It is a fruit.", "Hint 2: It is red or green.", "Hint 3: Keeps the doctor away."],
-    "house": ["Hint 1: You live in it.", "Hint 2: It has windows and doors.", "Hint 3: You need keys to enter."],
-    "river": ["Hint 1: It flows.", "Hint 2: Water is essential.", "Hint 3: It's a geographical feature."],
-    "octopus": ["Hint 1: It is a sea creature.", "Hint 2: It has eight arms.", "Hint 3: It can change color."],
-    "telescope": ["Hint 1: It is used for viewing distant objects.", "Hint 2: It can be found in observatories.", "Hint 3: It helps in studying stars."],
-    "pyramid": ["Hint 1: It is a structure in Egypt.", "Hint 2: It has a square base.", "Hint 3: It was built as a tomb."],
-}
-current_word = None
-current_hints = None
-treasure_count = 0
-correct_guesses_count = 0
-level = "Beginner"
-next_word_index = 1
-
-def generate_new_word(order):
-    global current_word, current_hints, treasure_count
-    current_word = list(vocab_hints.keys())[treasure_count]
-    current_hints = list(vocab_hints[current_word])
-
-def define_level():
-    global level
-    if 0< correct_guesses_count <= 2:
-        level = "Beginner"
-    elif correct_guesses_count <= 4:
-        level = "Intermediate"
-    elif correct_guesses_count <= 6:
-        level = "Advanced"
-    elif correct_guesses_count <= 8:
-        level = "Legendary"
-    else:
-        level = "Megamind"
-    return level
 
 # Từ điển gợi ý
 vocab_hints = {
@@ -103,17 +66,14 @@ class MyApp(App):
         theme_color = hex_to_rgb("#F6F4FF")
         Window.clearcolor = (*theme_color, 1)
         
-        
         # Tạo layout chính cho ứng dụng
         self.layout = FloatLayout()
         
-        # Widget chứa thông tin
         # Widget chứa thông tin
         infor_widget = Widget()
         with infor_widget.canvas:
             infor_widget_color = hex_to_rgb("#FFFFFF")
             Color(*infor_widget_color)
-            RoundedRectangle(pos=(30, 400), size=(300, 250), radius=[(20, 20)] * 4)
             RoundedRectangle(pos=(30, 400), size=(300, 250), radius=[(20, 20)] * 4)
             name_widget_color = hex_to_rgb("#998ED8")
             Color(*name_widget_color)
@@ -123,8 +83,6 @@ class MyApp(App):
             RoundedRectangle(pos=(45, 505), size=(270, 50), radius=[(20, 20)] * 4)
             hint_widget_color = hex_to_rgb("#F6F4FF")
             Color(*hint_widget_color)
-            RoundedRectangle(pos=(45, 445), size=(270, 50), radius=[(20, 20)] * 4)
-        # Tạo widget và hình vẽ cho Guess section
             RoundedRectangle(pos=(45, 445), size=(270, 50), radius=[(20, 20)] * 4)
         # Tạo widget và hình vẽ cho Guess section
         guess_widget = Widget()
@@ -160,7 +118,6 @@ class MyApp(App):
         self.collected_label = Label(text=f"Collected: {correct_guesses_count}", font_size=20,color=(0, 0, 0, 1), size_hint=(None, None), size=(270, 70), pos=(45, 435))
         # Nút bấm
         button1 = Button(text="Guess now", font_size=24, size_hint=(None, None), size=(200, 40), pos=(500, 100))
-        button1.bind(on_press=self.show_guess_popup)
         button1.bind(on_press=self.show_guess_popup)
 
         button2 = Button(text="Your hints", font_size=24, size_hint=(None, None), size=(200, 40), pos=(700, 100))
