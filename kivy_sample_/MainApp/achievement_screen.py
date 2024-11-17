@@ -100,7 +100,7 @@ class AchievementScreen(MDScreen):
     def setup_ui(self):
         inf = Compute_and_display()
         screen = MDScreen()
-        screen.md_bg_color =  (246/255, 244/255, 255/255, 1)
+        screen.md_bg_color =  (251/255, 248/255, 255/255, 1)
         main_layout = MDBoxLayout(orientation='vertical', spacing=10, padding=10)
 
         row_1 = MDBoxLayout(orientation='vertical', size_hint_y=0.1, spacing = 10)
@@ -109,10 +109,10 @@ class AchievementScreen(MDScreen):
         row_1.add_widget(label1)
 
         row_2 = MDBoxLayout(orientation='horizontal', spacing=40, padding=50, size_hint=(1, 1))
-        infor_1 = MyBoxLayout(orientation='vertical', spacing=20, padding=10, size_hint_x=0.5, bg_color=(246/255, 244/255, 255/255, 1))
+        infor_1 = MyBoxLayout(orientation='vertical', spacing=20, padding=10, size_hint_x=0.5, bg_color=(251/255, 248/255, 255/255, 1))
 
         row_2 = MDBoxLayout(orientation='horizontal', spacing=40, padding=50, size_hint=(1, 1))
-        infor_1 = MyBoxLayout(orientation='vertical', spacing=20, padding=10, size_hint_x=0.5, md_bg_color = (246/255, 244/255, 255/255, 1))
+        infor_1 = MyBoxLayout(orientation='vertical', spacing=20, padding=10, size_hint_x=0.5, md_bg_color = (251/255, 248/255, 255/255, 1))
 
         upper1 = MyBoxLayout(orientation = 'vertical',  bg_color=(210/255, 208/255, 228/255, 0.8))
         stars, label_text = inf.display_current_streak()
