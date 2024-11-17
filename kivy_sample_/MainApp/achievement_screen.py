@@ -9,6 +9,7 @@ import os
 from kivy.graphics import *
 from kivymd.uix.fitimage import FitImage
 from kivy.uix.scrollview import ScrollView
+import random
 class MyBoxLayout(MDBoxLayout):
     def __init__(self, bg_color=(1, 1, 1, 1), **kwargs):
         super().__init__(**kwargs)
@@ -25,6 +26,8 @@ class MyBoxLayout(MDBoxLayout):
         self.rect.size = self.size
 class Compute_and_display:
     path = r"json_files/data.json"
+    #add another path for facts.json
+    path2 = r"json_files\\facts.json"
     def __init__(self, file_name=path):
         self.current_streak = self.countt_streak(file_name)
         self.achievements = [
@@ -79,7 +82,14 @@ class Compute_and_display:
         else:
             label_text = "You have unlocked all achievements!"
         return label_text
-
+    def do_you_know(self, file_name2 = path2):
+        with open(file_name2, "r", encoding= "utf-8") as file:
+            facts = json.load(file)
+        n = random.randint(0, len(facts) -1)
+        topic = facts[n]["topic"]
+        explain = facts[n]["explanation"]
+        return topic, explain
+    
 class AchievementScreen(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -90,25 +100,22 @@ class AchievementScreen(MDScreen):
     def setup_ui(self):
         inf = Compute_and_display()
         screen = MDScreen()
-        screen.md_bg_color = (1, 1, 1, 1)
+        screen.md_bg_color =  (246/255, 244/255, 255/255, 1)
         main_layout = MDBoxLayout(orientation='vertical', spacing=10, padding=10)
 
-        row_1 = MDBoxLayout(orientation='vertical', size_hint_y=0.15)
-        label1 = MDLabel(text="ACHIEVEMENT", halign='center')
-        label1.font_size = '42sp'
+        row_1 = MDBoxLayout(orientation='vertical', size_hint_y=0.1, spacing = 10)
+        label1 = MDLabel(text="ACHIEVEMENT", halign='center', theme_text_color="Custom", text_color=(27/255, 32/255, 66/255, 1), bold = True)
+        label1.font_size = '40sp'
         row_1.add_widget(label1)
 
-        row_2 = MDBoxLayout(orientation='horizontal', spacing=60, padding=70, size_hint=(1, 1))
-        infor_1 = MyBoxLayout(orientation='vertical', spacing=20, padding=30, size_hint_x=0.5, bg_color=(230/255, 230/255, 255/255, 1))
+        row_2 = MDBoxLayout(orientation='horizontal', spacing=40, padding=50, size_hint=(1, 1))
+        infor_1 = MyBoxLayout(orientation='vertical', spacing=20, padding=10, size_hint_x=0.5, bg_color=(246/255, 244/255, 255/255, 1))
 
+        row_2 = MDBoxLayout(orientation='horizontal', spacing=40, padding=50, size_hint=(1, 1))
+        infor_1 = MyBoxLayout(orientation='vertical', spacing=20, padding=10, size_hint_x=0.5, md_bg_color = (246/255, 244/255, 255/255, 1))
+
+        upper1 = MyBoxLayout(orientation = 'vertical',  bg_color=(210/255, 208/255, 228/255, 0.8))
         stars, label_text = inf.display_current_streak()
-        image_path = f"image/a_{stars}.png"
-        image = FitImage(
-            source=image_path,
-            size_hint=(1, 1),
-            pos_hint={'center_x': 0.5, 'center_y': 0.5},
-        )
-        infor_1.add_widget(image)
 
         if stars:
             icon_row_layout = MDBoxLayout(orientation='horizontal', size_hint=(1, 0.1))
@@ -117,21 +124,34 @@ class AchievementScreen(MDScreen):
                 card_1_icon = MDIconButton(icon='star', halign='center', size_hint_y=0.09)
                 icon_row_layout.add_widget(card_1_icon)
             icon_row_layout.add_widget(Widget())
-            infor_1.add_widget(icon_row_layout)
+            upper1.add_widget(icon_row_layout)
 
-        label1 = MDLabel(text=label_text, halign='center', size_hint_y=0.15)
-        label1.font_size = '18sp'
-        infor_1.add_widget(label1)
+        label1 = MDLabel(text=label_text, halign='center', size_hint_y=0.08, theme_text_color="Custom", text_color=(27/255, 32/255, 66/255, 1), bold = True)
+        label1.font_size = '17sp'
+        upper1.add_widget(label1)
 
         label_text_2 = inf.display_next_achievement()
-        text2 = MDLabel(text=label_text_2, halign='center', size_hint_y=0.3)
-        text2.font_size = '18sp'
-        infor_1.add_widget(text2)
+        text2 = MDLabel(text=label_text_2, halign='center', size_hint_y=0.3, theme_text_color="Custom", text_color=(27/255, 32/255, 66/255, 1))
+        text2.font_size = '17sp'
+        upper1.add_widget(text2)
+
+        infor_1.add_widget(upper1)
+
+        topic , solution = inf.do_you_know()
+
+        lower1 = MyBoxLayout(orientation = 'vertical', spacing = 10, padding = 10, bg_color = (210/255, 208/255, 228/255, 1))
+        title = MDLabel(text = 'DO YOU KNOW THIS FACT?', size_hint_y = None, halign = 'center', theme_text_color="Custom", text_color=(27/255, 32/255, 66/255, 1), bold = True)
+        title.font_size = '20sp'
+        title.height = 25
+        lower1.add_widget(title)
+        lower1.add_widget(MDLabel(text = topic, halign = 'center', size_hint_y = 0.1, theme_text_color="Custom", text_color=(27/255, 32/255, 66/255, 1), bold = True))
+        lower1.add_widget(MDLabel(text = solution, halign = 'center', theme_text_color="Custom", text_color=(27/255, 32/255, 66/255, 1)))
+        infor_1.add_widget(lower1)
 
         row_2.add_widget(infor_1)
-        infor_2 = MDBoxLayout(orientation='vertical', spacing=10, padding=10, size_hint_x=0.5, md_bg_color=(1, 1, 1, 1))
+        infor_2 = MyBoxLayout(orientation='vertical', spacing=10, padding=10, size_hint_x=0.5, bg_color=(210/255, 208/255, 228/255, 0.8))
         scroll = ScrollView()
-        list_layout = MDBoxLayout(orientation='vertical', spacing=10, padding=10, size_hint_y=None)
+        list_layout = MDBoxLayout(orientation='vertical', spacing=30, padding=20, size_hint_y=None)
         list_layout.bind(minimum_height=list_layout.setter('height'))
         scroll.add_widget(list_layout)
 
@@ -139,17 +159,20 @@ class AchievementScreen(MDScreen):
 
         for i in achive:
             if i["level"] <= stars:
-                each = MyBoxLayout(orientation='vertical', padding=10, spacing=10, size_hint_y=None, height=150, md_bg_color = (230/255, 255/255, 230/255, 1))
-                each.add_widget(MDLabel(text = "Completed", halign = 'center'))
+                each = MyBoxLayout(orientation='vertical', padding=10, spacing=10, size_hint_y=None, height=150, bg_color = (249/255, 235/255, 250/255, 1))
+                each.add_widget(MDLabel(text = "Completed", halign = 'right', size_hint = (1, 0.05), theme_text_color="Custom", text_color=(0/255, 70/255, 165/255, 1), bold = True))
             else:
-                 each = MyBoxLayout(orientation='vertical', padding=10, spacing=10, size_hint_y=None, height=150, md_bg_color = (211/255, 211/255, 211/255, 1))
-            ab = MDLabel(text=i["name"], markup = True, halign='left')
+                 each = MyBoxLayout(orientation='vertical', padding=10, spacing=10, size_hint_y=None, height=125, bg_color = (1, 1, 1, 1))
+            ab = MDLabel(text=i["name"],  halign='left', theme_text_color="Custom", text_color=(27/255, 32/255, 66/255, 1), bold = True)
             ab.font_size = '20sp'
             each.add_widget(ab)
-            each.add_widget(MDLabel(text=f"Streak: {i['streak']}+", halign='center'))
-            each.add_widget(MDLabel(text=f"Level: {i['level']}", halign='right'))
+            small_achive = MDBoxLayout(orientation = 'horizontal', spacing = 20, padding = 10)
+            small_achive.add_widget(MDLabel(text=f"Streak: {i['streak']}+", halign='center',  theme_text_color="Custom", text_color=(27/255, 32/255, 66/255, 1)))
+            small_achive.add_widget(MDLabel(text=f"Level: {i['level']}", halign='right',  theme_text_color="Custom", text_color=(27/255, 32/255, 66/255, 1)))
+            
+            each.add_widget(small_achive)
             list_layout.add_widget(each)
-
+            
         infor_2.add_widget(scroll)
         row_2.add_widget(infor_2)
 
