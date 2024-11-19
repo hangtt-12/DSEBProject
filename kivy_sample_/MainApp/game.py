@@ -139,7 +139,6 @@ class MyApp(App):
         theme_color = hex_to_rgb("#F6F4FF")
         Window.clearcolor = (*theme_color, 1)
         
-        
         # Tạo layout chính cho ứng dụng
         self.layout = FloatLayout()
         
