@@ -12,7 +12,8 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.scrollview import ScrollView
 from kivy.clock import Clock
 from kivy.uix.image import Image
-
+import json
+import os
 
 # Hàm chuyển mã màu từ hex sang RGB
 # Hàm chuyển mã màu từ hex sang RGB
@@ -22,6 +23,38 @@ def hex_to_rgb(hex_color):
     g = int(hex_color[2:4], 16) / 255.0
     b = int(hex_color[4:6], 16) / 255.0
     return (r, g, b)
+
+###############################
+def save_game_state():
+    global correct_guesses_count, treasure_count, level, current_word
+    game_state = {
+        "correct_guesses_count": correct_guesses_count,
+        "treasure_count": treasure_count,
+        "level": level,
+        "current_word": current_word
+    }
+    with open("game_state.json", "w") as file:
+        json.dump(game_state, file)
+        
+        
+        
+def load_game_state():
+    global correct_guesses_count, treasure_count, level, current_word
+    if os.path.exists("game_state.json"):
+        with open("game_state.json", "r") as file:
+            game_state = json.load(file)
+            correct_guesses_count = game_state.get("correct_guesses_count", 0)
+            treasure_count = game_state.get("treasure_count", 0)
+            level = game_state.get("level", "Beginner")
+            current_word = game_state.get("current_word", None)
+    else:
+        # Giá trị mặc định nếu file chưa tồn tại
+        correct_guesses_count = 0
+        treasure_count = 0
+        level = "Beginner"
+        generate_new_word(0)
+        
+    ######################################################################
 
 # Từ điển gợi ý
 vocab_hints = {
@@ -96,10 +129,13 @@ def define_level():
 class MyApp(App):
     def build(self):
         
+        load_game_state()  # Đọc trạng thái từ file JSON
+        generate_new_word(treasure_count)
+        # Tiếp tục các thiết lập khác
+        
         username = "Anh Ly"
         generate_new_word(0)
         
-        Window.size = (1000, 700)
         theme_color = hex_to_rgb("#F6F4FF")
         Window.clearcolor = (*theme_color, 1)
         
@@ -113,19 +149,19 @@ class MyApp(App):
         with infor_widget.canvas:
             infor_widget_color = hex_to_rgb("#FFFFFF")
             Color(*infor_widget_color)
-            RoundedRectangle(pos=(30, 400), size=(300, 250), radius=[(20, 20)] * 4)
-            RoundedRectangle(pos=(30, 400), size=(300, 250), radius=[(20, 20)] * 4)
+            RoundedRectangle(pos=(40, 400), size=(300, 250), radius=[(20, 20)] * 4)
+            RoundedRectangle(pos=(40, 400), size=(300, 250), radius=[(20, 20)] * 4)
             name_widget_color = hex_to_rgb("#998ED8")
             Color(*name_widget_color)
-            RoundedRectangle(pos=(45, 565), size=(270, 70), radius=[(20, 20)] * 4)
+            RoundedRectangle(pos=(50, 565), size=(270, 70), radius=[(20, 20)] * 4)
             level_widget_color = hex_to_rgb("#F6F4FF")
             Color(*level_widget_color)
-            RoundedRectangle(pos=(45, 505), size=(270, 50), radius=[(20, 20)] * 4)
+            RoundedRectangle(pos=(50, 505), size=(270, 50), radius=[(20, 20)] * 4)
             hint_widget_color = hex_to_rgb("#F6F4FF")
             Color(*hint_widget_color)
-            RoundedRectangle(pos=(45, 445), size=(270, 50), radius=[(20, 20)] * 4)
+            RoundedRectangle(pos=(50, 445), size=(270, 50), radius=[(20, 20)] * 4)
         # Tạo widget và hình vẽ cho Guess section
-            RoundedRectangle(pos=(45, 445), size=(270, 50), radius=[(20, 20)] * 4)
+            RoundedRectangle(pos=(50, 445), size=(270, 50), radius=[(20, 20)] * 4)
         # Tạo widget và hình vẽ cho Guess section
         guess_widget = Widget()
         with guess_widget.canvas:
@@ -150,7 +186,7 @@ class MyApp(App):
             self.word_display.bind(size=self.word_display.setter('text_size'))
             self.layout.add_widget(self.word_display)
 
-            treasure_image = Image(source='image/chest.png', size_hint=(None, None), size=(250,250), pos=(775, 300))
+            treasure_image = Image(source='image/chest.png', size_hint=(None, None), size=(250,250), pos=(720, 300))
             self.layout.add_widget(treasure_image)
         
         
@@ -203,6 +239,9 @@ class MyApp(App):
                 self.word_display.text = " ".join(list(current_word))  # Hiển thị từ đầy đủ đáp án
                 generate_new_word(treasure_count)
                 Clock.schedule_once(lambda dt: self.close_guess_popup(guess_popup), 1)
+                
+                #################
+                save_game_state()
                 
             else:
                 guess_label.text = "Wrong guess! Try again."
