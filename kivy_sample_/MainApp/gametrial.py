@@ -1,36 +1,25 @@
-from kivy.app import App
+from kivy.uix.screenmanager import Screen
+from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
-from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.widget import Widget
 from kivy.graphics import Color, RoundedRectangle
 from kivy.core.window import Window
 from kivy.uix.popup import Popup
 from kivy.uix.textinput import TextInput
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.scrollview import ScrollView
-from kivy.clock import Clock
 from kivy.uix.image import Image
+from kivy.clock import Clock
 import json
 import os
 
-
-from kivy.uix.screenmanager import Screen
-from kivy.app import App
-
-
-
-# Hàm chuyển mã màu từ hex sang RGB
-# Hàm chuyển mã màu từ hex sang RGB
+# Các hàm và biến từ file game
 def hex_to_rgb(hex_color):
     hex_color = hex_color.lstrip('#')
     r = int(hex_color[0:2], 16) / 255.0
     g = int(hex_color[2:4], 16) / 255.0
     b = int(hex_color[4:6], 16) / 255.0
     return (r, g, b)
-
-###############################
 
 def save_game_state():
     global correct_guesses_count, treasure_count, level, current_word
@@ -42,9 +31,7 @@ def save_game_state():
     }
     with open("game_state.json", "w") as file:
         json.dump(game_state, file)
-        
-        
-        
+
 def load_game_state():
     global correct_guesses_count, treasure_count, level, current_word
     if os.path.exists("game_state.json"):
@@ -55,17 +42,11 @@ def load_game_state():
             level = game_state.get("level", "Beginner")
             current_word = game_state.get("current_word", None)
     else:
-        # Giá trị mặc định nếu file chưa tồn tại
         correct_guesses_count = 0
         treasure_count = 0
         level = "Beginner"
         generate_new_word(0)
-        
-    ######################################################################
 
-
-
-# Từ điển gợi ý
 vocab_hints = {
     "apple": ["Hint 1: It is a fruit.", "Hint 2: It is red or green.", "Hint 3: Keeps the doctor away."],
     "house": ["Hint 1: You live in it.", "Hint 2: It has windows and doors.", "Hint 3: You need keys to enter."],
@@ -74,12 +55,12 @@ vocab_hints = {
     "telescope": ["Hint 1: It is used for viewing distant objects.", "Hint 2: It can be found in observatories.", "Hint 3: It helps in studying stars."],
     "pyramid": ["Hint 1: It is a structure in Egypt.", "Hint 2: It has a square base.", "Hint 3: It was built as a tomb."],
 }
+
 current_word = None
 current_hints = None
 treasure_count = 0
 correct_guesses_count = 0
 level = "Beginner"
-next_word_index = 1
 
 def generate_new_word(order):
     global current_word, current_hints, treasure_count
@@ -88,7 +69,7 @@ def generate_new_word(order):
 
 def define_level():
     global level
-    if 0< correct_guesses_count <= 2:
+    if 0 < correct_guesses_count <= 2:
         level = "Beginner"
     elif correct_guesses_count <= 4:
         level = "Intermediate"
@@ -100,21 +81,19 @@ def define_level():
         level = "Megamind"
     return level
 
-class MyApp(App):
-    def build(self):
+class GamesScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.layout = self.build_ui()
+        self.add_widget(self.layout)
         
-        load_game_state()  # Đọc trạng thái từ file JSON
+    def build_ui(self):
+        
+        load_game_state()
         generate_new_word(treasure_count)
-        # Tiếp tục các thiết lập khác
-        
         username = "Anh Ly"
-        generate_new_word(0)
-        
         theme_color = hex_to_rgb("#F6F4FF")
         Window.clearcolor = (*theme_color, 1)
-        
-        
-        # Tạo layout chính cho ứng dụng
         self.layout = FloatLayout()
         
         # Widget chứa thông tin
@@ -266,7 +245,5 @@ class MyApp(App):
 
         hints_popup.content = hints_layout
         hints_popup.open()
-
-# Chạy ứng dụng
-if __name__ == '__main__':
-    MyApp().run()  
+        
+        

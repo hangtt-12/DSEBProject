@@ -30,6 +30,9 @@ from kivymd.uix.button import MDIconButton
 from kivymd.uix.fitimage import FitImage
 from kivy.uix.widget import Widget
 
+from gametrial import GamesScreen
+
+
 # Window.size = (350, 600)
 
 # Registering the custom font with absolute path
@@ -81,8 +84,8 @@ class StatisticsScreen(Screen):
         '''Called when switching tabs.'''
         pass  # You can add specific behavior here if needed
 
-class GamesScreen(Screen):
-    pass
+#class GamesScreen(Screen):
+    #pass
 
 class AccountScreen(Screen):
     pass
@@ -156,6 +159,17 @@ class MainApp(MDApp):
         main_screen.ids.screen_manager.current = 'statistics1'
         # Close the navigation drawer
         main_screen.ids.nav_drawer.set_state("closed")
+        
+    def go_to_game(self):
+        # Lấy màn hình hiện tại (giả sử thanh nav_drawer nằm trong 'mainscreen')
+        main_screen = self.root.get_screen('mainscreen')
+
+        # Đóng thanh Navigation Drawer
+        main_screen.ids.nav_drawer.set_state("closed")
+
+        # Sau khi đóng thanh bar, chuyển sang màn hình 'games'
+        main_screen.ids.screen_manager.current = 'games'
+
 
 if __name__ == "__main__":
     MainApp().run()
