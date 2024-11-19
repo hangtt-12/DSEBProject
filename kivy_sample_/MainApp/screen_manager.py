@@ -136,9 +136,6 @@ ScreenManager:
                             MDLabel:
                                 theme_text_color: "Custom"
                                 text_color: "white"
-                    MDLabel:
-                        text: "To-Do List Screen"
-                        halign: "center"  
                 NotesScreen:
                     name: 'notes'
                     MDScreen:  # Add an MDScreen here 

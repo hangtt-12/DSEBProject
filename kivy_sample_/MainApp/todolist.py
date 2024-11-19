@@ -6,6 +6,7 @@ from kivymd.uix.textfield import (
     MDTextField,
     MDTextFieldHintText,
 )
+import os
 from kivymd.uix.scrollview import ScrollView
 import json
 from kivy.uix.button import Button
@@ -26,8 +27,13 @@ class MyBoxLayout(MDBoxLayout):
         self.rect.pos = self.pos
         self.rect.size = self.size
 
-class MyApp(MDApp):
-    def build(self):
+class ToDoListScreen(MDScreen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.name = 'todolist'
+        self.add_widget(self.setup_ui())
+
+    def setup_ui(self):
         screen = MDScreen()
         screen.md_bg_color = (246/255, 244/255, 255/255, 1)
 
@@ -319,7 +325,3 @@ class MyApp(MDApp):
                 json.dump(tasks, file, indent=4) 
         except FileNotFoundError: 
             pass
-
-
-if __name__ == "__main__":
-    MyApp().run()

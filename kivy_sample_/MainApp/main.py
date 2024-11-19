@@ -22,6 +22,7 @@ from kivy.animation import Animation
 
 from achievement_screen import AchievementScreen
 from statistics_screen import StatisticsScreen1
+from todolist import ToDoListScreen
 
 from kivy.properties import StringProperty, ColorProperty
 from kivymd.uix.boxlayout import MDBoxLayout
@@ -67,9 +68,6 @@ class HomeScreen(Screen):
     pass
 
 class CountDownScreen(Screen):
-    pass
-
-class ToDoListScreen(Screen):
     pass
 
 class NotesScreen(Screen):
@@ -169,6 +167,16 @@ class MainApp(MDApp):
 
         # Sau khi đóng thanh bar, chuyển sang màn hình 'games'
         main_screen.ids.screen_manager.current = 'games'
+
+    def go_to_todolist(self):
+        # Lấy màn hình hiện tại (giả sử thanh nav_drawer nằm trong 'mainscreen')
+        main_screen = self.root.get_screen('mainscreen')
+
+        # Đóng thanh Navigation Drawer
+        main_screen.ids.nav_drawer.set_state("closed")
+
+        # Sau khi đóng thanh bar, chuyển sang màn hình 'games'
+        main_screen.ids.screen_manager.current = 'todolist'
 
 
 if __name__ == "__main__":
