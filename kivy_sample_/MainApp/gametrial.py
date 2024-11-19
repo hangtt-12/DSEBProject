@@ -84,131 +84,166 @@ def define_level():
 class GamesScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.layout = None  # Định nghĩa layout
-        self.build()  # Gọi hàm để xây dựng giao diện
-
-    def build(self):
-        # Khởi tạo trạng thái game
+        self.layout = self.build_ui()
+        self.add_widget(self.layout)
+        
+    def build_ui(self):
+        
         load_game_state()
         generate_new_word(treasure_count)
-
-        # Thiết lập màu nền
+        username = "Anh Ly"
         theme_color = hex_to_rgb("#F6F4FF")
         Window.clearcolor = (*theme_color, 1)
-
-        # Tạo layout chính
         self.layout = FloatLayout()
-
+        
         # Widget chứa thông tin
-        info_widget = Widget()
-        with info_widget.canvas:
-            # Widget hiển thị thông tin người chơi
-            Color(*hex_to_rgb("#FFFFFF"))
+        # Widget chứa thông tin
+        infor_widget = Widget()
+        with infor_widget.canvas:
+            infor_widget_color = hex_to_rgb("#FFFFFF")
+            Color(*infor_widget_color)
             RoundedRectangle(pos=(40, 400), size=(300, 250), radius=[(20, 20)] * 4)
-            Color(*hex_to_rgb("#998ED8"))
+            RoundedRectangle(pos=(40, 400), size=(300, 250), radius=[(20, 20)] * 4)
+            name_widget_color = hex_to_rgb("#998ED8")
+            Color(*name_widget_color)
             RoundedRectangle(pos=(50, 565), size=(270, 70), radius=[(20, 20)] * 4)
+            level_widget_color = hex_to_rgb("#F6F4FF")
+            Color(*level_widget_color)
+            RoundedRectangle(pos=(50, 505), size=(270, 50), radius=[(20, 20)] * 4)
+            hint_widget_color = hex_to_rgb("#F6F4FF")
+            Color(*hint_widget_color)
+            RoundedRectangle(pos=(50, 445), size=(270, 50), radius=[(20, 20)] * 4)
+        # Tạo widget và hình vẽ cho Guess section
+            RoundedRectangle(pos=(50, 445), size=(270, 50), radius=[(20, 20)] * 4)
+        # Tạo widget và hình vẽ cho Guess section
+        guess_widget = Widget()
+        with guess_widget.canvas:
+            guess_widget_color = hex_to_rgb("#FFFFFF")
+            Color(*guess_widget_color)
+            RoundedRectangle(pos=(475, 150), size=(450, 250), radius=[(20, 20), (20, 20), (20, 20), (20, 20)])
+            
+        # Label for "TREASURE:"
+            treasure_label = Label(
+            text="TREASURE:", font_size=24, color=(0, 0, 0, 1),
+            size_hint=(None, None), size=(400, 50), pos=(400, 340),
+            #halign='left', valign='middle'
+            )
+            treasure_label.bind(size=treasure_label.setter('text_size'))  # Make text centered within the label
+            self.layout.add_widget(treasure_label)
+            
+            self.word_display = Label(
+            text=" ".join("_" * len(current_word)), font_size=40, color=(0, 0, 0, 1),
+            size_hint=(None, None), size=(400, 50), pos=(485, 250),  # Adjust 'pos' to be below "TREASURE:"
+            halign='center', valign='middle'
+            )
+            self.word_display.bind(size=self.word_display.setter('text_size'))
+            self.layout.add_widget(self.word_display)
 
-        self.layout.add_widget(info_widget)
+            treasure_image = Image(source='image/chest.png', size_hint=(None, None), size=(250,250), pos=(720, 300))
+            self.layout.add_widget(treasure_image)
+        
+        
+        # # Nhãn thông tin
+        self.username = Label(text=f'{username}', font_size=20, color=(1, 1, 1, 1), size_hint=(None, None), size=(270, 70), pos=(45, 565))
+        self.level_label = Label(text=f"Level: {level}", font_size=20, color=(0, 0, 0, 1), size_hint=(None, None), size=(270, 50), pos=(45, 505))
+        self.collected_label = Label(text=f"Collected: {correct_guesses_count}", font_size=20,color=(0, 0, 0, 1), size_hint=(None, None), size=(270, 70), pos=(45, 435))
+        # Nút bấm
+        button1 = Button(text="Guess now", font_size=24, size_hint=(None, None), size=(200, 40), pos=(500, 100))
+        button1.bind(on_press=self.show_guess_popup)
+        button1.bind(on_press=self.show_guess_popup)
 
-        # Label cho thông tin người chơi
-        self.username = Label(
-            text="Player 1", font_size=20, color=(1, 1, 1, 1), size_hint=(None, None),
-            size=(270, 70), pos=(55, 565)
-        )
-        self.level_label = Label(
-            text=f"Level: {level}", font_size=20, color=(0, 0, 0, 1), size_hint=(None, None),
-            size=(270, 50), pos=(55, 505)
-        )
-        self.collected_label = Label(
-            text=f"Collected: {correct_guesses_count}", font_size=20, color=(0, 0, 0, 1), size_hint=(None, None),
-            size=(270, 70), pos=(55, 445)
-        )
+        button2 = Button(text="Your hints", font_size=24, size_hint=(None, None), size=(200, 40), pos=(700, 100))
+        button2.bind(on_press=self.show_hints)
+
+        # Thêm các widget vào layout
+        self.layout.add_widget(infor_widget)
         self.layout.add_widget(self.username)
         self.layout.add_widget(self.level_label)
         self.layout.add_widget(self.collected_label)
-
-        # Widget Guess
-        guess_widget = Widget()
-        with guess_widget.canvas:
-            Color(*hex_to_rgb("#FFFFFF"))
-            RoundedRectangle(pos=(475, 150), size=(450, 250), radius=[(20, 20)] * 4)
-
         self.layout.add_widget(guess_widget)
+        self.layout.add_widget(button1)
+        self.layout.add_widget(button2)
 
-        # Label Guess
-        self.word_display = Label(
-            text=" ".join("_" * len(current_word)), font_size=40, color=(0, 0, 0, 1),
-            size_hint=(None, None), size=(400, 50), pos=(485, 250)
-        )
-        self.layout.add_widget(self.word_display)
+        return self.layout
 
-        # Nút "Guess now"
-        guess_button = Button(
-            text="Guess now", font_size=24, size_hint=(None, None), size=(200, 40),
-            pos=(500, 100)
-        )
-        guess_button.bind(on_press=self.show_guess_popup)
-        self.layout.add_widget(guess_button)
-
-        # Nút "Your hints"
-        hints_button = Button(
-            text="Your hints", font_size=24, size_hint=(None, None), size=(200, 40),
-            pos=(700, 100)
-        )
-        hints_button.bind(on_press=self.show_hints_popup)
-        self.layout.add_widget(hints_button)
-
-        # Thêm hình ảnh kho báu
-        treasure_image = Image(source='image/chest.png', size_hint=(None, None), size=(250,250), pos=(720, 300))
-        self.layout.add_widget(treasure_image)
-
-        self.add_widget(self.layout)
-
+    # Hàm hiển thị Popup cho Guess now
     def show_guess_popup(self, instance):
-        # Hàm hiển thị popup khi người chơi đoán
-        popup = Popup(title="Guess the word", size_hint=(None, None), size=(400, 200))
-        layout = BoxLayout(orientation='vertical')
+        guess_popup = Popup(title="Make a Guess", size_hint=(None, None), size=(400, 200))
+        guess_layout = BoxLayout(orientation='vertical')
 
-        guess_input = TextInput(size_hint=(None, None), size=(300, 40))
-        layout.add_widget(guess_input)
+        guess_label = Label(text="Enter your guess:", font_size=16)
+        guess_layout.add_widget(guess_label)
 
-        def submit_guess(instance):
-            global correct_guesses_count, current_word
-            if guess_input.text.strip().lower() == current_word:
-                self.word_display.text = " ".join(current_word)
+        guess_input = TextInput(font_size=16, size_hint=(None, None), size=(370, 40))
+        guess_layout.add_widget(guess_input)
+
+        def check_guess(instance):
+            global correct_guesses_count, treasure_count, level
+            user_guess = guess_input.text.strip().lower()
+
+            if user_guess == current_word:
+                guess_label.text = "[b][color=#32CD32]Correct answer![/color][/b]"
+                guess_label.markup = True
+                
                 correct_guesses_count += 1
+                treasure_count += 1
                 self.level_label.text = f"Level: {define_level()}"
                 self.collected_label.text = f"Collected: {correct_guesses_count}"
-                generate_new_word(correct_guesses_count)
+                self.word_display.text = " ".join(list(current_word))  # Hiển thị từ đầy đủ đáp án
+                generate_new_word(treasure_count)
+                Clock.schedule_once(lambda dt: self.close_guess_popup(guess_popup), 1)
+                
+                #################
                 save_game_state()
+                
             else:
-                self.word_display.text = "Try again!"
+                guess_label.text = "Wrong guess! Try again."
+            
+        submit_button = Button(text="Submit Guess", font_size=18)
+        submit_button.bind(on_press=check_guess)
+        guess_layout.add_widget(submit_button)
 
-            popup.dismiss()
+        guess_popup.content = guess_layout
+        guess_popup.open()
+        
+    def close_guess_popup(self, guess_popup):
+        # Đóng popup
+        guess_popup.dismiss()
 
-        submit_button = Button(text="Submit", size_hint=(None, None), size=(100, 40))
-        submit_button.bind(on_press=submit_guess)
-        layout.add_widget(submit_button)
+        # Cập nhật lại từ hiển thị dưới dạng dấu gạch dưới cho từ mới
+        self.word_display.text = " ".join("_" * len(current_word))
 
-        popup.content = layout
-        popup.open()
 
-    def show_hints_popup(self, instance):
-        # Hiển thị gợi ý
-        popup = Popup(title="Hints", size_hint=(None, None), size=(400, 300))
-        layout = BoxLayout(orientation='vertical')
+    def show_hints(self, instance):
+        global current_word, current_hints, treasure_count
 
-        hints_label = Label(
-            text="\n".join(current_hints), font_size=18, color=(0, 0, 0, 1), size_hint=(None, None), size=(350, 200)
-        )
-        layout.add_widget(hints_label)
+        # Tạo cửa sổ pop-up hiển thị gợi ý
+        hints_popup = Popup(title="Your Hints", size_hint=(None, None), size=(400, 300))
+        hints_layout = BoxLayout(orientation='vertical')
 
-        close_button = Button(text="Close", size_hint=(None, None), size=(100, 40))
-        close_button.bind(on_press=lambda x: popup.dismiss())
-        layout.add_widget(close_button)
+        hint_index = 0  # Theo dõi gợi ý hiện tại
 
-        popup.content = layout
-        popup.open()
+        def show_next_hint(instance):
+            nonlocal hint_index
+            if hint_index < len(current_hints):
+                hint_label.text = current_hints[hint_index]
+                hint_index += 1
+            else:
+                hint_label.text = "No more hints!"
+                next_button.disabled = True
 
-    def on_leave(self):
-        save_game_state()
+        hint_label = Label(text=current_hints[hint_index], font_size=16)
+        hints_layout.add_widget(hint_label)
+
+        next_button = Button(text="Next Hint", font_size=18, size_hint=(None, None), size=(100, 40), pos=(100, 50))
+        next_button.bind(on_press=show_next_hint)
+        hints_layout.add_widget(next_button)
+
+        close_button = Button(text="Close", font_size=18, size_hint=(None, None), size=(100, 40), pos=(500, 50))
+        close_button.bind(on_press=hints_popup.dismiss)
+        hints_layout.add_widget(close_button)
+
+        hints_popup.content = hints_layout
+        hints_popup.open()
+        
+        
