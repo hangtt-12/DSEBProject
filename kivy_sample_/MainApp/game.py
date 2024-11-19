@@ -100,11 +100,10 @@ class MyApp(App):
         
         username = "Anh Ly"
         generate_new_word(0)
-        
         Window.size = (900,600)
+        
         theme_color = hex_to_rgb("#F6F4FF")
         Window.clearcolor = (*theme_color, 1)
-        
         
         # Tạo layout chính cho ứng dụng
         self.layout = FloatLayout()
