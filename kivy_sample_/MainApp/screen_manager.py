@@ -86,7 +86,7 @@ ScreenManager:
                         text: "Welcome to Home Screen"
                         halign: "center"
                 CountDownScreen:
-                    name: 'countdownscreen'
+                    name: 'countdowmscreen'
                     MDScreen:  # Add an MDScreen here 
                     MDBoxLayout:  # Header is now part of the screen content
                         orientation: "vertical"
@@ -110,7 +110,7 @@ ScreenManager:
                                 theme_text_color: "Custom"
                                 text_color: "white"
                     MDLabel:
-                        text: "Countdown Screen"
+                        text: ""
                         halign: "center"
                 ToDoListScreen:   
                     name: 'todolist'
