@@ -69,11 +69,7 @@ class HomeScreen(Screen):
 
 class CountDownScreen(Screen):
     pass
-class PomodoroApp(App):
-    def build(self):
-        sm = ScreenManager()
-        sm.add_widget(CountDownScreen(name='countdown'))
-        return sm
+
 class ToDoListScreen(Screen):
     pass
 
