@@ -15,6 +15,7 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.navigationdrawer import (
     MDNavigationDrawerItem, MDNavigationDrawerItemTrailingText
 )
+from clock import CountDownScreen
 from kivymd.uix.screenmanager import MDScreenManager
 from kivy.uix.screenmanager import FadeTransition, SlideTransition
 from kivymd.uix.transition import MDFadeSlideTransition, MDSharedAxisTransition, MDSwapTransition, MDSlideTransition
