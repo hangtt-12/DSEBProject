@@ -261,3 +261,6 @@ class MyApp(App):
 # Chạy ứng dụng
 if __name__ == '__main__':
     MyApp().run()  
+    
+
+#123
