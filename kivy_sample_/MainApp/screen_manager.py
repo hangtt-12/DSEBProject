@@ -226,9 +226,7 @@ ScreenManager:
                             MDLabel:
                                 theme_text_color: "Custom"
                                 text_color: "white"
-                    MDLabel:
-                        text: "Games Screen"
-                        halign: "center"
+                    
                 AccountScreen:
                     name: 'account'
                     MDScreen:  # Add an MDScreen here 

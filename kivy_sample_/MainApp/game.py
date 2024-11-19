@@ -15,6 +15,12 @@ from kivy.uix.image import Image
 import json
 import os
 
+
+from kivy.uix.screenmanager import Screen
+from kivy.app import App
+
+
+
 # Hàm chuyển mã màu từ hex sang RGB
 # Hàm chuyển mã màu từ hex sang RGB
 def hex_to_rgb(hex_color):
@@ -25,6 +31,7 @@ def hex_to_rgb(hex_color):
     return (r, g, b)
 
 ###############################
+
 def save_game_state():
     global correct_guesses_count, treasure_count, level, current_word
     game_state = {
@@ -56,40 +63,7 @@ def load_game_state():
         
     ######################################################################
 
-# Từ điển gợi ý
-vocab_hints = {
-    "apple": ["Hint 1: It is a fruit.", "Hint 2: It is red or green.", "Hint 3: Keeps the doctor away."],
-    "house": ["Hint 1: You live in it.", "Hint 2: It has windows and doors.", "Hint 3: You need keys to enter."],
-    "river": ["Hint 1: It flows.", "Hint 2: Water is essential.", "Hint 3: It's a geographical feature."],
-    "octopus": ["Hint 1: It is a sea creature.", "Hint 2: It has eight arms.", "Hint 3: It can change color."],
-    "telescope": ["Hint 1: It is used for viewing distant objects.", "Hint 2: It can be found in observatories.", "Hint 3: It helps in studying stars."],
-    "pyramid": ["Hint 1: It is a structure in Egypt.", "Hint 2: It has a square base.", "Hint 3: It was built as a tomb."],
-}
-current_word = None
-current_hints = None
-treasure_count = 0
-correct_guesses_count = 0
-level = "Beginner"
-next_word_index = 1
 
-def generate_new_word(order):
-    global current_word, current_hints, treasure_count
-    current_word = list(vocab_hints.keys())[treasure_count]
-    current_hints = list(vocab_hints[current_word])
-
-def define_level():
-    global level
-    if 0< correct_guesses_count <= 2:
-        level = "Beginner"
-    elif correct_guesses_count <= 4:
-        level = "Intermediate"
-    elif correct_guesses_count <= 6:
-        level = "Advanced"
-    elif correct_guesses_count <= 8:
-        level = "Legendary"
-    else:
-        level = "Megamind"
-    return level
 
 # Từ điển gợi ý
 vocab_hints = {
