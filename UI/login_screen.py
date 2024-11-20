@@ -153,7 +153,6 @@ class PasswordField(MDTextField):
                 self.password = not self.password
         return super().on_touch_down(touch)
     
-current_user_infor= User(None,None,None)
 class LoginScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -197,7 +196,8 @@ class LoginScreen(Screen):
 
         # Check user credentials
         if self.user_manager.login_user(username, password):
-
+            app = MDApp.get_running_app()
+            app.current_user = self.user_manager.get_current_user()  # Store in MDApp
             dialog = MDDialog(
                 MDDialogContentContainer(
                     MDLabel(
@@ -252,7 +252,6 @@ class LoginScreen(Screen):
     def dismiss_dialog_and_switch(self, dialog):
         dialog.dismiss()
         self.manager.current = 'mainscreen'
-        self.manager.get_screen('mainscreen').set_current_user(self.user_manager.get_current_user())
 
     def on_pre_enter(self):
         self.user_manager = UserManager(JSON_FILE_PATH)

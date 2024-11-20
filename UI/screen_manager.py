@@ -339,7 +339,9 @@ ScreenManager:
                     DrawerItem:
                         icon: "logout"
                         text: "Log out"
-                        on_release: root.manager.current = 'login'
+                        on_release: 
+                            root.manager.current = 'login'
+                            app.on_logout()
 
 """
 

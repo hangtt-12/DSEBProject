@@ -1,8 +1,10 @@
+import json
+import os
 from kivy.core.text import LabelBase
 from kivymd.app import MDApp
 from kivy.lang import Builder 
 from kivy.core.window import Window
-from kivy.properties import ListProperty
+from kivy.properties import ListProperty, ObjectProperty
 from kivy.uix.button import Button
 from kivymd.uix.button import MDButton, MDFabButton, MDButtonText
 from kivymd.uix.button import MDExtendedFabButtonText
@@ -26,8 +28,8 @@ from UI.notes_screen import NotesScreen,KV
 from UI.clock import CountDownScreen
 from UI.gametrial import GamesScreen
 from UI.screen_manager import Screen_Manager
-from UI.login_screen import LoginScreen, JSON_FILE_PATH  # Import từ login_screen.py
-from UI.signup_screen import SignUpScreen # Import từ signup_screen.py
+from UI.login_screen import LoginScreen, JSON_FILE_PATH
+from UI.signup_screen import SignUpScreen
 from UI.homescreen import HomeScreen
 from kivy_sample_.encrypt.user_manager import UserManager, User
 
@@ -38,45 +40,17 @@ from kivymd.uix.button import MDIconButton
 from kivymd.uix.fitimage import FitImage
 from kivy.uix.widget import Widget
 
-
 # Window.size = (350, 600)
 # Các màn hình khác
 class MainScreen(MDScreen):
-    def __init__(self, **kwargs):
-        """
-        Initialize the MainScreen class.
-
-        This method is automatically called when the MainScreen class is instantiated.
-        It calls the super class's __init__ method and then sets up a ScreenManager
-        with a FadeTransition and adds it to the MainScreen widget.
-
-        Parameters:
-            **kwargs: A dictionary of keyword arguments from the parent class.
-
-        Returns:
-            None
-        """
-        super().__init__(**kwargs)
-
-    def set_current_user(self, user):
-        self.current_user = user
-        self.update_user_info()
-
-    def update_user_info(self):
-        if hasattr(self, 'ids') and 'user_full_name' in self.ids:
-            if self.current_user and hasattr(self.current_user, 'full_name'):
-                self.ids.user_full_name.text = f"Welcome, {self.current_user.full_name}!"
-                print(self.current_user.full_name)
-            else:
-                self.ids.user_full_name.text = "Welcome, Guest!"
-                print("No current user")
-        
     def on_enter(self):
         Window.size = (900, 600)
-
-class CountDownScreen(Screen):
-    pass
-
+        app = MDApp.get_running_app()
+        if app.current_user:
+            print(f"Current user in MainScreen: {app.current_user.username}")
+            # Use app.current_user.full_name, app.current_user.other_attribute, etc.
+        else:
+            print("No user logged in. Redirecting to login...") # Informative message!
 class StatisticsScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -129,17 +103,16 @@ class DrawerItem(MDNavigationDrawerItem):
 class MainApp(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.user_manager = UserManager(JSON_FILE_PATH)
-    btn_color = ListProperty((177/255, 35/255, 65/255, 1))
+        self.current_user = None  # Initialize as None
+        self.user_manager = UserManager(JSON_FILE_PATH)  # Initialize UserManager
+        self.reset_user = None
 
     def build(self):
         # Load the main screen manager KV string
         Builder.load_string(Screen_Manager)
         Builder.load_string(KV)
-        
         # Khởi tạo ScreenManager và thêm các màn hình vào
         sm = MDScreenManager(transition=MDSlideTransition(duration=0.3))
-
 
         sm.add_widget(LoginScreen(name='login'))
         sm.add_widget(SignUpScreen(name='signup'))
@@ -157,7 +130,10 @@ class MainApp(MDApp):
 
         # Return the ScreenManager instance
         return sm
-    
+
+    def on_logout(self):  # Call clear_home_screen ONLY on logout
+        self.reset_user=User.reset_all_status(JSON_FILE_PATH)
+        self.root.current = "login"
     def add_card(self):
         # Get the NotesScreen instance correctly
         main_screen = self.root.get_screen('mainscreen') #gets the MainScreen instance from root widget
@@ -194,7 +170,6 @@ class MainApp(MDApp):
     def go_to_home(self):
         # Lấy màn hình hiện tại (giả sử thanh nav_drawer nằm trong 'mainscreen')
         main_screen = self.root.get_screen('mainscreen')
-        current_user = self.user_manager.get_current_user()
         # Sau khi đóng thanh bar, chuyển sang màn hình 'games'
         main_screen.ids.screen_manager.current = 'homescreen'
 

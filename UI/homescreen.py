@@ -7,7 +7,9 @@ from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.uix.button import MDButton
 import json
 from kivymd.uix.scrollview import ScrollView
+from kivy.properties import ListProperty, ObjectProperty
 import random
+from kivy.clock import Clock
 
 from kivy_sample_.encrypt.user_manager import UserManager, User
 class MyBoxLayout(MDBoxLayout):
@@ -27,10 +29,23 @@ class MyBoxLayout(MDBoxLayout):
         self.rect.size = self.size
 
 class HomeScreen(MDScreen):
+    current_user = ObjectProperty(None, allownone=True)
+    title_label = ObjectProperty(None)  # Add this property to track the title label
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.name = "homescreen"
+        self.name = "homescreen"  # Important for screen management
         self.add_widget(self.build())
+
+    def on_enter(self):
+        app = MDApp.get_running_app()
+        self.current_user = app.current_user
+        if hasattr(self, 'title_label'):  # Check if title_label exists
+            if self.current_user:
+                self.title_label.text = f"Welcome back, {self.current_user.full_name}"
+            else:
+                self.title_label.text = "Welcome back"
+        
     def build(self):
         
         screen = MDScreen()
@@ -62,8 +77,15 @@ class HomeScreen(MDScreen):
 
         main_layout = MDBoxLayout(orientation="vertical", padding=20, spacing=10)
 
-        title = MDLabel(text = "WELCOME BACK USER !", halign='center', size_hint_y=0.08, bold = True, theme_text_color="Custom", text_color=(27/255, 32/255, 66/255, 1))
-        title.font_size = '20sp'
+        self.title_label = MDLabel(
+            text="...",
+            halign="center",
+            size_hint_y=0.08,
+            bold=True,
+            theme_text_color="Custom",
+            text_color=(27/255, 32/255, 66/255, 1)
+        )
+        self.title_label.font_size = '20sp'
 
         quote_layout = MDBoxLayout(orientation="vertical", padding=(0,0,0,0), spacing=0, size_hint=(1,0), height=50)
 
@@ -91,7 +113,7 @@ class HomeScreen(MDScreen):
         quote_layout.add_widget(daily_reminder2)
 
         header_layout = MDBoxLayout(orientation="horizontal", size_hint_y=None, height=80)
-        header_layout.add_widget(title)
+        header_layout.add_widget(self.title_label)
         # header_layout.add_widget(quote_layout)
 
         # layout chứa 2 ô note vs current streak

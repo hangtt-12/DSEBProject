@@ -2,61 +2,184 @@
     {
         "full_name": "quan nguyen",
         "username": "quanninja",
-        "password": "59d16c866843cd6e7a01f3ebe4e6f30d"
+        "password": "59d16c866843cd6e7a01f3ebe4e6f30d",
+        "status": false,
+        "notes": [],
+        "todo_list_done": [],
+        "todo_list_undone": [],
+        "achievements": []
     },
     {
         "full_name": "quan ngu",
         "username": "1",
-        "password": "c4ca4238a0b923820dcc509a6f75849b"
+        "password": "c4ca4238a0b923820dcc509a6f75849b",
+        "status": true,
+        "notes": [],
+        "todo_list_done": [
+            {
+                "Subject": "1",
+                "Task": "1",
+                "Deadline": "1"
+            },
+            {
+                "Subject": "code1",
+                "Task": "hw4",
+                "Deadline": "29/11/2013"
+            },
+            {
+                "Subject": "1",
+                "Task": "1",
+                "Deadline": "1"
+            },
+            {
+                "Subject": "1",
+                "Task": "1",
+                "Deadline": "1"
+            },
+            {
+                "Subject": "2",
+                "Task": "2",
+                "Deadline": "2"
+            },
+            {
+                "Subject": "3",
+                "Task": "3",
+                "Deadline": "4"
+            }
+        ],
+        "todo_list_undone": [],
+        "achievements": []
     },
     {
         "full_name": "0",
         "username": "0",
-        "password": "cfcd208495d565ef66e7dff9f98764da"
+        "password": "cfcd208495d565ef66e7dff9f98764da",
+        "status": false,
+        "notes": [],
+        "todo_list_done": [],
+        "todo_list_undone": [],
+        "achievements": []
     },
     {
         "full_name": "g",
         "username": "g",
-        "password": "b2f5ff47436671b6e533d8dc3614845d"
+        "password": "b2f5ff47436671b6e533d8dc3614845d",
+        "status": false,
+        "notes": [],
+        "todo_list_done": [],
+        "todo_list_undone": [],
+        "achievements": []
     },
     {
         "full_name": "Vu",
         "username": "Vu",
-        "password": "62df92d13b533a1f013fd19a17fd7d2c"
-    },
-    {
-        "full_name": "p",
-        "username": "p",
-        "password": "p"
-    },
-    {
-        "full_name": "bui khanh",
-        "username": "b",
-        "password": "b"
-    },
-    {
-        "full_name": "m",
-        "username": "m",
-        "password": "m"
+        "password": "62df92d13b533a1f013fd19a17fd7d2c",
+        "status": false,
+        "notes": [],
+        "todo_list_done": [],
+        "todo_list_undone": [],
+        "achievements": []
     },
     {
         "full_name": "bui",
         "username": "bui",
-        "password": "f8cdbb97841cea138715d7636d1eb76a"
+        "password": "f8cdbb97841cea138715d7636d1eb76a",
+        "status": false,
+        "notes": [],
+        "todo_list_done": [],
+        "todo_list_undone": [],
+        "achievements": []
     },
     {
         "full_name": "o",
         "username": "o",
-        "password": "d95679752134a2d9eb61dbd7b91c4bcc"
+        "password": "d95679752134a2d9eb61dbd7b91c4bcc",
+        "status": false,
+        "notes": [],
+        "todo_list_done": [],
+        "todo_list_undone": [],
+        "achievements": []
     },
     {
         "full_name": "x",
         "username": "x",
-        "password": "9dd4e461268c8034f5c8564e155c67a6"
+        "password": "9dd4e461268c8034f5c8564e155c67a6",
+        "status": false,
+        "notes": [],
+        "todo_list_done": [],
+        "todo_list_undone": [],
+        "achievements": []
     },
     {
         "full_name": "qu\u00e2n nguy\u1ec5n",
         "username": "k",
-        "password": "8ce4b16b22b58894aa86c421e8759df3"
+        "password": "8ce4b16b22b58894aa86c421e8759df3",
+        "status": false,
+        "notes": [],
+        "todo_list_done": [],
+        "todo_list_undone": [],
+        "achievements": []
+    },
+    {
+        "full_name": "z",
+        "username": "z",
+        "password": "fbade9e36a3f36d3d676c1b808451dd7",
+        "status": false,
+        "notes": [],
+        "todo_list_done": [],
+        "todo_list_undone": [],
+        "achievements": []
+    },
+    {
+        "full_name": "Vu",
+        "username": "v",
+        "password": "9e3669d19b675bd57058fd4664205d2a",
+        "status": true,
+        "notes": [],
+        "todo_list_done": [
+            {
+                "Subject": "toan",
+                "Task": "bai tap",
+                "Deadline": "13/12/2020"
+            }
+        ],
+        "todo_list_undone": [
+            {
+                "Subject": "code 2",
+                "Task": "hw4",
+                "Deadline": "13"
+            }
+        ],
+        "achievements": []
+    },
+    {
+        "full_name": "t",
+        "username": "t",
+        "password": "e358efa489f58062f10dd7316b65649e",
+        "status": false,
+        "notes": [],
+        "todo_list_done": [],
+        "todo_list_undone": [],
+        "achievements": []
+    },
+    {
+        "full_name": "r",
+        "username": "r",
+        "password": "4b43b0aee35624cd95b910189b3dc231",
+        "status": false,
+        "notes": [],
+        "todo_list_done": [],
+        "todo_list_undone": [],
+        "achievements": []
+    },
+    {
+        "full_name": "s",
+        "username": "s",
+        "password": "03c7c0ace395d80182db07ae2c30f034",
+        "status": false,
+        "notes": [],
+        "todo_list_done": [],
+        "todo_list_undone": [],
+        "achievements": []
     }
 ]
