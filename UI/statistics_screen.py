@@ -223,19 +223,19 @@ class StatsScreen(MDScreen):
         root_layout.md_bg_color = (1, 1, 1, 1)
 
         headerbox = MDBoxLayout(orientation='vertical', size_hint_y=0.15)
-        header = MDLabel(text="STATISTICS", halign='center', bold = True)
-        header.font_size = "42sp"
+        header = MDLabel(text="STATISTICS", halign='center', bold = True, text_color=(27/255, 32/255, 66/255, 1))
+        header.font_size = "40sp"
         headerbox.add_widget(header)
         root_layout.add_widget(headerbox)
 
         content_layout = MDGridLayout(cols=2, spacing=10, size_hint_x=0.9, pos_hint={"center_x": 0.5})
 
-        left_layout = MDBoxLayout(orientation="vertical", spacing=10, size_hint=(0.5, 1))
+        left_layout = MDBoxLayout(orientation="vertical", spacing=10, size_hint=(0.5, 1), md_bg_color = (246/255, 244/255, 255/255, 1))
         image_card = MDCard(
             orientation="vertical",
             padding=20,
             radius=[20, 20, 20, 20],
-            md_bg_color=[0.5, 0.8, 1, 1],
+            md_bg_color = (246/255, 244/255, 255/255, 1),
         )
         float_layout1 = MDFloatLayout(size_hint=(1, 1))
         
@@ -252,8 +252,9 @@ class StatsScreen(MDScreen):
             text="YOUR STATS",
             halign="left",
             valign="top",
-            pos_hint={"x": 0, "y": 0.9},  # Positioned at top-left
-            theme_text_color="Primary",
+            pos_hint={"x": 0, "y": 0.85},  # Positioned at top-left
+            theme_text_color="Custom",
+            text_color=(27/255, 32/255, 66/255, 1),
             font_size="18sp",
             bold=True,
             size_hint=(None, None),  # Prevent stretching
@@ -270,7 +271,7 @@ class StatsScreen(MDScreen):
             pos_hint={"center_x": 0.48, "center_y": 0.32},
             theme_text_color="Custom",
             font_style="Display",
-            text_color=(1, 0, 0, 1),
+            text_color=(27/255, 32/255, 66/255, 1),
             bold=True,
         )
         float_layout1.add_widget(self.imglabel)
@@ -281,7 +282,7 @@ class StatsScreen(MDScreen):
             valign="middle",
             pos_hint={"center_x": 0.5, "center_y": 0.17},
             theme_text_color="Custom",
-            text_color=(0, 0, 0, 1),
+            text_color=(27/255, 32/255, 66/255, 1),
             font_size="18sp",
             bold=True,
         )
@@ -293,7 +294,7 @@ class StatsScreen(MDScreen):
             orientation="vertical",
             padding=20,
             radius=[20, 20, 20, 20],
-            md_bg_color=[0.8, 0.8, 1, 1],  # Light purple background
+            md_bg_color = (246/255, 244/255, 255/255, 1),  # Light purple background
         )
 
         # Add "Max Streak" row
@@ -301,7 +302,8 @@ class StatsScreen(MDScreen):
         max_streak_title = MDLabel(
             text="Highest Streak:",
             halign="left",
-            theme_text_color="Primary",
+            theme_text_color="Custom",
+            text_color=(27/255, 32/255, 66/255, 1),
             font_size="16sp",
             bold=True,
             size_hint_x = 0.6
@@ -309,8 +311,10 @@ class StatsScreen(MDScreen):
         self.max_streak_label = MDLabel(
             text=self.max_streak,
             halign="left",
-            theme_text_color="Secondary",
+            theme_text_color="Custom",
+            text_color=(27/255, 32/255, 66/255, 1),
             font_size="16sp",
+            bold = True, 
             size_hint_x = 0.3
         )
         max_streak_layout.add_widget(max_streak_title)
@@ -321,7 +325,8 @@ class StatsScreen(MDScreen):
         total_completes_title = MDLabel(
             text="Total Completed Runs:",
             halign="left",
-            theme_text_color="Primary",
+            theme_text_color="Custom",
+            text_color=(27/255, 32/255, 66/255, 1),
             font_size="16sp",
             bold=True,
             size_hint_x = 0.6
@@ -329,9 +334,11 @@ class StatsScreen(MDScreen):
         self.total_completes_label = MDLabel(
             text=self.total_completes,
             halign="left",
-            theme_text_color="Secondary",
+            theme_text_color="Custom",
+            text_color=(27/255, 32/255, 66/255, 1),
             font_size="16sp",
-            size_hint_x = 0.3
+            size_hint_x = 0.3,
+            bold = True
         )
         total_completes_layout.add_widget(total_completes_title)
         total_completes_layout.add_widget(self.total_completes_label)
@@ -341,7 +348,8 @@ class StatsScreen(MDScreen):
         total_elements_title = MDLabel(
             text="Total Runs:",
             halign="left",
-            theme_text_color="Primary",
+            theme_text_color="Custom",
+            text_color=(27/255, 32/255, 66/255, 1),
             font_size="16sp",
             bold=True,
             size_hint_x = 0.6
@@ -349,8 +357,10 @@ class StatsScreen(MDScreen):
         self.total_elements_label = MDLabel(
             text=self.total_elements,
             halign="left",
-            theme_text_color="Secondary",
+            theme_text_color="Custom",
+            text_color=(27/255, 32/255, 66/255, 1),
             font_size="16sp",
+            bold = True,
             size_hint_x = 0.3
         )
         total_elements_layout.add_widget(total_elements_title)
@@ -370,15 +380,16 @@ class StatsScreen(MDScreen):
         right_card = MDCard(
             size_hint=(0.5, 1),
             radius=[20, 20, 20, 20],
-            md_bg_color=[0.6, 1, 0.6, 1],  # Light green
+            md_bg_color= (246/255, 244/255, 255/255, 1)
         )
         float_layout2 = MDFloatLayout()
         self.percentage_label = MDLabel(
             text="PERCENTAGE OF COMPLETION",
             halign="left",
             valign="top",
-            pos_hint={"x": 0.05, "y": 0.925},  # Positioned at top-left
-            theme_text_color="Primary",
+            pos_hint={"x": 0.05, "y": 0.9},  # Positioned at top-left
+            theme_text_color="Custom",
+            text_color=(27/255, 32/255, 66/255, 1),
             font_size="18sp",
             bold=True,
             size_hint=(None, None),  # Prevent stretching
@@ -498,12 +509,6 @@ class StreakAnalyzer:
             else 0
         )
 
-    def get_aggregate_results(self):
-        return {
-            "overall_current_streak": self.current_streak,
-            "overall_max_streak": self.max_streak,
-            "probability": self.probability,
-        }
 
 
 class MyApp(MDScreen):
