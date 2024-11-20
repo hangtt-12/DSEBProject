@@ -25,7 +25,7 @@ class MyBoxLayout(MDBoxLayout):
         self.rect.pos = self.pos
         self.rect.size = self.size
 class Compute_and_display:
-    path = r"json_files/data.json"
+    path = r"login_history.json"
     #add another path for facts.json
     path2 = r"json_files\\facts.json"
     def __init__(self, file_name=path):
@@ -48,7 +48,10 @@ class Compute_and_display:
 
     def countt_streak(self, file_name):
         with open(file_name, 'r', encoding="utf-8") as f:
-            data = json.load(f)
+            raw = json.load(f)
+        data = []
+        for key, value in raw.items(): 
+            data.append(value)
         self.current_streak = 0
         for sublist in data:
             current_length = 0

@@ -62,6 +62,7 @@ class UserManager:
         for user in users:
             if user.username == username and user.password == encrypt_passw(password):
                 self.current_user = user
+                print(f"Current user: {self.current_user.full_name if self.current_user else None}")
                 return True
         return False
 

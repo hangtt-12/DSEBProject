@@ -152,10 +152,12 @@ class PasswordField(MDTextField):
             if touch.is_double_tap:
                 self.password = not self.password
         return super().on_touch_down(touch)
+    
+current_user_infor= User(None,None,None)
 class LoginScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.user_manager = None
+        self.user_manager = UserManager(JSON_FILE_PATH)
     def build(self):
         return Builder.load_string(login_screen_kv)
     
