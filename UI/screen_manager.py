@@ -86,7 +86,7 @@ ScreenManager:
                         text: "Welcome to Home Screen"
                         halign: "center"
                 CountDownScreen:
-                    name: 'countdowmscreen'
+                    name: 'countdownscreen'
                     MDScreen:  # Add an MDScreen here 
                     MDBoxLayout:  # Header is now part of the screen content
                         orientation: "vertical"
