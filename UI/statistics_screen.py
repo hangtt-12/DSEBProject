@@ -212,9 +212,9 @@ class CircularProgressBar(Widget):
 
 class StatsScreen(MDScreen):
     current_streak_num = NumericProperty(0)
-    max_streak = StringProperty("Highest Streak: 0")
-    total_completes = StringProperty("Total Completes: 0")
-    total_elements = StringProperty("Total Elements: 0")
+    max_streak = StringProperty("0")
+    total_completes = StringProperty("0")
+    total_elements = StringProperty("0")
     probability = NumericProperty(0)
 
     def __init__(self, **kwargs):
