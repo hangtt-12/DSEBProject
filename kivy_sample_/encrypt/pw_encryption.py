@@ -69,5 +69,17 @@ class MD5:
         msg = self.pad(msg)
         processed_msg = self.process_message(msg)
         return self.md_to_hex(processed_msg)
-def main():
-    pass
+    
+import uuid
+md5=MD5()
+# String to convert
+input_string = "quan nguyen"
+# Hash the string and create a UUID
+hashed = md5.calculate(input_string)
+new_uuid = uuid.UUID(hashed[:32])  # Take the first 32 characters
+print(f"Generated UUID from string: {new_uuid}")
+input_string2 = "quan nguyen"
+# Hash the string and create a UUID
+hashed2 = md5.calculate(input_string2)
+new_uuid2 = uuid.UUID(hashed2[:32])  # Take the first 32 characters
+print(f"Generated UUID from string: {new_uuid2}")

@@ -51,7 +51,7 @@ class StatisticsScreen1(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.screen_manager = MDScreenManager()
-        self.screen_manager.add_widget(BaseScreen(name="statistics1", image_size="800"))
+        self.screen_manager.add_widget(StatsScreen(name="statistics1"))
         self.screen_manager.add_widget(AchievementScreen(name="achievement"))
         
         layout = MDBoxLayout(
@@ -84,7 +84,7 @@ class StatisticsScreen1(MDScreen):
     def build(self):
         return MDBoxLayout(
             MDScreenManager(
-                BaseScreen(
+                StatsScreen(
                     name="statistics1",
                     image_size="800",
                 ),
@@ -110,7 +110,7 @@ class StatisticsScreen1(MDScreen):
         )
 
 
-LOGIN_HISTORY_FILE = r"C:\Users\Admin\login_history.json"
+LOGIN_HISTORY_FILE = r"login_history.json"
 
 
 def load_login_history(file_path):
@@ -218,6 +218,7 @@ class StatsScreen(MDScreen):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.name="statistics1"
         root_layout = MDBoxLayout(orientation="horizontal", spacing=20, padding=20)
         root_layout.md_bg_color = (1, 1, 1, 1)
         left_layout = MDBoxLayout(orientation="vertical", spacing=10, size_hint=(0.5, 1))
@@ -239,7 +240,7 @@ class StatsScreen(MDScreen):
         float_layout1.add_widget(self.image)
 
         self.stats_label = MDLabel(
-            text="YOUR STATS",
+            text= " ",
             halign="left",
             valign="top",
             pos_hint={"x": 0, "y": 0.9},  # Positioned at top-left
@@ -495,7 +496,7 @@ class StreakAnalyzer:
         }
 
 
-class MyApp(MDApp):
+class MyApp(MDScreen):
     def build(self):
         screen = StatsScreen()
         login_history = load_login_history(LOGIN_HISTORY_FILE)
@@ -505,6 +506,3 @@ class MyApp(MDApp):
         screen.update_stats(analyzer)
         save_login_history(LOGIN_HISTORY_FILE, login_history)
         return screen
-    
-if __name__ == "__main__":
-    MyApp().run()

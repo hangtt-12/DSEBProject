@@ -8,14 +8,12 @@ from kivymd.uix.button import MDButton, MDFabButton, MDButtonText
 from kivymd.uix.button import MDExtendedFabButtonText
 from kivymd.uix.screenmanager import ScreenManager
 from kivymd.uix.screen import Screen, MDScreen
-from UI.screen_manager import Screen_Manager
-from UI.login_screen import LoginScreen  # Import từ login_screen.py
-from UI.signup_screen import SignUpScreen  # Import từ signup_screen.py
+
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.navigationdrawer import (
     MDNavigationDrawerItem, MDNavigationDrawerItemTrailingText
 )
-from UI.clock import CountDownScreen
+
 from kivymd.uix.screenmanager import MDScreenManager
 from kivy.uix.screenmanager import FadeTransition, SlideTransition
 from kivymd.uix.transition import MDFadeSlideTransition, MDSharedAxisTransition, MDSwapTransition, MDSlideTransition
@@ -25,7 +23,12 @@ from UI.achievement_screen import AchievementScreen
 from UI.statistics_screen import StatisticsScreen1
 from UI.todolist import ToDoListScreen
 from UI.notes_screen import NotesScreen,KV
+from UI.clock import CountDownScreen
 from UI.gametrial import GamesScreen
+from UI.screen_manager import Screen_Manager
+from UI.login_screen import LoginScreen  # Import từ login_screen.py
+from UI.signup_screen import SignUpScreen  # Import từ signup_screen.py
+from kivy_sample_.encrypt.user_manager import user_manager
 
 from kivy.properties import StringProperty, ColorProperty
 from kivymd.uix.boxlayout import MDBoxLayout

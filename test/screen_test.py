@@ -1,45 +1,11 @@
-from kivy.lang import Builder
+import uuid
+import hashlib
+from kivy_sample_.encrypt.pw_encryption import MD5
+md5=MD5()
+# String to convert
+input_string = "example_string"
 
-from kivymd.app import MDApp
-
-from kivymd.uix.textfield import (
-    MDTextField,
-    MDTextFieldLeadingIcon,
-    MDTextFieldHintText,
-    MDTextFieldHelperText,
-    MDTextFieldTrailingIcon,
-    MDTextFieldMaxLengthText,
-)
-
-KV = '''
-MDScreen:
-    md_bg_color: app.theme_cls.backgroundColor
-
-    MDTextField:
-        mode: "outlined"
-        size_hint_x: None
-        width: "240dp"
-        pos_hint: {"center_x": .5, "center_y": .5}
-
-        MDTextFieldLeadingIcon:
-            icon: "account"
-
-        MDTextFieldHintText:
-            text: "Username"
-
-        MDTextFieldHelperText:
-            text: "Helper text"
-            mode: "persistent"
-
-        MDTextFieldMaxLengthText:
-            max_text_length: 10
-'''
-
-
-class Example(MDApp):
-    def build(self):
-        self.theme_cls.primary_palette = "Olive"
-        return Builder.load_string(KV)
-
-
-Example().run()
+# Hash the string and create a UUID
+hashed = md5.encrypt(input_string)
+new_uuid = uuid.UUID(hashed[:32])  # Take the first 32 characters
+print(f"Generated UUID from string: {new_uuid}")
