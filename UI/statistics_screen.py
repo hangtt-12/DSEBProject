@@ -267,7 +267,7 @@ class StatsScreen(MDScreen):
             size_hint=(None, None),
             halign="center",
             valign="middle",
-            pos_hint={"center_x": 0.5, "center_y": 0.3},
+            pos_hint={"center_x": 0.48, "center_y": 0.32},
             theme_text_color="Custom",
             font_style="Display",
             text_color=(1, 0, 0, 1),
