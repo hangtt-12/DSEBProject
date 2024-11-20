@@ -239,7 +239,7 @@ class StatsScreen(MDScreen):
         float_layout1 = MDFloatLayout(size_hint=(1, 1))
         
         self.image = Image(
-            source=r"C:\Users\Admin\Pictures\lửa chùa.png",
+            source=r"image\lửa chùa.png",
             allow_stretch=True,
             keep_ratio=True,
             size_hint=(0.7, 0.7),
