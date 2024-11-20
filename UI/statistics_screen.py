@@ -254,7 +254,7 @@ class StatsScreen(MDScreen):
             valign="top",
             pos_hint={"x": 0, "y": 0.9},  # Positioned at top-left
             theme_text_color="Custom",
-            text_color=(27/255, 32/255, 66/255, 1)
+            text_color=(27/255, 32/255, 66/255, 1),
             font_size="18sp",
             bold=True,
             size_hint=(None, None),  # Prevent stretching
@@ -303,7 +303,7 @@ class StatsScreen(MDScreen):
             text="Highest Streak:",
             halign="left",
             theme_text_color="Custom",
-            text_color=(27/255, 32/255, 66/255, 1)
+            text_color=(27/255, 32/255, 66/255, 1),
             font_size="16sp",
             bold=True,
             size_hint_x = 0.6
@@ -312,7 +312,7 @@ class StatsScreen(MDScreen):
             text=self.max_streak,
             halign="left",
             theme_text_color="Custom",
-            text_color=(27/255, 32/255, 66/255, 1)
+            text_color=(27/255, 32/255, 66/255, 1),
             font_size="16sp",
             size_hint_x = 0.3
         )
@@ -325,7 +325,7 @@ class StatsScreen(MDScreen):
             text="Total Completed Runs:",
             halign="left",
             theme_text_color="Custom",
-            text_color=(27/255, 32/255, 66/255, 1)
+            text_color=(27/255, 32/255, 66/255, 1),
             font_size="16sp",
             bold=True,
             size_hint_x = 0.6
@@ -334,9 +334,9 @@ class StatsScreen(MDScreen):
             text=self.total_completes,
             halign="left",
             theme_text_color="Custom",
-            text_color=(27/255, 32/255, 66/255, 1)
+            text_color=(27/255, 32/255, 66/255, 1),
             font_size="16sp",
-            size_hint_x = 0.3
+            size_hint_x = 0.3,
             bold = True
         )
         total_completes_layout.add_widget(total_completes_title)
@@ -348,7 +348,7 @@ class StatsScreen(MDScreen):
             text="Total Runs:",
             halign="left",
             theme_text_color="Custom",
-            text_color=(27/255, 32/255, 66/255, 1)
+            text_color=(27/255, 32/255, 66/255, 1),
             font_size="16sp",
             bold=True,
             size_hint_x = 0.6
@@ -357,7 +357,7 @@ class StatsScreen(MDScreen):
             text=self.total_elements,
             halign="left",
             theme_text_color="Custom",
-            text_color=(27/255, 32/255, 66/255, 1)
+            text_color=(27/255, 32/255, 66/255, 1),
             font_size="16sp",
             size_hint_x = 0.3
         )
@@ -387,7 +387,7 @@ class StatsScreen(MDScreen):
             valign="top",
             pos_hint={"x": 0.05, "y": 0.925},  # Positioned at top-left
             theme_text_color="Custom",
-            text_color=(27/255, 32/255, 66/255, 1)
+            text_color=(27/255, 32/255, 66/255, 1),
             font_size="18sp",
             bold=True,
             size_hint=(None, None),  # Prevent stretching
