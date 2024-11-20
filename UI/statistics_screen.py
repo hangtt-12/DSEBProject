@@ -218,9 +218,17 @@ class StatsScreen(MDScreen):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.name="statistics1"
-        root_layout = MDBoxLayout(orientation="horizontal", spacing=20, padding=20)
+        root_layout = MDBoxLayout(orientation="vertical", spacing=10, padding=20)
         root_layout.md_bg_color = (1, 1, 1, 1)
+
+        headerbox = MDBoxLayout(orientation='vertical', size_hint_y=0.15)
+        header = MDLabel(text="STATISTICS", halign='center', bold = True)
+        header.font_size = "42sp"
+        headerbox.add_widget(header)
+        root_layout.add_widget(headerbox)
+
+        content_layout = MDGridLayout(cols=2, spacing=10, size_hint_x=0.9, pos_hint={"center_x": 0.5})
+
         left_layout = MDBoxLayout(orientation="vertical", spacing=10, size_hint=(0.5, 1))
         image_card = MDCard(
             orientation="vertical",
@@ -240,7 +248,7 @@ class StatsScreen(MDScreen):
         float_layout1.add_widget(self.image)
 
         self.stats_label = MDLabel(
-            text= " ",
+            text="YOUR STATS",
             halign="left",
             valign="top",
             pos_hint={"x": 0, "y": 0.9},  # Positioned at top-left
@@ -355,7 +363,7 @@ class StatsScreen(MDScreen):
         # Add labels_card to the left layout
         left_layout.add_widget(image_card)
         left_layout.add_widget(labels_card)
-        root_layout.add_widget(left_layout)
+        content_layout.add_widget(left_layout)
 
         # Add the right card with the circular progress bar
         right_card = MDCard(
@@ -417,7 +425,7 @@ class StatsScreen(MDScreen):
             pos_hint={"center_x": 0.9, "center_y": 0.2},  # Position under the progress bar
         )
         fail_box = RectangularBox(
-            color=(0.7, 0.7, 0.7, 0.3),  # White
+            color=(0.27, 0.32, 0.66, 0.3),  # White
             size=(20, 20),  # Rectangle dimensions
             pos_hint = {'x':0.58, 'y':0.5}
         )
@@ -430,14 +438,15 @@ class StatsScreen(MDScreen):
             valign="middle",
             pos_hint = {'x':0.62, 'y':0.29},
             theme_text_color="Custom",
-            text_color=(0.5, 0, 0.9, 1),  # Purple
+            text_color=(0.1, 0.1, 0.3, 1),
             font_size="14sp",
             bold=True,
         )
         fail_layout.add_widget(fail_label)
         float_layout2.add_widget(fail_layout)
         right_card.add_widget(float_layout2)
-        root_layout.add_widget(right_card)
+        content_layout.add_widget(right_card)
+        root_layout.add_widget(content_layout)
         self.add_widget(root_layout)
 
     def update_stats(self, analyzer):
