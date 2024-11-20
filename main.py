@@ -8,22 +8,24 @@ from kivymd.uix.button import MDButton, MDFabButton, MDButtonText
 from kivymd.uix.button import MDExtendedFabButtonText
 from kivymd.uix.screenmanager import ScreenManager
 from kivymd.uix.screen import Screen, MDScreen
-from screen_manager import Screen_Manager
-from login_screen import LoginScreen  # Import từ login_screen.py
-from signup_screen import SignUpScreen  # Import từ signup_screen.py
+from kivy_sample_.MainApp.screen_manager import Screen_Manager
+from kivy_sample_.MainApp.login_screen import LoginScreen  # Import từ login_screen.py
+from kivy_sample_.MainApp.signup_screen import SignUpScreen  # Import từ signup_screen.py
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.navigationdrawer import (
     MDNavigationDrawerItem, MDNavigationDrawerItemTrailingText
 )
-from clock import CountDownScreen
+from kivy_sample_.MainApp.clock import CountDownScreen
 from kivymd.uix.screenmanager import MDScreenManager
 from kivy.uix.screenmanager import FadeTransition, SlideTransition
 from kivymd.uix.transition import MDFadeSlideTransition, MDSharedAxisTransition, MDSwapTransition, MDSlideTransition
 from kivy.animation import Animation
 
-from achievement_screen import AchievementScreen
-from statistics_screen import StatisticsScreen1
-from todolist import ToDoListScreen
+from kivy_sample_.MainApp.achievement_screen import AchievementScreen
+from kivy_sample_.MainApp.statistics_screen import StatisticsScreen1
+from kivy_sample_.MainApp.todolist import ToDoListScreen
+from kivy_sample_.MainApp.notes_screen import NotesScreen,KV
+from kivy_sample_.MainApp.gametrial import GamesScreen
 
 from kivy.properties import StringProperty, ColorProperty
 from kivymd.uix.boxlayout import MDBoxLayout
@@ -32,17 +34,10 @@ from kivymd.uix.button import MDIconButton
 from kivymd.uix.fitimage import FitImage
 from kivy.uix.widget import Widget
 
-from gametrial import GamesScreen
+
 
 
 # Window.size = (350, 600)
-
-# Registering the custom font with absolute path
-LabelBase.register(
-    name="Tahoma Regular font",
-    fn_regular="kivy_sample_/fonts/Tahoma_Regular_font.ttf",
-    fn_bold="kivy_sample_/fonts/Tahoma_Regular_font.ttf"
-)
 
 # Các màn hình khác
 class MainScreen(MDScreen):
@@ -69,9 +64,6 @@ class HomeScreen(Screen):
     pass
 
 class CountDownScreen(Screen):
-    pass
-
-class NotesScreen(Screen):
     pass
 
 class StatisticsScreen(Screen):
@@ -129,6 +121,7 @@ class MainApp(MDApp):
     def build(self):
         # Load the main screen manager KV string
         Builder.load_string(Screen_Manager)
+        Builder.load_string(KV)
         
         # Khởi tạo ScreenManager và thêm các màn hình vào
         sm = MDScreenManager(transition=MDSlideTransition(duration=0.3))
@@ -151,20 +144,29 @@ class MainApp(MDApp):
         # Return the ScreenManager instance
         return sm
     
+    def add_card(self):
+        # Get the NotesScreen instance correctly
+        main_screen = self.root.get_screen('mainscreen') #gets the MainScreen instance from root widget
+        notes_screen = main_screen.ids.screen_manager.get_screen('notes')
+        # Call add_card on the NotesScreen instance
+        if notes_screen:  # Make sure it exists
+            notes_screen.add_card()
+        else:
+            print("Error: NotesScreen not found")
+    def go_to_notes(self):
+        main_screen = self.root.get_screen('mainscreen')
+        main_screen.ids.screen_manager.current = 'notes'
+
     def go_to_achievement(self): 
         self.root.current = 'achievement'
     def go_to_statistics(self):
         main_screen = self.root.get_screen('mainscreen')
         main_screen.ids.screen_manager.current = 'statistics1'
         # Close the navigation drawer
-        main_screen.ids.nav_drawer.set_state("closed")
         
     def go_to_game(self):
         # Lấy màn hình hiện tại (giả sử thanh nav_drawer nằm trong 'mainscreen')
         main_screen = self.root.get_screen('mainscreen')
-
-        # Đóng thanh Navigation Drawer
-        main_screen.ids.nav_drawer.set_state("closed")
 
         # Sau khi đóng thanh bar, chuyển sang màn hình 'games'
         main_screen.ids.screen_manager.current = 'games'
@@ -172,9 +174,6 @@ class MainApp(MDApp):
     def go_to_todolist(self):
         # Lấy màn hình hiện tại (giả sử thanh nav_drawer nằm trong 'mainscreen')
         main_screen = self.root.get_screen('mainscreen')
-
-        # Đóng thanh Navigation Drawer
-        main_screen.ids.nav_drawer.set_state("closed")
 
         # Sau khi đóng thanh bar, chuyển sang màn hình 'games'
         main_screen.ids.screen_manager.current = 'todolist'

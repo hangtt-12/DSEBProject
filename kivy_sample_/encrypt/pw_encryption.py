@@ -71,5 +71,3 @@ class MD5:
         return self.md_to_hex(processed_msg)
 def main():
     pass
-
-#qwertyui

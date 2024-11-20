@@ -1,3 +1,6 @@
+import json
+import os
+
 from kivy.uix.screenmanager import Screen
 from kivy.core.window import Window
 from kivy.lang import Builder
@@ -21,8 +24,25 @@ from kivymd.uix.list import (
     MDListItemLeadingIcon,
     MDListItemSupportingText,
 )
+from kivymd.uix.dialog import (
+    MDDialog,
+    MDDialogHeadlineText,
+    MDDialogSupportingText,
+    MDDialogButtonContainer,
+)
 from kivymd.uix.textfield import MDTextField
 from kivymd.uix.label import MDLabel
+
+from kivy_sample_.MainApp.login_screen import PasswordField
+from kivy_sample_.encrypt.pw_encryption import MD5
+md5=MD5()
+def encrypt_passw(password):
+    return md5.calculate(password)
+
+
+
+# Define the path to the JSON file
+JSON_FILE_PATH = 'users.json'
 
 # KV code for SignUpScreen
 signup_screen_kv = """
@@ -52,18 +72,17 @@ signup_screen_kv = """
                     size: self.size
                     pos: self.pos
                     radius: [8]
-            TextInput:
-                hint_text: "Full Name"
-                size_hint: 1, None
-                pos_hint: {"center_x": .5, "center_y":.5}
-                height: self.minimum_height
-                multiline: False
-                hint_text_color: rgba(168,168,168,255)
-                background_color: 0,0,0,0
-                padding: 18
-                font_name: "Tahoma Regular font"
-                font_size : "16sp"
-                cursor_color: 0, 0, 0, 1
+            MDTextField:
+                id: full_name
+                mode: "outlined"
+                pos_hint: {"center_x": .5, "center_y": .5}
+
+                MDTextFieldLeadingIcon:
+                    icon: "account"
+
+                MDTextFieldHintText:
+                    text: "Full name"
+                    text_color_normal: 168/255, 168/255, 168/255, 1
 
         MDFloatLayout:
             size_hint: .8, .09
@@ -75,18 +94,17 @@ signup_screen_kv = """
                     size: self.size
                     pos: self.pos
                     radius: [8]
-            TextInput:
-                hint_text: "Email"
-                size_hint: 1, None
-                pos_hint: {"center_x": .5, "center_y":.5}
-                height: self.minimum_height
-                multiline: False
-                hint_text_color: rgba(168,168,168,255)
-                background_color: 0,0,0,0
-                padding: 18
-                font_name: "Tahoma Regular font"
-                font_size : "16sp"
-                cursor_color: 0, 0, 0, 1
+            MDTextField:
+                id: username
+                mode: "outlined"
+                pos_hint: {"center_x": .5, "center_y": .5}
+
+                MDTextFieldLeadingIcon:
+                    icon: "acount"
+
+                MDTextFieldHintText:
+                    text: "Username"
+                    text_color_normal: 168/255, 168/255, 168/255, 1
 
         MDFloatLayout:
             size_hint: .8, .09
@@ -98,19 +116,17 @@ signup_screen_kv = """
                     size: self.size
                     pos: self.pos
                     radius: [8]
-            TextInput:
-                hint_text: "Password"
-                size_hint: 1, None
-                pos_hint: {"center_x": .5, "center_y":.5}
-                height: self.minimum_height
-                multiline: False
-                password: False
-                hint_text_color: rgba(168,168,168,255)
-                background_color: 0,0,0,0
-                padding: 18
-                font_name: "Tahoma Regular font"
-                font_size : "16sp"
-                cursor_color: 0, 0, 0, 1
+            PasswordField:
+                id: password
+                mode: "outlined"
+                pos_hint: {"center_x": .5, "center_y": .5}
+
+                MDTextFieldLeadingIcon:
+                    icon: "lock"
+
+                MDTextFieldHintText:
+                    text: "Password"
+                    text_color_normal: 168/255, 168/255, 168/255, 1
         
         MDButton:
             style: "filled"
@@ -149,39 +165,80 @@ Builder.load_string(signup_screen_kv)
 class SignUpScreen(Screen):
     def build(self):
         return Builder.load_string(signup_screen_kv)
+    
     def on_enter(self):
         Window.size = (350, 600)
 
     def show_alert_dialog(self):
+        full_name = self.ids.full_name.text
+        username = self.ids.username.text
+        password = self.ids.password.text
+
+        if not full_name or not username or not password:
+            dialog = MDDialog(
+                MDDialogHeadlineText(text="Error"),
+                MDDialogSupportingText(text="Please fill in all fields."),
+                MDDialogButtonContainer(
+                    MDButton(
+                        MDButtonText(text="OK"),
+                        style="text",
+                        on_release=lambda x: dialog.dismiss()
+                    ),
+                ),
+            )
+            dialog.open()
+            return
+
+        # Save user data to JSON file
+        self.save_user_data(full_name, username, password)
+
         dialog = MDDialog(
-            # ... (previous code remains the same)
-
-            # -----------------------Custom content------------------------
-            MDDialogContentContainer(
-                MDLabel(
-                    text="Your account has been created successfully!",
-                    pos_hint={"center_x": .5, "center_y": .5},
-                    size_hint_y=None,
-                    height=dp(36),
+                MDDialogContentContainer(
+                    MDLabel(
+                        text="Your account has been created successfully!!",
+                        pos_hint={"center_x": .5, "center_y": .5},
+                        size_hint_y=None,
+                        height=dp(36),
+                    ),
+                    orientation="vertical",
+                    spacing="12dp",
+                    padding="16dp",
                 ),
-                orientation="vertical",
-                spacing="12dp",
-                padding="16dp",
-            ),
-            # ---------------------Button container------------------------
-            MDDialogButtonContainer(
-                Widget(),
-                MDButton(
-                    MDButtonText(text="OK"),
-                    style="text",
-                    on_release=lambda x: self.dismiss_dialog_and_switch(dialog),
-
+                MDDialogButtonContainer(
+                    Widget(),
+                    MDButton(
+                        MDButtonText(text="OK"),
+                        style="text",
+                        pos_hint={"center_x": .5, "center_y": .5},
+                        on_release=lambda x: self.dismiss_dialog_and_switch(dialog)
+                    ),
+                    spacing=dp(8),
                 ),
-                spacing="8dp",
-            ),
-            # -------------------------------------------------------------
-        )
+            )
         dialog.open()
+
+    def save_user_data(self, full_name, username, password):
+        JSON_FILE_PATH = 'users.json'
+        # Create an empty list if the file doesn't exist
+        if not os.path.exists(JSON_FILE_PATH):
+            with open(JSON_FILE_PATH, 'w') as file:
+                json.dump([], file)
+        
+        # Read existing data
+        with open(JSON_FILE_PATH, 'r') as file:
+            users = json.load(file)
+
+        user_data = {
+            "full_name": full_name,
+            "username": username,
+            "password": encrypt_passw(password)
+        }
+        users.append(user_data)
+
+        with open(JSON_FILE_PATH, 'w') as file:
+            json.dump(users, file, indent=4)
+        
+        print(f"User {username} has been registered successfully!")
 
     def dismiss_dialog_and_switch(self, dialog):
         dialog.dismiss()

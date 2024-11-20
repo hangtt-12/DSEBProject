@@ -1,3 +1,5 @@
+import json
+import os
 from kivy.uix.screenmanager import Screen
 from kivy.core.window import Window
 from kivy.lang import Builder
@@ -23,6 +25,14 @@ from kivymd.uix.list import (
 )
 from kivymd.uix.textfield import MDTextField
 from kivymd.uix.label import MDLabel
+
+from kivy_sample_.encrypt.pw_encryption import MD5
+md5=MD5()
+def encrypt_passw(password):
+    return md5.calculate(password)
+
+# Define the path to the JSON file
+JSON_FILE_PATH = 'users.json'
 
 # Define the KV string for the LoginScreen
 login_screen_kv = """
@@ -55,6 +65,7 @@ login_screen_kv = """
                     pos: self.pos
                     radius: [8]
             MDTextField:
+                id: username
                 mode: "outlined"
                 pos_hint: {"center_x": .5, "center_y": .5}
 
@@ -76,6 +87,7 @@ login_screen_kv = """
                     pos: self.pos
                     radius: [8]
             PasswordField:
+                id: password
                 mode: "outlined"
                 pos_hint: {"center_x": .5, "center_y": .47}
 
@@ -85,11 +97,6 @@ login_screen_kv = """
                 MDTextFieldHintText:
                     text: "Password"
                     text_color_normal: 168/255, 168/255, 168/255, 1
-
-                MDTextFieldHelperText:
-                    text: "*At least 8 characters"
-                    mode: "persistent"
-
         
         MDButton:
             style: "filled"
@@ -97,7 +104,8 @@ login_screen_kv = """
             height: "56dp"
             size_hint_x: .8
             pos_hint: {"center_x": .5, "center_y": .25}
-            on_release: root.show_alert_dialog()
+            on_release: 
+                root.show_alert_dialog()
             padding: "10dp"
             md_bg_color: 1,1,1,1
 
@@ -151,35 +159,114 @@ class LoginScreen(Screen):
         Window.size = (350, 600)
 
     def show_alert_dialog(self):
-        dialog = MDDialog(
-            # ... (previous code remains the same)
+        username = self.ids.username.text
+        password = self.ids.password.text
 
-            # -----------------------Custom content------------------------
-            MDDialogContentContainer(
-                MDLabel(
-                    text="Sign in successfully!",
-                    pos_hint={"center_x": .5, "center_y": .5},
-                    size_hint_y=None,
-                    height=dp(36),
+        if not username or not password:
+            dialog = MDDialog(
+                MDDialogContentContainer(
+                    MDLabel(
+                        text="Please fill in all fields",
+                        pos_hint={"center_x": .5, "center_y": .5},
+                        size_hint_y=None,
+                        height=dp(36),
+                    ),
+                    orientation="vertical",
+                    spacing="12dp",
+                    padding="16dp",
                 ),
-                orientation="vertical",
-                spacing="12dp",
-                padding="16dp",
-            ),
-            # ---------------------Button container------------------------
-            MDDialogButtonContainer(
-                Widget(),
-                MDButton(
-                    MDButtonText(text="OK"),
-                    style="text",
-                    on_release=lambda x: self.dismiss_dialog_and_switch(dialog),
+                MDDialogButtonContainer(
+                    Widget(),
+                    MDButton(
+                        MDButtonText(text="OK"),
+                        style="text",
+                        pos_hint={"center_x": .5, "center_y": .5},
+                        on_release=lambda x: dialog.dismiss()
+                    ),
+                    spacing=dp(8),
+                ),
+            )
+            dialog.open()
+            return
 
+        # Check user credentials
+        if self.check_user_credentials(username, password):
+            dialog = MDDialog(
+                MDDialogContentContainer(
+                    MDLabel(
+                        text="Sign in successfully!",
+                        pos_hint={"center_x": .5, "center_y": .5},
+                        size_hint_y=None,
+                        height=dp(36),
+                    ),
+                    orientation="vertical",
+                    spacing="12dp",
+                    padding="16dp",
                 ),
-                spacing="8dp",
-            ),
-            # -------------------------------------------------------------
-        )
-        dialog.open()
+                MDDialogButtonContainer(
+                    Widget(),
+                    MDButton(
+                        MDButtonText(text="OK"),
+                        style="text",
+                        pos_hint={"center_x": .5, "center_y": .5},
+                        on_release=lambda x: self.dismiss_dialog_and_switch(dialog)
+                    ),
+                    spacing=dp(8),
+                ),
+            )
+            dialog.open()
+        else:
+            dialog = MDDialog(
+                MDDialogContentContainer(
+                    MDLabel(
+                        text="Invalid username or password!",
+                        pos_hint={"center_x": .5, "center_y": .5},
+                        size_hint_y=None,
+                        height=dp(36),
+                    ),
+                    orientation="vertical",
+                    spacing="12dp",
+                    padding="16dp",
+                ),
+                MDDialogButtonContainer(
+                    Widget(),
+                    MDButton(
+                        MDButtonText(text="OK"),
+                        pos_hint={"center_x": .5, "center_y": .5},
+                        on_release=lambda x: dialog.dismiss()
+                    ),
+                    spacing=dp(8),
+                ),
+            )
+            
+            dialog.open()
+
+    def check_user_credentials(self, username, password):
+        if not os.path.exists(JSON_FILE_PATH):
+            print("User data file not found.")
+            return False
+
+        try:
+            with open(JSON_FILE_PATH, 'r') as file:
+                users = json.load(file)
+
+            for user in users:
+                if "username" not in user or "password" not in user:
+                    print(f"Invalid user data format: {user}")
+                    continue
+                
+                if user["username"] == username and user["password"] == encrypt_passw(password):
+                    return True
+            
+            print("No matching user found.")
+            return False
+        
+        except json.JSONDecodeError:
+            print("Error decoding JSON file.")
+            return False
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+            return False
 
     def dismiss_dialog_and_switch(self, dialog):
         dialog.dismiss()

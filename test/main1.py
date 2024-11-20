@@ -59,7 +59,7 @@ char_to_value = {char: index for index, char in enumerate(chars)}
 #         encrypted += str(char_to_value[char])
 #     return encrypted
 
-from test.pw_encryption import MD5
+from kivy_sample_.encrypt.pw_encryption import MD5
 md5=MD5()
 def encrypt_passw(password):
     return md5.calculate(password)

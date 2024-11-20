@@ -1,0 +1,74 @@
+[
+    {
+        "viewclass": "NoteCard",
+        "title": "New Note 3",
+        "timestamp": "2024-11-20",
+        "content": "This is the content of New Note 3.",
+        "selected": false,
+        "height": 120
+    },
+    {
+        "viewclass": "NoteCard",
+        "title": "New Note 4",
+        "timestamp": "2024-11-20",
+        "content": "This is the content of New Note 4.",
+        "selected": false,
+        "height": 120
+    },
+    {
+        "viewclass": "NoteCard",
+        "title": "New Note 5",
+        "timestamp": "2024-11-20",
+        "content": "This is the content of New Note 5.",
+        "selected": false,
+        "height": 120
+    },
+    {
+        "viewclass": "NoteCard",
+        "title": "New Note 6",
+        "timestamp": "2024-11-20",
+        "content": "This is the content of New Note 6.",
+        "selected": false,
+        "height": 120
+    },
+    {
+        "viewclass": "NoteCard",
+        "title": "New Note 7",
+        "timestamp": "2024-11-20",
+        "content": "This is the content of New Note 7.",
+        "selected": false,
+        "height": 120
+    },
+    {
+        "viewclass": "NoteCard",
+        "title": "New Note 8",
+        "timestamp": "2024-11-20",
+        "content": "This is the content of New Note 8.",
+        "selected": false,
+        "height": 120
+    },
+    {
+        "viewclass": "NoteCard",
+        "title": "New Note 9",
+        "timestamp": "2024-11-20",
+        "content": "This is the content of New Note 9.",
+        "selected": false,
+        "height": 120
+    },
+    {
+        "viewclass": "NoteCard",
+        "title": "New Note 10",
+        "timestamp": "2024-11-20",
+        "content": "This is the content of New Note 10.",
+        "selected": false,
+        "height": 120
+    },
+    {
+        "viewclass": "NoteCard",
+        "title": "New Note 11",
+        "timestamp": "2024-11-20",
+        "content": "This is the content of New Note 11.",
+        "selected": false,
+        "height": 120
+    }
+]
