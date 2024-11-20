@@ -509,12 +509,6 @@ class StreakAnalyzer:
             else 0
         )
 
-    def get_aggregate_results(self):
-        return {
-            "overall_current_streak": self.current_streak,
-            "overall_max_streak": self.max_streak,
-            "probability": self.probability,
-        }
 
 
 class MyApp(MDScreen):
