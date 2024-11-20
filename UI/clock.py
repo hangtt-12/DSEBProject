@@ -85,7 +85,7 @@ class CountDownScreen(Screen):
                     if self.current_time >= 25 * 60 or self.total_custom_time >= 25 * 60:
                         self.increment_streak(completed=True)
                     self.session_count += 1
-                    self.update_session_status("Pomodoro", "Completed")
+                    self.update_session_status("Pomodoro", "Completed")  # Đã hoàn thành Pomodoro
                     if self.total_custom_time > 0:
                         self.switch_to_break()
                     else:
@@ -98,6 +98,8 @@ class CountDownScreen(Screen):
                         self.time_label.text = "Time's up!"
         elif self.current_time <= 0:
             self.running = False
+
+
 
 
     def start_custom_session(self, instance):
@@ -220,14 +222,21 @@ class CountDownScreen(Screen):
 
 
     def update_session_status(self, session_type, status):
-        # Update the status of each session
+        # Chỉ cập nhật trạng thái của phiên hiện tại
         session_status = f"{session_type} {self.session_count + 1} - {status}"
 
-        # Append session info to the list
-        self.sessions.append(session_status)
+        # Nếu trạng thái là "Ended", thì không cần thêm "Running" cho các phiên trước đó
+        if status == "Completed":
+            # Nếu là Pomodoro, sẽ thêm trạng thái "Ended" cho Pomodoro đã hoàn thành
+            session_status = f"{session_type} {self.session_count} - Completed"
+        
+        # Cập nhật danh sách phiên và trạng thái
+        if not self.sessions or self.sessions[-1] != session_status:
+            self.sessions.append(session_status)
 
-        # Update the history label with all sessions
+        # Cập nhật label hiển thị lịch sử phiên
         self.history_label.text = "Progress: " + ", ".join(self.sessions)
+
 
 
 class PomodoroApp(App):
