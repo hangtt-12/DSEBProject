@@ -43,15 +43,15 @@ class CountDownScreen(Screen):
         layout = BoxLayout(orientation='vertical', spacing=20, padding=50)
 
         # Title label
-        self.title_label = Label(text="Pomodoro Timer", font_size=30, color=(1, 1, 1, 1))  # White text color
+        self.title_label = Label(text="Pomodoro Timer", font_size=30, color=(0, 0, 0, 1))  # White text color
         layout.add_widget(self.title_label)
 
         # Session notification label
-        self.session_label = Label(text="", font_size=20, color=(1, 1, 1, 1))  # White text color
+        self.session_label = Label(text="", font_size=20, color=(0, 0, 0, 1))  # White text color
         layout.add_widget(self.session_label)
 
         # Time display label
-        self.time_label = Label(text="00:00", font_size=60, color=(1, 1, 1, 1))  # White text color
+        self.time_label = Label(text="00:00", font_size=60, color=(0, 0, 0, 1))  # White text color
         layout.add_widget(self.time_label)
 
         # Custom time input box
