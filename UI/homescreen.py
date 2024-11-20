@@ -59,32 +59,32 @@ class HomeScreen(MDScreen):
                   'The greater the difficulty, the more the glory in surmounting it.']
         selected_quote = random.choice(quotes)
 
-        main_layout = MDBoxLayout(orientation="vertical", padding=20, spacing=30)
+        main_layout = MDBoxLayout(orientation="vertical", padding=20, spacing=10)
 
         title = MDLabel(text = "WELCOME BACK USER !", halign='center', size_hint_y=0.08, bold = True, theme_text_color="Custom", text_color=(27/255, 32/255, 66/255, 1))
         title.font_size = '20sp'
 
-        quote_layout = MDBoxLayout(orientation="vertical", padding=(0,0,0,170), spacing=0, size_hint=(0.3,1))
+        quote_layout = MDBoxLayout(orientation="vertical", padding=(0,0,0,0), spacing=0, size_hint=(1,0), height=50)
 
         daily_reminder = MDLabel(
             text="Daily Reminder",
-            halign="right",
+            halign="center",
             theme_text_color="Hint",
-            size_hint_y=None,
+            # size_hint_y=0.1,
             bold = True,
             italic = True,
-            height=65,
+            height=30,
         )
         daily_reminder2 = MDLabel(
             text=selected_quote,
-            halign="right",
+            halign="center",
             theme_text_color="Hint",
-            size_hint_y=None,
+            # size_hint_y=0,
             italic = True,
-            height=40,
+            height=30,
         )
-        daily_reminder.font_size = '13sp'
-        daily_reminder2.font_size = '12sp'
+        daily_reminder.font_size = '12sp'
+        daily_reminder2.font_size = '11sp'
 
         quote_layout.add_widget(daily_reminder)
         quote_layout.add_widget(daily_reminder2)
@@ -94,7 +94,7 @@ class HomeScreen(MDScreen):
         # header_layout.add_widget(quote_layout)
 
         # layout chứa 2 ô note vs current streak
-        info_layout = MDGridLayout(cols=2, spacing=100, padding =(100,50,50,100), size_hint_y=None, height=400)
+        info_layout = MDGridLayout(cols=2, spacing=100, padding =(100,50,50,100), size_hint_y=None, height=300)
 
         streak_box = MyBoxLayout(bg_color=(1, 1, 1, 1))
         note_box = MyBoxLayout(bg_color=(1, 1, 1, 1))
@@ -105,7 +105,7 @@ class HomeScreen(MDScreen):
             text = "UPCOMING TASKS",
             halign='center', 
             size_hint_x = 0.4,
-            size_hint_y=0.08, 
+            size_hint_y=0.2, 
             bold = True, 
             theme_text_color="Custom", 
             text_color=(27/255, 32/255, 66/255, 1)
@@ -113,9 +113,10 @@ class HomeScreen(MDScreen):
 
         task_quote_box =MDBoxLayout(
             orientation="horizontal", 
-            spacing=10,
+            height=300,
+            padding=(70,0,70,70),
             # md_bg_color=(27/255, 32/255, 66/255, 1),
-            # size_hint_y=None,  
+            size_hint=(0.8,None),  
             )
         
         taskscroll = ScrollView()
@@ -181,12 +182,13 @@ class HomeScreen(MDScreen):
             pass
 
         task_quote_box.add_widget(taskscroll)
-        task_quote_box.add_widget(quote_layout)
+        # task_quote_box.add_widget(quote_layout)
 
 
         # thêm các phần vào layout chính
         main_layout.add_widget(header_layout)
         main_layout.add_widget(info_layout)
+        main_layout.add_widget(quote_layout)
         main_layout.add_widget(task_title)
         main_layout.add_widget(task_quote_box)
 
