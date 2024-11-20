@@ -1,64 +1,68 @@
-import json
 import os
+import json
+from kivy_sample_.encrypt.pw_encryption import MD5
+md5 = MD5()
+
+def encrypt_passw(password):
+    return md5.calculate(password)
+
+class User:
+    def __init__(self, full_name, username, password):
+        self.full_name = full_name
+        self.username = username
+        self.password = password
+
+    def to_dict(self):
+        return {
+            "full_name": self.full_name,
+            "username": self.username,
+            "password": self.password
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        return cls(data["full_name"], data["username"], data["password"])
 
 class UserManager:
-    _instance = None
+    def __init__(self, json_file_path):
+        self.json_file_path = json_file_path
+        self.current_user = None
 
-    def __new__(cls):
-        if cls._instance is None:
-            cls._instance = super(UserManager, cls).__new__(cls)
-            cls._instance.user = None
-        return cls._instance
+    def load_users(self):
+        if not os.path.exists(self.json_file_path):
+            return []
+        with open(self.json_file_path, 'r') as file:
+            users_data = json.load(file)
+        return [User.from_dict(user_data) for user_data in users_data]
 
-    def set_user(self, user):
-        self.user = user
+    def save_users(self, users):
+        users_data = [user.to_dict() for user in users]
+        with open(self.json_file_path, 'w') as file:
+            json.dump(users_data, file, indent=4)
 
-    def get_user(self):
-        return self.user
-
-    def save_user_data(self, full_name, username, password):
-        JSON_FILE_PATH = 'users.json'
-        # Create an empty list if the file doesn't exist
-        if not os.path.exists(JSON_FILE_PATH):
-            with open(JSON_FILE_PATH, 'w') as file:
-                json.dump([], file)
-        
-        # Read existing data
-        with open(JSON_FILE_PATH, 'r') as file:
-            users = json.load(file)
-
-        # Check if the username already exists
+    def check_username_exists(self, username):
+        users = self.load_users()
         for user in users:
-            if user["username"] == username:
-                return False
-
-        user_data = {
-            "full_name": full_name,
-            "username": username,
-            "password": password  # You should encrypt the password in a real application
-        }
-        users.append(user_data)
-
-        with open(JSON_FILE_PATH, 'w') as file:
-            json.dump(users, file, indent=4)
-        
-        print(f"User {username} has been registered successfully!")
-        return True
-
-    def load_user_data(self, username, password):
-        JSON_FILE_PATH = 'users.json'
-        if not os.path.exists(JSON_FILE_PATH):
-            return False
-
-        with open(JSON_FILE_PATH, 'r') as file:
-            users = json.load(file)
-
-        for user in users:
-            if user["username"] == username and user["password"] == password:
-                self.set_user(user)
+            if user.username == username:
                 return True
-
         return False
 
-# Initialize the singleton instance
-user_manager = UserManager()
+    def register_user(self, full_name, username, password):
+        if self.check_username_exists(username):
+            return False
+        new_user = User(full_name, username, password)
+        users = self.load_users()
+        users.append(new_user)
+        self.save_users(users)
+        return True
+
+    def login_user(self, username, password):
+        users = self.load_users()
+        for user in users:
+            if user.username == username and user.password == encrypt_passw(password):
+                self.current_user = user
+                return True
+        return False
+
+    def get_current_user(self):
+        return self.current_user

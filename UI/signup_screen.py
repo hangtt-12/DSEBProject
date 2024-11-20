@@ -34,6 +34,7 @@ from kivymd.uix.textfield import MDTextField
 from kivymd.uix.label import MDLabel
 
 from UI.login_screen import PasswordField
+from kivy_sample_.encrypt.user_manager import User, UserManager
 from kivy_sample_.encrypt.pw_encryption import MD5
 md5=MD5()
 def encrypt_passw(password):
@@ -200,7 +201,7 @@ class SignUpScreen(Screen):
             )
             dialog.open()
             return
-        elif self.check_username_exists(username):
+        elif self.user_manager.check_username_exists(username):
             dialog = MDDialog(
                 MDDialogContentContainer(
                     MDLabel(
@@ -227,95 +228,35 @@ class SignUpScreen(Screen):
             dialog.open()
             return
 
-        # Save user data to JSON file
-        self.save_user_data(full_name, username, password)
-
-        dialog = MDDialog(
-                MDDialogContentContainer(
-                    MDLabel(
-                        text="Your account has been created successfully!!",
-                        pos_hint={"center_x": .5, "center_y": .5},
-                        size_hint_y=None,
-                        height=dp(36),
+        if self.user_manager.register_user(full_name, username, password):
+            dialog = MDDialog(
+                    MDDialogContentContainer(
+                        MDLabel(
+                            text="Your account has been created successfully!!",
+                            pos_hint={"center_x": .5, "center_y": .5},
+                            size_hint_y=None,
+                            height=dp(36),
+                        ),
+                        orientation="vertical",
+                        spacing="12dp",
+                        padding="16dp",
                     ),
-                    orientation="vertical",
-                    spacing="12dp",
-                    padding="16dp",
-                ),
-                MDDialogButtonContainer(
-                    Widget(),
-                    MDButton(
-                        MDButtonText(text="OK"),
-                        style="text",
-                        pos_hint={"center_x": .5, "center_y": .5},
-                        on_release=lambda x: self.dismiss_dialog_and_switch(dialog)
+                    MDDialogButtonContainer(
+                        Widget(),
+                        MDButton(
+                            MDButtonText(text="OK"),
+                            style="text",
+                            pos_hint={"center_x": .5, "center_y": .5},
+                            on_release=lambda x: self.dismiss_dialog_and_switch(dialog)
+                        ),
+                        spacing=dp(8),
                     ),
-                    spacing=dp(8),
-                ),
-            )
-        dialog.open()
-
-    def check_username_exists(self, username):
-        JSON_FILE_PATH = 'users.json'
-        if not os.path.exists(JSON_FILE_PATH):
-            print("User data file not found.")
-            return False
-
-        try:
-            with open(JSON_FILE_PATH, 'r') as file:
-                users = json.load(file)
-
-            for user in users:
-                # Check if the user data has the expected structure
-                if isinstance(user, dict):
-                    # Try to get the username, use a default value if not found
-                    user_name = user.get('username') or user.get('Username') or user.get('user') or user.get('User')
-                    if user_name == username:
-                        return True
-                else:
-                    print(f"Invalid user data format: {user}")
-
-            return False
-
-        except json.JSONDecodeError:
-            print("Error decoding JSON file.")
-            return False
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
-            return False
-    def save_user_data(self, full_name, username, password):
-        JSON_FILE_PATH = 'users.json'
-        # Create an empty list if the file doesn't exist
-        if not os.path.exists(JSON_FILE_PATH):
-            with open(JSON_FILE_PATH, 'w') as file:
-                json.dump([], file)
-        
-        # Read existing data
-        with open(JSON_FILE_PATH, 'r') as file:
-            users = json.load(file)
-
-        user_data = {
-            "full_name": full_name,
-            "username": username,
-            "password": encrypt_passw(password)
-        }
-        users.append(user_data)
-
-        with open(JSON_FILE_PATH, 'w') as file:
-            json.dump(users, file, indent=4)
-        
-        print(f"User {username} has been registered successfully!")
-    
-    def get_user_full_name(self, username):
-        JSON_FILE_PATH = 'users.json'
-        if os.path.exists(JSON_FILE_PATH):
-            with open(JSON_FILE_PATH, 'r') as file:
-                users = json.load(file)
-            for user in users:
-                if user["username"] == username:
-                    return user["full_name"]
-        return None
+                )
+            dialog.open()
 
     def dismiss_dialog_and_switch(self, dialog):
         dialog.dismiss()
         self.manager.current = 'login'
+    
+    def on_pre_enter(self):
+        self.user_manager = UserManager(JSON_FILE_PATH)

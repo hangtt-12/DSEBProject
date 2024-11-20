@@ -26,6 +26,7 @@ from kivymd.uix.list import (
 from kivymd.uix.textfield import MDTextField
 from kivymd.uix.label import MDLabel
 
+from kivy_sample_.encrypt.user_manager import User, UserManager
 from kivy_sample_.encrypt.pw_encryption import MD5
 md5=MD5()
 def encrypt_passw(password):
@@ -152,6 +153,9 @@ class PasswordField(MDTextField):
                 self.password = not self.password
         return super().on_touch_down(touch)
 class LoginScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.user_manager = None
     def build(self):
         return Builder.load_string(login_screen_kv)
     
@@ -190,7 +194,8 @@ class LoginScreen(Screen):
             return
 
         # Check user credentials
-        if self.check_user_credentials(username, password):
+        if self.user_manager.login_user(username, password):
+
             dialog = MDDialog(
                 MDDialogContentContainer(
                     MDLabel(
@@ -232,6 +237,7 @@ class LoginScreen(Screen):
                     Widget(),
                     MDButton(
                         MDButtonText(text="OK"),
+                        style="text",
                         pos_hint={"center_x": .5, "center_y": .5},
                         on_release=lambda x: dialog.dismiss()
                     ),
@@ -241,33 +247,10 @@ class LoginScreen(Screen):
             
             dialog.open()
 
-    def check_user_credentials(self, username, password):
-        if not os.path.exists(JSON_FILE_PATH):
-            print("User data file not found.")
-            return False
-
-        try:
-            with open(JSON_FILE_PATH, 'r') as file:
-                users = json.load(file)
-
-            for user in users:
-                if "username" not in user or "password" not in user:
-                    print(f"Invalid user data format: {user}")
-                    continue
-                
-                if user["username"] == username and user["password"] == encrypt_passw(password):
-                    return True
-            
-            print("No matching user found.")
-            return False
-        
-        except json.JSONDecodeError:
-            print("Error decoding JSON file.")
-            return False
-        except Exception as e:
-            print(f"An error occurred: {str(e)}")
-            return False
-
     def dismiss_dialog_and_switch(self, dialog):
         dialog.dismiss()
         self.manager.current = 'mainscreen'
+        self.manager.get_screen('mainscreen').set_current_user(self.user_manager.get_current_user())
+
+    def on_pre_enter(self):
+        self.user_manager = UserManager(JSON_FILE_PATH)

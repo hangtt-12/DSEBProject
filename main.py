@@ -27,8 +27,8 @@ from UI.clock import CountDownScreen
 from UI.gametrial import GamesScreen
 from UI.screen_manager import Screen_Manager
 from UI.login_screen import LoginScreen  # Import từ login_screen.py
-from UI.signup_screen import SignUpScreen  # Import từ signup_screen.py
-from kivy_sample_.encrypt.user_manager import user_manager
+from UI.signup_screen import SignUpScreen # Import từ signup_screen.py
+from UI.homescreen import HomeScreen
 
 from kivy.properties import StringProperty, ColorProperty
 from kivymd.uix.boxlayout import MDBoxLayout
@@ -38,10 +38,7 @@ from kivymd.uix.fitimage import FitImage
 from kivy.uix.widget import Widget
 
 
-
-
 # Window.size = (350, 600)
-
 # Các màn hình khác
 class MainScreen(MDScreen):
     def __init__(self, **kwargs):
@@ -59,12 +56,22 @@ class MainScreen(MDScreen):
             None
         """
         super().__init__(**kwargs)
+
+    def set_current_user(self, user):
+        self.current_user = user
+        self.update_user_info()
+
+    def update_user_info(self):
+        if hasattr(self, 'ids') and 'user_full_name' in self.ids:
+            if self.current_user and hasattr(self.current_user, 'full_name'):
+                self.ids.user_full_name.text = f"Welcome, {self.current_user.full_name}!"
+                print(self.current_user.full_name)
+            else:
+                self.ids.user_full_name.text = "Welcome, Guest!"
+                print("No current user")
         
     def on_enter(self):
         Window.size = (900, 600)
-
-class HomeScreen(Screen):
-    pass
 
 class CountDownScreen(Screen):
     pass
@@ -180,6 +187,12 @@ class MainApp(MDApp):
 
         # Sau khi đóng thanh bar, chuyển sang màn hình 'games'
         main_screen.ids.screen_manager.current = 'todolist'
+    def go_to_home(self):
+        # Lấy màn hình hiện tại (giả sử thanh nav_drawer nằm trong 'mainscreen')
+        main_screen = self.root.get_screen('mainscreen')
+        
+        # Sau khi đóng thanh bar, chuyển sang màn hình 'games'
+        main_screen.ids.screen_manager.current = 'homescreen'
 
 
 if __name__ == "__main__":

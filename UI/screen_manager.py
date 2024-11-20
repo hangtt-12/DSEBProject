@@ -60,7 +60,6 @@ ScreenManager:
                 
                 HomeScreen:
                     name: 'homescreen'
-                    MDScreen:  # Add an MDScreen here
                     MDBoxLayout:  # Header is now part of the screen content
                         orientation: "vertical"
                         spacing: 0
@@ -82,9 +81,6 @@ ScreenManager:
                             MDLabel:
                                 theme_text_color: "Custom"
                                 text_color: "white"
-                    MDLabel:
-                        text: "Welcome to Home Screen"
-                        halign: "center"
                 CountDownScreen:
                     name: 'countdownscreen'
                     MDScreen:  # Add an MDScreen here 
@@ -299,7 +295,7 @@ ScreenManager:
                     DrawerItem:
                         icon: "home"
                         text: "Home"
-                        on_release: screen_manager.current = 'homescreen'
+                        on_release: app.go_to_home()
 
                     DrawerItem:
                         icon: "clock-outline"
