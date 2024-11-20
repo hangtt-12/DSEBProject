@@ -7,6 +7,7 @@ from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.uix.button import MDButton
 import json
 from kivymd.uix.scrollview import ScrollView
+import random
 
 
 class MyBoxLayout(MDBoxLayout):
@@ -34,6 +35,30 @@ class HomeScreen(MDScreen):
         screen = MDScreen()
         screen.md_bg_color = (246 / 255, 244 / 255, 255 / 255, 1)
 
+        quotes = ['When you change your thoughts, remember to also change your world.',
+                  'It is better to fail in originality than to succeed in imitation.',
+                  'The road to success and the road to failure are almost exactly the same.',
+                  'I never dreamed about success. I worked for it.',
+                  'Goal setting is the secret to a compelling future.',
+                  'Either you run the day or the day runs you.',
+                  'Success is stumbling from failure to failure with no loss of enthusiasm.',
+                  'Keep your eyes on the stars, and your feet on the ground.',
+                  'Get a good idea and stay with it. Dog it, and work at it until it’s done right.',
+                  'Work until your bank account looks like a phone number.',
+                  'Opportunities don’t happen, you create them.',
+                  'Love your family, work super hard, live your passion.',
+                  'It is never too late to be what you might have been.',
+                  'Do the best you can. No one can do more than that.',
+                  'If you can dream it, you can do it.',
+                  'Inspiration does exist, but it must find you working.',
+                  'I have stood on a mountain of no’s for one yes.',
+                  'Success usually comes to those who are too busy to be looking for it...',
+                  'Life is like riding a bicycle. To keep your balance, you must keep moving.',
+                  'If you can’t yet do great things, do small things in a great way.',
+                  'Be sure you put your feet in the right place, then stand firm.',
+                  'The greater the difficulty, the more the glory in surmounting it.']
+        selected_quote = random.choice(quotes)
+
         main_layout = MDBoxLayout(orientation="vertical", padding=20, spacing=30)
 
         title = MDLabel(text = "WELCOME BACK USER !", halign='center', size_hint_y=0.08, bold = True, theme_text_color="Custom", text_color=(27/255, 32/255, 66/255, 1))
@@ -51,7 +76,7 @@ class HomeScreen(MDScreen):
             height=65,
         )
         daily_reminder2 = MDLabel(
-            text="Success usually comes to those who are too busy to be looking for it...",
+            text=selected_quote,
             halign="right",
             theme_text_color="Hint",
             size_hint_y=None,
