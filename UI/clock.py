@@ -81,7 +81,9 @@ class CountDownScreen(Screen):
             if remaining_time <= 0:
                 self.running = False
                 if self.is_pomodoro:
-                    self.increment_streak(completed=True)
+                    # Chỉ tăng streak nếu đây là Pomodoro và thời gian >= tối thiểu
+                    if self.current_time >= 25 * 60 or self.total_custom_time >= 25 * 60:
+                        self.increment_streak(completed=True)
                     self.session_count += 1
                     self.update_session_status("Pomodoro", "Completed")
                     if self.total_custom_time > 0:
@@ -97,12 +99,13 @@ class CountDownScreen(Screen):
         elif self.current_time <= 0:
             self.running = False
 
+
     def start_custom_session(self, instance):
         try:
             time_input = self.time_input_box.text
             minutes, seconds = 0, 0
-            if ":" in time_input:
-                minutes, seconds = map(int, time_input.split(":"))
+            if " " in time_input:
+                minutes, seconds = map(int, time_input.split(" "))
             else:
                 minutes = int(time_input)
 
