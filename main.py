@@ -8,24 +8,24 @@ from kivymd.uix.button import MDButton, MDFabButton, MDButtonText
 from kivymd.uix.button import MDExtendedFabButtonText
 from kivymd.uix.screenmanager import ScreenManager
 from kivymd.uix.screen import Screen, MDScreen
-from kivy_sample_.MainApp.screen_manager import Screen_Manager
-from kivy_sample_.MainApp.login_screen import LoginScreen  # Import từ login_screen.py
-from kivy_sample_.MainApp.signup_screen import SignUpScreen  # Import từ signup_screen.py
+from UI.screen_manager import Screen_Manager
+from UI.login_screen import LoginScreen  # Import từ login_screen.py
+from UI.signup_screen import SignUpScreen  # Import từ signup_screen.py
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.navigationdrawer import (
     MDNavigationDrawerItem, MDNavigationDrawerItemTrailingText
 )
-from kivy_sample_.MainApp.clock import CountDownScreen
+from UI.clock import CountDownScreen
 from kivymd.uix.screenmanager import MDScreenManager
 from kivy.uix.screenmanager import FadeTransition, SlideTransition
 from kivymd.uix.transition import MDFadeSlideTransition, MDSharedAxisTransition, MDSwapTransition, MDSlideTransition
 from kivy.animation import Animation
 
-from kivy_sample_.MainApp.achievement_screen import AchievementScreen
-from kivy_sample_.MainApp.statistics_screen import StatisticsScreen1
-from kivy_sample_.MainApp.todolist import ToDoListScreen
-from kivy_sample_.MainApp.notes_screen import NotesScreen,KV
-from kivy_sample_.MainApp.gametrial import GamesScreen
+from UI.achievement_screen import AchievementScreen
+from UI.statistics_screen import StatisticsScreen1
+from UI.todolist import ToDoListScreen
+from UI.notes_screen import NotesScreen,KV
+from UI.gametrial import GamesScreen
 
 from kivy.properties import StringProperty, ColorProperty
 from kivymd.uix.boxlayout import MDBoxLayout

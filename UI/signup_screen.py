@@ -33,7 +33,7 @@ from kivymd.uix.dialog import (
 from kivymd.uix.textfield import MDTextField
 from kivymd.uix.label import MDLabel
 
-from kivy_sample_.MainApp.login_screen import PasswordField
+from UI.login_screen import PasswordField
 from kivy_sample_.encrypt.pw_encryption import MD5
 md5=MD5()
 def encrypt_passw(password):
@@ -100,7 +100,7 @@ signup_screen_kv = """
                 pos_hint: {"center_x": .5, "center_y": .5}
 
                 MDTextFieldLeadingIcon:
-                    icon: "acount"
+                    icon: "account"
 
                 MDTextFieldHintText:
                     text: "Username"

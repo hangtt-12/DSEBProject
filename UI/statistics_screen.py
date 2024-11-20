@@ -12,7 +12,7 @@ from kivymd.uix.navigationbar import (
     MDNavigationItemIcon,
 )
 from kivymd.app import MDApp
-from kivy_sample_.MainApp.achievement_screen import AchievementScreen
+from UI.achievement_screen import AchievementScreen
 from kivymd.uix.label import MDLabel
 from kivy.graphics import Color, Line, Rectangle
 from kivy.uix.image import Image
