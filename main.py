@@ -26,9 +26,10 @@ from UI.notes_screen import NotesScreen,KV
 from UI.clock import CountDownScreen
 from UI.gametrial import GamesScreen
 from UI.screen_manager import Screen_Manager
-from UI.login_screen import LoginScreen  # Import từ login_screen.py
+from UI.login_screen import LoginScreen, JSON_FILE_PATH  # Import từ login_screen.py
 from UI.signup_screen import SignUpScreen # Import từ signup_screen.py
 from UI.homescreen import HomeScreen
+from kivy_sample_.encrypt.user_manager import UserManager, User
 
 from kivy.properties import StringProperty, ColorProperty
 from kivymd.uix.boxlayout import MDBoxLayout
@@ -126,6 +127,9 @@ class DrawerItem(MDNavigationDrawerItem):
 
 # Main application class
 class MainApp(MDApp):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.user_manager = UserManager(JSON_FILE_PATH)
     btn_color = ListProperty((177/255, 35/255, 65/255, 1))
 
     def build(self):
@@ -190,7 +194,7 @@ class MainApp(MDApp):
     def go_to_home(self):
         # Lấy màn hình hiện tại (giả sử thanh nav_drawer nằm trong 'mainscreen')
         main_screen = self.root.get_screen('mainscreen')
-        
+        current_user = self.user_manager.get_current_user()
         # Sau khi đóng thanh bar, chuyển sang màn hình 'games'
         main_screen.ids.screen_manager.current = 'homescreen'
 

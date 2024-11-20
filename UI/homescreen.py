@@ -8,7 +8,7 @@ from kivymd.uix.button import MDButton
 import json
 from kivymd.uix.scrollview import ScrollView
 
-
+from kivy_sample_.encrypt.user_manager import UserManager, User
 class MyBoxLayout(MDBoxLayout):
     def __init__(self, bg_color=(1, 1, 1, 1), **kwargs):
         super().__init__(**kwargs)
@@ -31,6 +31,7 @@ class HomeScreen(MDScreen):
         self.name = "homescreen"
         self.add_widget(self.build())
     def build(self):
+        
         screen = MDScreen()
         screen.md_bg_color = (246 / 255, 244 / 255, 255 / 255, 1)
 
