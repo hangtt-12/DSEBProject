@@ -220,7 +220,7 @@ class ToDoListScreen(MDScreen):
                         spacing=0, 
                         padding=10,
                         height=160,
-                        # size_hint = (None,None),
+                        size_hint = (None,None),
                         size=(120,100),
                         # size_hint_x=0.4,
                         # size_hint_y=0.9, 
