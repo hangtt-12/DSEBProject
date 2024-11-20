@@ -387,7 +387,7 @@ class StatsScreen(MDScreen):
             text="PERCENTAGE OF COMPLETION",
             halign="left",
             valign="top",
-            pos_hint={"x": 0.05, "y": 0.85},  # Positioned at top-left
+            pos_hint={"x": 0.05, "y": 0.9},  # Positioned at top-left
             theme_text_color="Custom",
             text_color=(27/255, 32/255, 66/255, 1),
             font_size="18sp",
