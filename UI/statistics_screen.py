@@ -252,7 +252,7 @@ class StatsScreen(MDScreen):
             text="YOUR STATS",
             halign="left",
             valign="top",
-            pos_hint={"x": 0, "y": 0.9},  # Positioned at top-left
+            pos_hint={"x": 0, "y": 0.85},  # Positioned at top-left
             theme_text_color="Custom",
             text_color=(27/255, 32/255, 66/255, 1),
             font_size="18sp",
@@ -314,6 +314,7 @@ class StatsScreen(MDScreen):
             theme_text_color="Custom",
             text_color=(27/255, 32/255, 66/255, 1),
             font_size="16sp",
+            bold = True, 
             size_hint_x = 0.3
         )
         max_streak_layout.add_widget(max_streak_title)
@@ -359,6 +360,7 @@ class StatsScreen(MDScreen):
             theme_text_color="Custom",
             text_color=(27/255, 32/255, 66/255, 1),
             font_size="16sp",
+            bold = True,
             size_hint_x = 0.3
         )
         total_elements_layout.add_widget(total_elements_title)
@@ -385,7 +387,7 @@ class StatsScreen(MDScreen):
             text="PERCENTAGE OF COMPLETION",
             halign="left",
             valign="top",
-            pos_hint={"x": 0.05, "y": 0.925},  # Positioned at top-left
+            pos_hint={"x": 0.05, "y": 0.85},  # Positioned at top-left
             theme_text_color="Custom",
             text_color=(27/255, 32/255, 66/255, 1),
             font_size="18sp",
