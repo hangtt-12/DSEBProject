@@ -1,1 +1,18 @@
-[]
+[
+    {
+        "viewclass": "NoteCard",
+        "title": "New Note 2",
+        "timestamp": "2024-11-20",
+        "content": "This is the content of New Note 2.",
+        "selected": false,
+        "height": 120
+    },
+    {
+        "viewclass": "NoteCard",
+        "title": "New Note 3",
+        "timestamp": "2024-11-20",
+        "content": "This is the content of New Note 3.",
+        "selected": false,
+        "height": 120
+    }
+]
