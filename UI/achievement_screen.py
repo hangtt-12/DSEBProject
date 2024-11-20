@@ -106,16 +106,14 @@ class AchievementScreen(MDScreen):
         screen.md_bg_color =  (251/255, 248/255, 255/255, 1)
         main_layout = MDBoxLayout(orientation='vertical', spacing=10, padding=10)
 
-        row_1 = MDBoxLayout(orientation='vertical', size_hint_y=0.1, spacing = 10)
+        row_1 = MDBoxLayout(orientation='vertical', size_hint_y=0.18, spacing = 10)
         label1 = MDLabel(text="ACHIEVEMENT", halign='center', theme_text_color="Custom", text_color=(27/255, 32/255, 66/255, 1), bold = True)
         label1.font_size = '40sp'
         row_1.add_widget(label1)
 
-        row_2 = MDBoxLayout(orientation='horizontal', spacing=40, padding=50, size_hint=(1, 1))
-        infor_1 = MyBoxLayout(orientation='vertical', spacing=20, padding=10, size_hint_x=0.5, bg_color=(251/255, 248/255, 255/255, 1))
-
-        row_2 = MDBoxLayout(orientation='horizontal', spacing=40, padding=50, size_hint=(1, 1))
-        infor_1 = MyBoxLayout(orientation='vertical', spacing=20, padding=10, size_hint_x=0.5, md_bg_color = (251/255, 248/255, 255/255, 1))
+       
+        row_2 = MDBoxLayout(orientation='horizontal', spacing=50, padding=50, size_hint=(1, 1))
+        infor_1 = MyBoxLayout(orientation='vertical', spacing=20, padding=10, size_hint_x=0.4, bg_color = (251/255, 248/255, 255/255, 1))
 
         upper1 = MyBoxLayout(orientation = 'vertical',  bg_color=(210/255, 208/255, 228/255, 0.8))
         stars, label_text = inf.display_current_streak()
@@ -142,17 +140,17 @@ class AchievementScreen(MDScreen):
 
         topic , solution = inf.do_you_know()
 
-        lower1 = MyBoxLayout(orientation = 'vertical', spacing = 10, padding = 10, bg_color = (210/255, 208/255, 228/255, 1))
+        lower1 = MyBoxLayout(orientation = 'vertical', spacing = 13,  bg_color = (210/255, 208/255, 228/255, 1))
         title = MDLabel(text = 'DO YOU KNOW THIS FACT?', size_hint_y = None, halign = 'center', theme_text_color="Custom", text_color=(27/255, 32/255, 66/255, 1), bold = True)
         title.font_size = '20sp'
-        title.height = 25
+        title.height = 23
         lower1.add_widget(title)
         lower1.add_widget(MDLabel(text = topic, halign = 'center', size_hint_y = 0.1, theme_text_color="Custom", text_color=(27/255, 32/255, 66/255, 1), bold = True))
         lower1.add_widget(MDLabel(text = solution, halign = 'center', theme_text_color="Custom", text_color=(27/255, 32/255, 66/255, 1)))
         infor_1.add_widget(lower1)
 
         row_2.add_widget(infor_1)
-        infor_2 = MyBoxLayout(orientation='vertical', spacing=10, padding=10, size_hint_x=0.5, bg_color=(210/255, 208/255, 228/255, 0.8))
+        infor_2 = MyBoxLayout(orientation='vertical', spacing=10, padding=10, size_hint_x=0.37, bg_color=(210/255, 208/255, 228/255, 0.8))
         scroll = ScrollView()
         list_layout = MDBoxLayout(orientation='vertical', spacing=30, padding=20, size_hint_y=None)
         list_layout.bind(minimum_height=list_layout.setter('height'))
