@@ -99,7 +99,7 @@ class MyApp(MDApp):
         main_layout = MDBoxLayout(orientation='vertical', spacing=10, padding=10)
 
         row_1 = MDBoxLayout(orientation='vertical', size_hint_y=0.05, spacing = 10)
-        label1 = MDLabel(text="ACHIEVEMENT",halign='center', theme_text_color="Custom", text_color=(27/255, 32/255, 66/255, 1), bold = True,)
+        label1 = MDLabel(text="ACHIEVEMENT",halign='center', theme_text_color="Custom", text_color=(27/255, 32/255, 66/255, 1), bold = True, pos_hint_y = 0.5)
         label1.font_size = '40sp'
         row_1.add_widget(label1)
 
