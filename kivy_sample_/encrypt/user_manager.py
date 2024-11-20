@@ -50,7 +50,8 @@ class UserManager:
     def register_user(self, full_name, username, password):
         if self.check_username_exists(username):
             return False
-        new_user = User(full_name, username, password)
+        encrypted_password = encrypt_passw(password)
+        new_user = User(full_name, username, encrypted_password)
         users = self.load_users()
         users.append(new_user)
         self.save_users(users)

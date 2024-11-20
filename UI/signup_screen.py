@@ -229,6 +229,7 @@ class SignUpScreen(Screen):
             return
 
         if self.user_manager.register_user(full_name, username, password):
+            
             dialog = MDDialog(
                     MDDialogContentContainer(
                         MDLabel(
