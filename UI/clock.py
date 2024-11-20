@@ -10,6 +10,20 @@ from datetime import datetime
 import os
 import json
 
+
+streak_file = "streak.json"
+if not os.path.exists(streak_file):
+    print(f"{streak_file} does not exist. Creating a new one.")
+    with open(streak_file, "w") as f:
+        json.dump({}, f)
+
+with open(streak_file, "r") as f:
+    try:
+        data = json.load(f)
+        print("Loaded JSON data:", data)
+    except json.JSONDecodeError:
+        print("Error decoding JSON file.")
+
 class CountDownScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -37,7 +51,7 @@ class CountDownScreen(Screen):
         layout.add_widget(self.session_label)
 
         # Time display label
-        self.time_label = Label(text="00:00", font_size=60, color=(0, 0, 0, 1))  # White text color
+        self.time_label = Label(text="00:00", font_size=60, color=(1, 1, 1, 1))  # White text color
         layout.add_widget(self.time_label)
 
         # Custom time input box
@@ -165,26 +179,42 @@ class CountDownScreen(Screen):
 
     def increment_streak(self, completed=True):
         streak_data = {}
-        if os.path.exists("dmvux.json"):
-            with open("dmvux.json", "r") as f:
+        streak_file = "streak.json"
+
+        # Check if the JSON file exists
+        if os.path.exists(streak_file):
+            print(f"Found streak file: {streak_file}")
+            with open(streak_file, "r") as f:
                 try:
                     streak_data = json.load(f)
+                    print("Loaded data from streak file:")
+                    print(streak_data)
                 except json.JSONDecodeError:
+                    print("Streak file is empty or corrupted. Initializing new streak data.")
                     streak_data = {}
 
+        # Get the current date
         current_date = datetime.now().strftime("%d/%m/%Y")
+        print(f"Current date: {current_date}")
 
-        # If today's date is not in the data, initialize it with streak = 0
+        # Check if the date key exists in streak_data, if not, initialize it as an empty list
         if current_date not in streak_data:
-            streak_data[current_date] = [0]
+            streak_data[current_date] = []
 
-        # Only increment streak if Pomodoro session is completed
+        # Update streak status
         if completed:
-            streak_data[current_date]["streak"] += 1
+            streak_data[current_date].append(1)
+            print(f"Added a completed session to {current_date}")
+        else:
+            streak_data[current_date].append(0)
+            print(f"Added a non-completed session to {current_date}")
 
-        # Save data to JSON file
-        with open("dmvux.json", "w") as f:
+        # Write data to the JSON file
+        with open(streak_file, "w") as f:
             json.dump(streak_data, f, indent=4, ensure_ascii=False)
+            print(f"Saved streak data to {streak_file}:")
+            print(streak_data)
+
 
     def update_session_status(self, session_type, status):
         # Update the status of each session
