@@ -95,14 +95,14 @@ class ToDoListScreen(MDScreen):
                                     bg_color=(230/255, 230/255, 255/255, 1)
                                 )
 
-                                done_button = MDButton(
+                                done_button = Button(
                                     text="DONE",
                                     size_hint=(None, None),
                                     size=(100, 40),
                                     pos_hint={'center_x':0.5, 'center_y':0.5},
                                     on_release=lambda x, s=subject, t=task, d=deadline, w=upcoming_frame: self.mark_as_done(s, t, d, w)
                                 )
-                                delete_button = MDButton(
+                                delete_button = Button(
                                     text="DELETE",
                                     size_hint=(None, None),
                                     size=(100, 40),
