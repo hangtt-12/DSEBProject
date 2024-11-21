@@ -25,7 +25,7 @@ class MyBoxLayout(MDBoxLayout):
         self.rect.pos = self.pos
         self.rect.size = self.size
 class Compute_and_display:
-    path = r"login_history.json"
+    path = r"streak.json"
     #add another path for facts.json
     path2 = r"json_files\\facts.json"
     def __init__(self, file_name=path):
