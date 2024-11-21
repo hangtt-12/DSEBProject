@@ -91,7 +91,7 @@ class GamesScreen(Screen):
         
         load_game_state()
         generate_new_word(treasure_count)
-        username = "Anh Ly"
+        username = "Player"
         theme_color = hex_to_rgb("#F6F4FF")
         Window.clearcolor = (*theme_color, 1)
         self.layout = FloatLayout()
