@@ -239,12 +239,18 @@ class CountDownScreen(Screen):
 
 
 
+
 class PomodoroApp(App):
     def build(self):
         sm = ScreenManager()
         sm.add_widget(CountDownScreen(name='countdown'))
         return sm
-
+    def on_stop(self):
+        # Lấy màn hình hiện tại
+        current_screen = self.root.get_screen('countdown')
+        if current_screen.running:
+            current_screen.increment_streak(completed=False)  # Ghi lại streak = 0 nếu tắt app khi đang chạy
+        print("App is closing. Streak updated.")
 
 if __name__ == '__main__':
     PomodoroApp().run()
