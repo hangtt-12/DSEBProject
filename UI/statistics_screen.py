@@ -498,4 +498,5 @@ class MyApp(MDScreen):
         analyzer = StreakAnalyzer(binary_lists)
         analyzer.calculate_streaks()
         screen.update_stats(analyzer)
+        print(login_history)
         return screen
