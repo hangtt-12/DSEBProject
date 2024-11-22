@@ -20,6 +20,7 @@ from kivy.uix.widget import Widget
 from kivymd.uix.card import MDCard
 from kivymd.uix.floatlayout import MDFloatLayout
 from kivymd.uix.gridlayout import MDGridLayout
+from kivymd.app import MDApp
 
 class BaseMDNavigationItem(MDNavigationItem):
     icon = StringProperty()
@@ -114,11 +115,13 @@ LOGIN_HISTORY_FILE = r"login_history.json"
 
 def load_login_history(file_path):
     """Load login history from a JSON file."""
-    try:
-        with open(file_path, "r") as f:
-            return json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        return {}
+    app = MDApp.get_running_app()
+    if app.current_user and hasattr(app.current_user, "achievements"):
+        try:
+            with open(file_path, "r") as f:
+                return json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            return {}
 
 
 def save_login_history(file_path, login_history):
