@@ -15,7 +15,7 @@ class User:
         self.notes = []
         self.todo_list_done = []
         self.todo_list_undone = []
-        self.achievements = []
+        self.achievements = {}
 
     def to_dict(self):
         return {

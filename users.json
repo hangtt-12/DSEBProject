@@ -13,7 +13,7 @@
         "full_name": "quan ngu",
         "username": "1",
         "password": "c4ca4238a0b923820dcc509a6f75849b",
-        "status": true,
+        "status": false,
         "notes": [],
         "todo_list_done": [
             {
@@ -134,7 +134,7 @@
         "full_name": "Vu",
         "username": "v",
         "password": "9e3669d19b675bd57058fd4664205d2a",
-        "status": true,
+        "status": false,
         "notes": [],
         "todo_list_done": [
             {
@@ -177,6 +177,16 @@
         "username": "s",
         "password": "03c7c0ace395d80182db07ae2c30f034",
         "status": false,
+        "notes": [],
+        "todo_list_done": [],
+        "todo_list_undone": [],
+        "achievements": []
+    },
+    {
+        "full_name": "Vu Nguyen",
+        "username": "Vu1006",
+        "password": "62df92d13b533a1f013fd19a17fd7d2c",
+        "status": true,
         "notes": [],
         "todo_list_done": [],
         "todo_list_undone": [],
