@@ -13,6 +13,21 @@ from kivy.clock import Clock
 import json
 import os
 
+
+
+with open("users.json", "r") as file: 
+    users_data = json.load(file)  
+    
+# Tìm user có status = True
+global username 
+for user in users_data:
+    if user.get("status", False):  # Kiểm tra status của user
+        username = user.get("full_name")  # Lấy full_name của user
+        break  # Thoát vòng lặp khi tìm thấy user phù hợp
+
+if not username:
+    username = "Player"  # Giá trị mặc định nếu không tìm thấy user nào
+
 # Các hàm và biến từ file game
 def hex_to_rgb(hex_color):
     hex_color = hex_color.lstrip('#')
@@ -23,29 +38,50 @@ def hex_to_rgb(hex_color):
 
 def save_game_state():
     global correct_guesses_count, treasure_count, level, current_word
-    game_state = {
-        "correct_guesses_count": correct_guesses_count,
-        "treasure_count": treasure_count,
-        "level": level,
-        "current_word": current_word
-    }
-    with open("game_state.json", "w") as file:
-        json.dump(game_state, file)
+
+    # Đọc dữ liệu từ file users.json
+    with open("users.json", "r") as file:
+        users_data = json.load(file)
+
+    # Tìm và cập nhật thông tin cho user có status = True
+    for user in users_data:
+        if user.get("status", False): 
+            user["game_state"] = {
+                "correct_guesses_count": correct_guesses_count,
+                "treasure_count": treasure_count,
+                "level": level,
+                "current_word": current_word
+            }
+            break
+
+    # Ghi lại dữ liệu vào file users.json
+    with open("users.json", "w") as file:
+        json.dump(users_data, file, indent=4)
+
 
 def load_game_state():
     global correct_guesses_count, treasure_count, level, current_word
-    if os.path.exists("game_state.json"):
-        with open("game_state.json", "r") as file:
-            game_state = json.load(file)
+
+    # Đọc dữ liệu từ file users.json
+    with open("users.json", "r") as file:
+        users_data = json.load(file)
+
+    # Tìm trạng thái game của user có status = True
+    for user in users_data:
+        if user.get("status", False): 
+            game_state = user.get("game_state", {})
             correct_guesses_count = game_state.get("correct_guesses_count", 0)
             treasure_count = game_state.get("treasure_count", 0)
             level = game_state.get("level", "Beginner")
             current_word = game_state.get("current_word", None)
+            break
     else:
+        # Nếu không tìm thấy user hoặc trạng thái, khởi tạo mặc định
         correct_guesses_count = 0
         treasure_count = 0
         level = "Beginner"
         generate_new_word(0)
+
 
 vocab_hints = {
     "apple": ["Hint 1: It is a fruit.", "Hint 2: It is red or green.", "Hint 3: Keeps the doctor away."],
@@ -91,7 +127,6 @@ class GamesScreen(Screen):
         
         load_game_state()
         generate_new_word(treasure_count)
-        username = "Player"
         theme_color = hex_to_rgb("#F6F4FF")
         Window.clearcolor = (*theme_color, 1)
         self.layout = FloatLayout()
@@ -245,5 +280,6 @@ class GamesScreen(Screen):
 
         hints_popup.content = hints_layout
         hints_popup.open()
+        
         
         
