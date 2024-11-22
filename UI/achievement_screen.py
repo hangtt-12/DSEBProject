@@ -25,11 +25,10 @@ class MyBoxLayout(MDBoxLayout):
         self.rect.pos = self.pos
         self.rect.size = self.size
 class Compute_and_display:
-    path = r"streak.json"
     #add another path for facts.json
     path2 = r"json_files\\facts.json"
-    def __init__(self, file_name=path):
-        self.current_streak = self.countt_streak(file_name)
+    def __init__(self):
+        self.current_streak = self.countt_streak()
         self.achievements = [
             {"name": "Pomodoro Ninja", "streak": 2, "level": 1},
             {"name": "Deadline Crusher", "streak": 3, "level": 2},
@@ -42,16 +41,21 @@ class Compute_and_display:
             {"name": "Chrono Champion", "streak": 25, "level": 9},
             {"name": "Temporal Titan", "streak": 30, "level": 10}
         ]
+    def get_data(self):
+        app = MDApp.get_running_app()
+        if app.current_user and hasattr(app.current_user, 'achievements'):
+            return app.current_user.achievements
+        return []
 
     def return_var(self):
         return self.achievements
 
-    def countt_streak(self, file_name):
-        with open(file_name, 'r', encoding="utf-8") as f:
-            raw = json.load(f)
+    def countt_streak(self):
+        raw = self.get_data()
         data = []
-        for key, value in raw.items(): 
-            data.append(value)
+        for i in raw:
+            for key, value in i.items(): 
+                data.append(value)
         self.current_streak = 0
         for sublist in data:
             current_length = 0
