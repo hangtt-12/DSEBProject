@@ -111,24 +111,11 @@ class StatisticsScreen1(MDScreen):
             md_bg_color=self.theme_cls.backgroundColor,
         )
 
-LOGIN_HISTORY_FILE = r"login_history.json"
-
-def load_login_history(file_path):
+def load_login_history():
     """Load login history from a JSON file."""
     app = MDApp.get_running_app()
     if app.current_user and hasattr(app.current_user, "achievements"):
-        try:
-            with open(file_path, "r") as f:
-                return json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError):
-            return {}
-
-
-def save_login_history(file_path, login_history):
-    """Save login history to a JSON file."""
-    with open(file_path, "w") as f:
-        json.dump(login_history, f, indent=4)
-
+        return app.current_user.achievements
 
 def convert_to_nested_list(login_history):
     """Convert login history dictionary to a nested list."""
@@ -506,10 +493,9 @@ class StreakAnalyzer:
 class MyApp(MDScreen):
     def build(self):
         screen = StatsScreen()
-        login_history = load_login_history(LOGIN_HISTORY_FILE)
+        login_history = load_login_history()
         binary_lists = convert_to_nested_list(login_history)
         analyzer = StreakAnalyzer(binary_lists)
         analyzer.calculate_streaks()
         screen.update_stats(analyzer)
-        save_login_history(LOGIN_HISTORY_FILE, login_history)
         return screen
