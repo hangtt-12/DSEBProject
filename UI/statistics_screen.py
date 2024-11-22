@@ -110,9 +110,7 @@ class StatisticsScreen1(MDScreen):
             md_bg_color=self.theme_cls.backgroundColor,
         )
 
-
 LOGIN_HISTORY_FILE = r"login_history.json"
-
 
 def load_login_history(file_path):
     """Load login history from a JSON file."""
@@ -137,7 +135,7 @@ class RectangularBox(Widget):
     """Custom widget for drawing rectangles directly in the canvas."""
     def __init__(self, color, **kwargs):
         super().__init__(**kwargs)
-        self.color = color  # RGBA tuple for the rectangle color
+        self.color = color
         self.size_hint = (None, None)
         with self.canvas:
             Color(*self.color)
@@ -150,7 +148,7 @@ class RectangularBox(Widget):
         self.rect.pos = self.pos
 
 class CircularProgressBar(Widget):
-    bar_color = ListProperty([0.27, 0.32, 0.66, 10])  # Green color
+    bar_color = ListProperty([0.27, 0.32, 0.66, 10]) 
     bar_width = NumericProperty(20)
     percentage = NumericProperty(0)
 
@@ -252,14 +250,14 @@ class StatsScreen(MDScreen):
             text="YOUR STATS",
             halign="left",
             valign="top",
-            pos_hint={"x": 0, "y": 0.85},  # Positioned at top-left
+            pos_hint={"x": 0, "y": 0.85},
             theme_text_color="Custom",
             text_color=(27/255, 32/255, 66/255, 1),
             font_size="18sp",
             bold=True,
-            size_hint=(None, None),  # Prevent stretching
-            size=(150, 50),  # Explicit size to avoid cutoff
-            padding=(10, 10),  # Padding around the text
+            size_hint=(None, None),
+            size=(150, 50),
+            padding=(10, 10),
         )
         float_layout1.add_widget(self.stats_label)
 
@@ -294,7 +292,7 @@ class StatsScreen(MDScreen):
             orientation="vertical",
             padding=20,
             radius=[20, 20, 20, 20],
-            md_bg_color = (246/255, 244/255, 255/255, 1),  # Light purple background
+            md_bg_color = (246/255, 244/255, 255/255, 1),
         )
 
         # Add "Max Streak" row
@@ -366,17 +364,14 @@ class StatsScreen(MDScreen):
         total_elements_layout.add_widget(total_elements_title)
         total_elements_layout.add_widget(self.total_elements_label)
 
-        # Add rows to the labels card
         labels_card.add_widget(max_streak_layout)
         labels_card.add_widget(total_completes_layout)
         labels_card.add_widget(total_elements_layout)
 
-        # Add labels_card to the left layout
         left_layout.add_widget(image_card)
         left_layout.add_widget(labels_card)
         content_layout.add_widget(left_layout)
 
-        # Add the right card with the circular progress bar
         right_card = MDCard(
             size_hint=(0.5, 1),
             radius=[20, 20, 20, 20],
@@ -387,14 +382,14 @@ class StatsScreen(MDScreen):
             text="PERCENTAGE OF COMPLETION",
             halign="left",
             valign="top",
-            pos_hint={"x": 0.05, "y": 0.9},  # Positioned at top-left
+            pos_hint={"x": 0.05, "y": 0.9},
             theme_text_color="Custom",
             text_color=(27/255, 32/255, 66/255, 1),
             font_size="18sp",
             bold=True,
-            size_hint=(None, None),  # Prevent stretching
-            size=(400, 50),  # Explicit size to avoid cutoff
-            padding=(10, 10),  # Padding around the text
+            size_hint=(None, None),
+            size=(400, 50),
+            padding=(10, 10),
         )
         float_layout2.add_widget(self.percentage_label)
         self.circular_progress = CircularProgressBar(size=(300, 300))
@@ -403,13 +398,13 @@ class StatsScreen(MDScreen):
         completed_layout = MDBoxLayout(
             orientation="horizontal",
             size_hint=(None, None),
-            size=(150, 30),  # Set size for the box
+            size=(150, 30),
             spacing=10,
-            pos_hint={"center_x": 0.3, "center_y": 0.2},  # Position under the progress bar
+            pos_hint={"center_x": 0.3, "center_y": 0.2},
         )
         completed_box = RectangularBox(
-            color=(0.1, 0.1, 0.3, 1),  # Navy Blue
-            size=(20, 20),  # Rectangle dimensions
+            color=(0.1, 0.1, 0.3, 1),
+            size=(20, 20),
             pos_hint = {'x':0.30, 'y':0.5}
         )
         completed_box.size = (20, 20)
@@ -421,24 +416,23 @@ class StatsScreen(MDScreen):
             valign="middle",
             pos_hint = {'x':0.34, 'y':0.29},
             theme_text_color="Custom",
-            text_color=(0.1, 0.1, 0.3, 1),  # Navy Blue
+            text_color=(0.1, 0.1, 0.3, 1),
             font_size="14sp",
             bold=True,
         )
         completed_layout.add_widget(completed_label)
         float_layout2.add_widget(completed_layout)
 
-        # Add "Fail" label and rectangle
         fail_layout = MDBoxLayout(
             orientation="horizontal",
             size_hint=(None, None),
-            size=(150, 30),  # Set size for the box
+            size=(150, 30),
             spacing=10,
-            pos_hint={"center_x": 0.9, "center_y": 0.2},  # Position under the progress bar
+            pos_hint={"center_x": 0.9, "center_y": 0.2},
         )
         fail_box = RectangularBox(
-            color=(0.27, 0.32, 0.66, 0.3),  # White
-            size=(20, 20),  # Rectangle dimensions
+            color=(0.27, 0.32, 0.66, 0.3),
+            size=(20, 20),
             pos_hint = {'x':0.58, 'y':0.5}
         )
         fail_box.size = (20, 20)
@@ -468,13 +462,10 @@ class StatsScreen(MDScreen):
         self.total_elements = f"{analyzer.total_elements}"
         self.probability = analyzer.probability
 
-        # Update text of the corresponding labels
-        self.imglabel.text = f"{self.current_streak_num}"  # For the current streak display
-        self.max_streak_label.text = self.max_streak       # For "Max Streak"
-        self.total_completes_label.text = self.total_completes  # For "Total Completes"
-        self.total_elements_label.text = self.total_elements    # For "Total Elements"
-
-        # Update the circular progress bar
+        self.imglabel.text = f"{self.current_streak_num}"
+        self.max_streak_label.text = self.max_streak
+        self.total_completes_label.text = self.total_completes
+        self.total_elements_label.text = self.total_elements
         self.circular_progress.percentage = self.probability
 
 class StreakAnalyzer:
@@ -508,8 +499,6 @@ class StreakAnalyzer:
             if self.total_elements > 0
             else 0
         )
-
-
 
 class MyApp(MDScreen):
     def build(self):
