@@ -7,7 +7,8 @@
         "notes": [],
         "todo_list_done": [],
         "todo_list_undone": [],
-        "achievements": {}
+        "achievements": {},
+        "streaks": []
     },
     {
         "full_name": "quan ngu",
@@ -48,7 +49,8 @@
             }
         ],
         "todo_list_undone": [],
-        "achievements": {}
+        "achievements": {},
+        "streaks": []
     },
     {
         "full_name": "0",
@@ -58,7 +60,8 @@
         "notes": [],
         "todo_list_done": [],
         "todo_list_undone": [],
-        "achievements": {}
+        "achievements": {},
+        "streaks": []
     },
     {
         "full_name": "g",
@@ -68,7 +71,8 @@
         "notes": [],
         "todo_list_done": [],
         "todo_list_undone": [],
-        "achievements": {}
+        "achievements": {},
+        "streaks": []
     },
     {
         "full_name": "Vu",
@@ -78,7 +82,8 @@
         "notes": [],
         "todo_list_done": [],
         "todo_list_undone": [],
-        "achievements": {}
+        "achievements": {},
+        "streaks": []
     },
     {
         "full_name": "bui",
@@ -88,7 +93,8 @@
         "notes": [],
         "todo_list_done": [],
         "todo_list_undone": [],
-        "achievements": {}
+        "achievements": {},
+        "streaks": []
     },
     {
         "full_name": "o",
@@ -98,7 +104,8 @@
         "notes": [],
         "todo_list_done": [],
         "todo_list_undone": [],
-        "achievements": {}
+        "achievements": {},
+        "streaks": []
     },
     {
         "full_name": "x",
@@ -108,7 +115,8 @@
         "notes": [],
         "todo_list_done": [],
         "todo_list_undone": [],
-        "achievements": {}
+        "achievements": {},
+        "streaks": []
     },
     {
         "full_name": "qu\u00e2n nguy\u1ec5n",
@@ -118,7 +126,8 @@
         "notes": [],
         "todo_list_done": [],
         "todo_list_undone": [],
-        "achievements": {}
+        "achievements": {},
+        "streaks": []
     },
     {
         "full_name": "z",
@@ -128,7 +137,8 @@
         "notes": [],
         "todo_list_done": [],
         "todo_list_undone": [],
-        "achievements": {}
+        "achievements": {},
+        "streaks": []
     },
     {
         "full_name": "Vu",
@@ -150,7 +160,8 @@
                 "Deadline": "13"
             }
         ],
-        "achievements": {}
+        "achievements": {},
+        "streaks": []
     },
     {
         "full_name": "t",
@@ -160,7 +171,8 @@
         "notes": [],
         "todo_list_done": [],
         "todo_list_undone": [],
-        "achievements": {}
+        "achievements": {},
+        "streaks": []
     },
     {
         "full_name": "r",
@@ -170,7 +182,11 @@
         "notes": [],
         "todo_list_done": [],
         "todo_list_undone": [],
-        "achievements": {}
+        "achievements": {},
+        "streak": [
+            0,
+            1
+        ]
     },
     {
         "full_name": "s",
@@ -180,7 +196,8 @@
         "notes": [],
         "todo_list_done": [],
         "todo_list_undone": [],
-        "achievements": {}
+        "achievements": {},
+        "streaks": []
     },
     {
         "full_name": "Vu Nguyen",
@@ -190,6 +207,10 @@
         "notes": [],
         "todo_list_done": [],
         "todo_list_undone": [],
-        "achievements": {"2023-11-20": [1,1,0,1], "2023-11-21":[1,0,1,1,1]}
+        "achievements": {
+            "2023-11-20": [1, 1, 0, 1],
+            "2023-11-21": [1, 0, 1, 1, 1]
+        },
+        "streaks": []
     }
 ]

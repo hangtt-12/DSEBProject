@@ -181,44 +181,62 @@ class CountDownScreen(Screen):
         self.sessions.clear()  # Clear session list
         self.history_label.text = "Progress: "
         Clock.unschedule(self.countdown)
+    def save_user_data(self, json_file_path, users):
+        try:
+            with open(json_file_path, 'w', encoding='utf-8') as file:
+                json.dump(users, file, indent=4, ensure_ascii=False)
+            print("User data saved successfully.")
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            print(f"Error reading or writing JSON file: {e}")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
 
     def increment_streak(self, completed=True):
+        # Đọc dữ liệu từ file user.json
         streak_data = {}
-        streak_file = "streak.json"
+        file_path = 'users.json'
 
-        # Check if the JSON file exists
-        if os.path.exists(streak_file):
-            print(f"Found streak file: {streak_file}")
-            with open(streak_file, "r") as f:
+        # Kiểm tra xem file user.json có tồn tại không
+        if os.path.exists(file_path):
+            print(f"Found user file: {file_path}")
+            with open(file_path, "r", encoding='utf-8') as f:
                 try:
-                    streak_data = json.load(f)
-                    print("Loaded data from streak file:")
-                    print(streak_data)
+                    users = json.load(f)
+                    print("Loaded data from user file:")
+                    print(users)
                 except json.JSONDecodeError:
-                    print("Streak file is empty or corrupted. Initializing new streak data.")
-                    streak_data = {}
+                    print("User file is empty or corrupted. Initializing new user data.")
+                    users = []
+        else:
+            users = []
 
-        # Get the current date
+        # Lấy ngày hiện tại
         current_date = datetime.now().strftime("%d/%m/%Y")
         print(f"Current date: {current_date}")
 
-        # Check if the date key exists in streak_data, if not, initialize it as an empty list
-        if current_date not in streak_data:
-            streak_data[current_date] = []
+        # Kiểm tra và thêm streak vào từng user
+        for user in users:
+            # Kiểm tra xem user đã có 'streak' chưa
+            if 'streak' not in user:
+                user['streak'] = []  # Nếu chưa có, khởi tạo streak rỗng
 
-        # Update streak status
-        if completed:
-            streak_data[current_date].append(1)
-            print(f"Added a completed session to {current_date}")
-        else:
-            streak_data[current_date].append(0)
-            print(f"Added a non-completed session to {current_date}")
+            # Thêm giá trị vào streak của user (1 nếu hoàn thành, 0 nếu chưa)
+            if completed:
+                user['streak'].append(1)
+                print(f"Added a completed session to streak of {user['username']}")
+            else:
+                user['streak'].append(0)
+                print(f"Added a non-completed session to streak of {user['username']}")
+            # Lưu lại dữ liệu sau khi thay đổi streak
+            self.save_user_data(file_path, users)
+            break  # Dừng vòng lặp khi đã cập nhật streak cho người dùng hiện tại
+        # Ghi lại dữ liệu vào file user.json
+        with open(file_path, "w", encoding='utf-8') as f:
+            json.dump(users, f, indent=4, ensure_ascii=False)
+            print(f"Saved updated data to {file_path}:")
 
-        # Write data to the JSON file
-        with open(streak_file, "w") as f:
-            json.dump(streak_data, f, indent=4, ensure_ascii=False)
-            print(f"Saved streak data to {streak_file}:")
-            print(streak_data)
+        print("Đã cập nhật streak vào user.json.")
 
 
     def update_session_status(self, session_type, status):

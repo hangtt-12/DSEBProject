@@ -16,7 +16,7 @@ class User:
         self.todo_list_done = []
         self.todo_list_undone = []
         self.achievements = {}
-
+        self.streak = []
     def to_dict(self):
         return {
             "full_name": self.full_name,
@@ -26,7 +26,8 @@ class User:
             "notes": self.notes,
             "todo_list_done": self.todo_list_done,
             "todo_list_undone": self.todo_list_undone,
-            "achievements": self.achievements
+            "achievements": self.achievements,
+            "streak": self.streak
         }
 
     @classmethod
@@ -41,6 +42,7 @@ class User:
         user.todo_list_done = data.get("todo_list_done", [])
         user.todo_list_undone = data.get("todo_list_undone", [])
         user.achievements = data.get("achievements", [])
+        user.streak = data.get("streak", [])
         return user
 
 
