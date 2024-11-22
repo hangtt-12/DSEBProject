@@ -117,12 +117,6 @@ def load_login_history():
     if app.current_user and hasattr(app.current_user, "achievements"):
         return app.current_user.achievements
 
-def save_login_history(file_path, login_history):
-    """Save login history to a JSON file."""
-    with open(file_path, "w") as f:
-        json.dump(login_history, f, indent=4)
-
-
 def convert_to_nested_list(login_history):
     """Convert login history dictionary to a nested list."""
     return [values for values in login_history.values()]
@@ -499,10 +493,9 @@ class StreakAnalyzer:
 class MyApp(MDScreen):
     def build(self):
         screen = StatsScreen()
-        login_history = load_login_history(LOGIN_HISTORY_FILE)
+        login_history = load_login_history()
         binary_lists = convert_to_nested_list(login_history)
         analyzer = StreakAnalyzer(binary_lists)
         analyzer.calculate_streaks()
         screen.update_stats(analyzer)
-        save_login_history(LOGIN_HISTORY_FILE, login_history)
         return screen
