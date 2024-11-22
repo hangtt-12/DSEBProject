@@ -45,7 +45,7 @@ class Compute_and_display:
         app = MDApp.get_running_app()
         if app.current_user and hasattr(app.current_user, 'achievements'):
             return app.current_user.achievements
-        return []
+        return {}
 
     def return_var(self):
         return self.achievements
