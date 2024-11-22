@@ -116,6 +116,7 @@ def load_login_history():
     app = MDApp.get_running_app()
     if app.current_user and hasattr(app.current_user, "achievements"):
         return app.current_user.achievements
+    return {}
 
 def convert_to_nested_list(login_history):
     """Convert login history dictionary to a nested list."""
